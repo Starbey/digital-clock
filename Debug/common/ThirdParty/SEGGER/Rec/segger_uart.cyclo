@@ -1,0 +1,10 @@
+../Drivers/CMSIS/Include/core_cm4.h:1688:22:__NVIC_EnableIRQ	2
+../Drivers/CMSIS/Include/core_cm4.h:1816:22:__NVIC_SetPriority	2
+C:/RTOS_Folder/RTOS_workspace/common/ThirdParty/SEGGER/Rec/segger_uart.c:105:13:_StartSysView	2
+C:/RTOS_Folder/RTOS_workspace/common/ThirdParty/SEGGER/Rec/segger_uart.c:114:13:_cbOnUARTRx	2
+C:/RTOS_Folder/RTOS_workspace/common/ThirdParty/SEGGER/Rec/segger_uart.c:125:12:_cbOnUARTTx	3
+C:/RTOS_Folder/RTOS_workspace/common/ThirdParty/SEGGER/Rec/segger_uart.c:142:6:SEGGER_UART_init	1
+C:/RTOS_Folder/RTOS_workspace/common/ThirdParty/SEGGER/Rec/segger_uart.c:152:6:HIF_UART_WaitForTxEnd	3
+C:/RTOS_Folder/RTOS_workspace/common/ThirdParty/SEGGER/Rec/segger_uart.c:173:6:USART2_IRQHandler	7
+C:/RTOS_Folder/RTOS_workspace/common/ThirdParty/SEGGER/Rec/segger_uart.c:211:6:HIF_UART_EnableTXEInterrupt	1
+C:/RTOS_Folder/RTOS_workspace/common/ThirdParty/SEGGER/Rec/segger_uart.c:221:6:HIF_UART_Init	3
