@@ -36,13 +36,18 @@
 
 /* Private macro -------------------------------------------------------------*/
 /* USER CODE BEGIN PM */
-
+#define DWT_CTRL			( *(volatile uint32_t*) (0xE0001000) )
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
 RTC_HandleTypeDef hrtc;
-
 TIM_HandleTypeDef htim1;
+
+TaskHandle_t printTaskHandle;
+QueueHandle_t printQueueHandle;
+
+TaskHandle_t rtcUpdateTaskHandle;
+TimerHandle_t rtcUpdateTimerHandle;
 
 /* USER CODE BEGIN PV */
 
@@ -53,6 +58,11 @@ void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
 static void MX_RTC_Init(void);
 static void MX_TIM1_Init(void);
+
+void printTaskHandler(void *parameters);
+
+void rtcUpdateTaskHandler(void *parameters);
+void rtcUpdateTimerCallback(TimerHandle_t *xTimer);
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
@@ -69,7 +79,7 @@ static void MX_TIM1_Init(void);
 int main(void)
 {
   /* USER CODE BEGIN 1 */
-
+  BaseType_t status; /* holds task creation status */
   /* USER CODE END 1 */
 
   /* MCU Configuration--------------------------------------------------------*/
@@ -93,6 +103,25 @@ int main(void)
   MX_RTC_Init();
   MX_TIM1_Init();
   /* USER CODE BEGIN 2 */
+
+  DWT_CTRL |= (1 << 0); //enable CYCCNT counter (cycle count counter)
+
+  /* create tasks */
+  status = xTaskCreate(printTaskHandler, "Print_Task", 250, NULL, 2, &printTaskHandle);
+  configASSERT(status == pdPASS);
+
+  status = xTaskCreate(rtcUpdateTaskHandler, "RTC_Update_Task", 250, NULL, 2, &rtcUpdateTaskHandle);
+  configASSERT(status == pdPASS);
+
+  /* create queues */
+  printQueueHandle = xQueueCreate(PRINT_QUEUE_LEN, sizeof(size_t) ); /* size of size_t (32 bits) because print queue holds pointer to char (string) */
+  configASSERT(printQueueHandle != NULL);
+
+  /*create timers */
+  rtcUpdateTimerHandle = xTimerCreate("RTC_Timer", pdMS_TO_TICKS(RTC_SAMPLE_PERIOD), pdTRUE, NULL, rtcUpdateTimerCallback);
+
+
+  vTaskStartScheduler();
 
   /* USER CODE END 2 */
 
@@ -301,6 +330,36 @@ static void MX_GPIO_Init(void)
 }
 
 /* USER CODE BEGIN 4 */
+
+	void printTaskHandler(void *parameters){
+		uint32_t *msg; //32 bits because msg is a pointer to a string
+		while(1){
+			xQueueReceive(printQueueHandle, &msg, portMAX_DELAY);
+			lcdClear();
+			lcdMoveCursor(0, 0);
+			lcdSendString(*msg);
+		}
+	}
+
+	void rtcUpdateTaskHandler(void *parameters){
+		while(1){
+
+		}
+	}
+
+	void rtcUpdateTimerCallback(TimerHandle_t *xTimer){
+		static int counter = 0;
+
+		const char* msg1 = "Hello";
+		const char* msg2 = "World";
+
+		if (counter % 2){
+			xQueueSend(printQueueHandle, (void*) msg1, portMAX_DELAY);
+		}
+		else {
+			xQueueSend(printQueueHandle, (void*) msg2, portMAX_DELAY);
+		}
+	}
 
 /* USER CODE END 4 */
 
