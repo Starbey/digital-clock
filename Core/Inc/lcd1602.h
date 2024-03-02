@@ -43,8 +43,11 @@
 #define CMD_CURSOR_RIGHT		0x06 // moves cursor right after each character
 
 /* command delay times */
-#define CMD_CLEAR_DELAY			2000
-#define CMD_CURSOR_DELAY		40
+//#define CMD_CLEAR_DELAY			2000
+//#define CMD_CURSOR_DELAY		40
+
+#define CMD_CLEAR_DELAY			2500
+#define CMD_CURSOR_DELAY		60
 
 /* lcd functions */
 

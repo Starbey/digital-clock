@@ -23,16 +23,16 @@ void lcdDelayUs(uint16_t us){
 void lcdSend(char data, uint8_t rs){
 	HAL_GPIO_WritePin(RS_PORT, RS_PIN, rs); //rs = 0 => cmd, rs = 1 => data
 
-	HAL_GPIO_WritePin(DB7_PORT, DB7_PIN, ( (data >> 3) & 1 ) );
-	HAL_GPIO_WritePin(DB6_PORT, DB6_PIN, ( (data >> 2) & 1 ) );
-	HAL_GPIO_WritePin(DB5_PORT, DB5_PIN, ( (data >> 1) & 1 ) );
-	HAL_GPIO_WritePin(DB4_PORT, DB4_PIN, ( (data >> 0) & 1 ) );
+	HAL_GPIO_WritePin(DB7_PORT, DB7_PIN, ( (data >> 3) & 0x01 ) );
+	HAL_GPIO_WritePin(DB6_PORT, DB6_PIN, ( (data >> 2) & 0x01 ) );
+	HAL_GPIO_WritePin(DB5_PORT, DB5_PIN, ( (data >> 1) & 0x01 ) );
+	HAL_GPIO_WritePin(DB4_PORT, DB4_PIN, ( (data >> 0) & 0x01 ) );
 
 	//pulse e pin
 	HAL_GPIO_WritePin(E_PORT, E_PIN, 1);
-	lcdDelayUs(8);
+	lcdDelayUs(12);
 	HAL_GPIO_WritePin(E_PORT, E_PIN, 0);
-	lcdDelayUs(8);
+	lcdDelayUs(20);
 }
 
 void lcdSendCommand(uint8_t cmd){
@@ -77,11 +77,12 @@ void lcdClear(void){
 }
 
 void lcdSendString(char *str){
-	for(uint8_t i = 0; i < strlen(str); i++){
+	size_t uxLength = strlen(str);
+	for(uint8_t i = 0; i < uxLength && uxLength < 100; i++){
 		lcdSendData(str[i]);
 	}
 
-	//while (*str) lcdSendData(*str++);
+//	while (*str) lcdSendData(*str++);
 }
 
 void lcdInit(void){

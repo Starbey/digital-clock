@@ -41,15 +41,14 @@
 
 /* Private variables ---------------------------------------------------------*/
 RTC_HandleTypeDef hrtc;
+
 TIM_HandleTypeDef htim1;
 
-TaskHandle_t printTaskHandle;
+/* USER CODE BEGIN PV */
+TaskHandle_t printTaskHandle, startTimerTaskHandle;
 QueueHandle_t printQueueHandle;
-
-TaskHandle_t rtcUpdateTaskHandle;
 TimerHandle_t rtcUpdateTimerHandle;
 
-/* USER CODE BEGIN PV */
 
 /* USER CODE END PV */
 
@@ -58,12 +57,11 @@ void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
 static void MX_RTC_Init(void);
 static void MX_TIM1_Init(void);
-
-void printTaskHandler(void *parameters);
-
-void rtcUpdateTaskHandler(void *parameters);
-void rtcUpdateTimerCallback(TimerHandle_t *xTimer);
 /* USER CODE BEGIN PFP */
+void rtcUpdateTimerCallback(TimerHandle_t xTimer);
+
+void startTimerTaskHandler(void *parameters);
+void printTaskHandler(void *parameters);
 
 /* USER CODE END PFP */
 
@@ -104,14 +102,12 @@ int main(void)
   MX_TIM1_Init();
   /* USER CODE BEGIN 2 */
 
-  DWT_CTRL |= (1 << 0); //enable CYCCNT counter (cycle count counter)
+  //DWT_CTRL |= (1 << 0); //enable CYCCNT counter (cycle count counter)
 
-  /* create tasks */
-  status = xTaskCreate(printTaskHandler, "Print_Task", 250, NULL, 2, &printTaskHandle);
-  configASSERT(status == pdPASS);
+  HAL_TIM_Base_Start(&htim1);
 
-  status = xTaskCreate(rtcUpdateTaskHandler, "RTC_Update_Task", 250, NULL, 2, &rtcUpdateTaskHandle);
-  configASSERT(status == pdPASS);
+  //SEGGER_SYSVIEW_Conf();
+  //SEGGER_SYSVIEW_Start();
 
   /* create queues */
   printQueueHandle = xQueueCreate(PRINT_QUEUE_LEN, sizeof(size_t) ); /* size of size_t (32 bits) because print queue holds pointer to char (string) */
@@ -120,6 +116,20 @@ int main(void)
   /*create timers */
   rtcUpdateTimerHandle = xTimerCreate("RTC_Timer", pdMS_TO_TICKS(RTC_SAMPLE_PERIOD), pdTRUE, NULL, rtcUpdateTimerCallback);
 
+  /* create tasks */
+  status = xTaskCreate(startTimerTaskHandler, "Start_Timer_Task", 250, NULL, 3, &startTimerTaskHandle);
+  configASSERT(status == pdPASS);
+
+  status = xTaskCreate(printTaskHandler, "Print_Task", 250, NULL, 4, &printTaskHandle);
+  configASSERT(status == pdPASS);
+
+//  status = xTaskCreate(rtcUpdateTaskHandler, "RTC_Update_Task", 250, NULL, 1, &rtcUpdateTaskHandle);
+//  configASSERT(status == pdPASS);
+
+  lcdInit();
+//  lcdClear();
+//  lcdSendString("hello world hello world hello world hello world hello world hello world hello world hello world ");
+//  lcdClear();
 
   vTaskStartScheduler();
 
@@ -332,34 +342,62 @@ static void MX_GPIO_Init(void)
 /* USER CODE BEGIN 4 */
 
 	void printTaskHandler(void *parameters){
-		uint32_t *msg; //32 bits because msg is a pointer to a string
+		uint32_t *str;
 		while(1){
-			xQueueReceive(printQueueHandle, &msg, portMAX_DELAY);
+			xTimerStop(rtcUpdateTimerHandle, portMAX_DELAY);
+
+			xQueueReceive(printQueueHandle, &str, portMAX_DELAY); /* msg points to a char, pass reference, make it point to queue item */
+
 			lcdClear();
 			lcdMoveCursor(0, 0);
-			lcdSendString(*msg);
+			HAL_Delay(10);
+
+			lcdSendString("hello world");
+
+			xTimerStart(rtcUpdateTimerHandle, portMAX_DELAY);
 		}
 	}
 
-	void rtcUpdateTaskHandler(void *parameters){
+	void startTimerTaskHandler(void *parameters){
 		while(1){
-
+			xTimerStart(rtcUpdateTimerHandle, portMAX_DELAY);
+			vTaskSuspend(startTimerTaskHandle);
 		}
 	}
 
-	void rtcUpdateTimerCallback(TimerHandle_t *xTimer){
+	void rtcUpdateTimerCallback(TimerHandle_t xTimer){
 		static int counter = 0;
+		static const char* msg1 = "Hello";
+		static const char* msg2 = "World";
 
-		const char* msg1 = "Hello";
-		const char* msg2 = "World";
-
-		if (counter % 2){
-			xQueueSend(printQueueHandle, (void*) msg1, portMAX_DELAY);
-		}
-		else {
-			xQueueSend(printQueueHandle, (void*) msg2, portMAX_DELAY);
+		while (1){
+			if (counter % 2 == 0){
+				xQueueSend(printQueueHandle, (void*) &msg1, portMAX_DELAY);
+			}
+			else {
+				xQueueSend(printQueueHandle, (void*) &msg2, portMAX_DELAY);
+			}
+			counter++;
 		}
 	}
+
+//	void rtcUpdateTaskHandler(void *parameters){
+//		uint8_t counter = 0;
+//		const char* msg1 = "Hello";
+//		const char* msg2 = "World";
+//
+//		while (1){
+//			vTaskSuspend(NULL);
+//
+//			if (counter % 2 == 0){
+//				xQueueSend(printQueueHandle, (void*) msg1, portMAX_DELAY);
+//			}
+//			else {
+//				xQueueSend(printQueueHandle, (void*) msg2, portMAX_DELAY);
+//			}
+//			counter++;
+//		}
+//	}
 
 /* USER CODE END 4 */
 
