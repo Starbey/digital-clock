@@ -78,6 +78,7 @@ void lcdClear(void){
 
 void lcdSendString(char *str){
 	size_t uxLength = strlen(str);
+
 	for(uint8_t i = 0; i < uxLength && uxLength < 100; i++){
 		lcdSendData(str[i]);
 	}

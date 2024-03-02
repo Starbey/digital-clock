@@ -54,7 +54,7 @@ extern "C" {
 /* Exported macro ------------------------------------------------------------*/
 /* USER CODE BEGIN EM */
 #define PRINT_QUEUE_LEN				10
-#define RTC_SAMPLE_PERIOD			500
+#define RTC_SAMPLE_PERIOD			800
 /* USER CODE END EM */
 
 /* Exported functions prototypes ---------------------------------------------*/

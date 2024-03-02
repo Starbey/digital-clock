@@ -106,8 +106,8 @@ int main(void)
 
   HAL_TIM_Base_Start(&htim1);
 
-  //SEGGER_SYSVIEW_Conf();
-  //SEGGER_SYSVIEW_Start();
+  SEGGER_SYSVIEW_Conf();
+  SEGGER_SYSVIEW_Start();
 
   /* create queues */
   printQueueHandle = xQueueCreate(PRINT_QUEUE_LEN, sizeof(size_t) ); /* size of size_t (32 bits) because print queue holds pointer to char (string) */
@@ -127,9 +127,6 @@ int main(void)
 //  configASSERT(status == pdPASS);
 
   lcdInit();
-//  lcdClear();
-//  lcdSendString("hello world hello world hello world hello world hello world hello world hello world hello world ");
-//  lcdClear();
 
   vTaskStartScheduler();
 
@@ -343,18 +340,23 @@ static void MX_GPIO_Init(void)
 
 	void printTaskHandler(void *parameters){
 		uint32_t *str;
+
+		char testMsg[10];
+		sprintf(testMsg, "%s", "Testing");
+
+		char* testMsg2 = "Hello World";
+
 		while(1){
-			xTimerStop(rtcUpdateTimerHandle, portMAX_DELAY);
+			//xTimerStop(rtcUpdateTimerHandle, portMAX_DELAY);
 
 			xQueueReceive(printQueueHandle, &str, portMAX_DELAY); /* msg points to a char, pass reference, make it point to queue item */
 
 			lcdClear();
 			lcdMoveCursor(0, 0);
-			HAL_Delay(10);
+			lcdSendString( (char*) str );
+			//lcdSendString(testMsg2);
 
-			lcdSendString("hello world");
-
-			xTimerStart(rtcUpdateTimerHandle, portMAX_DELAY);
+			//xTimerStart(rtcUpdateTimerHandle, portMAX_DELAY);
 		}
 	}
 
@@ -367,18 +369,17 @@ static void MX_GPIO_Init(void)
 
 	void rtcUpdateTimerCallback(TimerHandle_t xTimer){
 		static int counter = 0;
-		static const char* msg1 = "Hello";
-		static const char* msg2 = "World";
 
-		while (1){
-			if (counter % 2 == 0){
-				xQueueSend(printQueueHandle, (void*) &msg1, portMAX_DELAY);
-			}
-			else {
-				xQueueSend(printQueueHandle, (void*) &msg2, portMAX_DELAY);
-			}
-			counter++;
-		}
+		static char strBuffer[40];
+		static char *str = strBuffer;
+
+		memset(&strBuffer, 0, sizeof(strBuffer) );
+
+		sprintf( (char*) strBuffer, "%s%d", "Hello there ", counter);
+
+		xQueueSend(printQueueHandle, &str, portMAX_DELAY);
+
+		counter++;
 	}
 
 //	void rtcUpdateTaskHandler(void *parameters){
