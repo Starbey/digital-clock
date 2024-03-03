@@ -30,9 +30,9 @@ void lcdSend(char data, uint8_t rs){
 
 	//pulse e pin
 	HAL_GPIO_WritePin(E_PORT, E_PIN, 1);
-	lcdDelayUs(12);
+	lcdDelayUs(50);
 	HAL_GPIO_WritePin(E_PORT, E_PIN, 0);
-	lcdDelayUs(20);
+	lcdDelayUs(50);
 }
 
 void lcdSendCommand(uint8_t cmd){
@@ -87,14 +87,14 @@ void lcdSendString(char *str){
 }
 
 void lcdInit(void){
-	HAL_Delay(50);
-	lcdSendCommand(0x30);
-	HAL_Delay(5);
-	lcdSendCommand(0x30);
-	HAL_Delay(1);
-	lcdSendCommand(0x30);
+	HAL_Delay(50); // >40 ms
+	lcdSendCommand(0x03);
+	HAL_Delay(5); // > 4.1 ms
+	lcdSendCommand(0x03);
+	HAL_Delay(1); // > 100 us
+	lcdSendCommand(0x03);
 	HAL_Delay(10);
-	lcdSendCommand(0x20); //set to 4-bit mode
+	lcdSendCommand(0x02); //set to 4-bit mode
 	HAL_Delay(10);
 
 	lcdSendCommand(CMD_CONFIG);

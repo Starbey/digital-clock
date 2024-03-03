@@ -45,7 +45,7 @@ RTC_HandleTypeDef hrtc;
 TIM_HandleTypeDef htim1;
 
 /* USER CODE BEGIN PV */
-TaskHandle_t printTaskHandle, startTimerTaskHandle;
+TaskHandle_t printTaskHandle, startTimerTaskHandle, rtcUpdateTaskHandle;
 QueueHandle_t printQueueHandle;
 TimerHandle_t rtcUpdateTimerHandle;
 
@@ -62,6 +62,7 @@ void rtcUpdateTimerCallback(TimerHandle_t xTimer);
 
 void startTimerTaskHandler(void *parameters);
 void printTaskHandler(void *parameters);
+void rtcUpdateTaskHandler(void *parameters);
 
 /* USER CODE END PFP */
 
@@ -117,16 +118,17 @@ int main(void)
   rtcUpdateTimerHandle = xTimerCreate("RTC_Timer", pdMS_TO_TICKS(RTC_SAMPLE_PERIOD), pdTRUE, NULL, rtcUpdateTimerCallback);
 
   /* create tasks */
-  status = xTaskCreate(startTimerTaskHandler, "Start_Timer_Task", 250, NULL, 3, &startTimerTaskHandle);
+  status = xTaskCreate(startTimerTaskHandler, "Start_Timer_Task", 250, NULL, 1, &startTimerTaskHandle);
   configASSERT(status == pdPASS);
 
-  status = xTaskCreate(printTaskHandler, "Print_Task", 250, NULL, 4, &printTaskHandle);
+  status = xTaskCreate(printTaskHandler, "Print_Task", 250, NULL, 2, &printTaskHandle);
   configASSERT(status == pdPASS);
 
-//  status = xTaskCreate(rtcUpdateTaskHandler, "RTC_Update_Task", 250, NULL, 1, &rtcUpdateTaskHandle);
-//  configASSERT(status == pdPASS);
+  status = xTaskCreate(rtcUpdateTaskHandler, "RTC_Update_Task", 250, NULL, 1, &rtcUpdateTaskHandle);
+  configASSERT(status == pdPASS);
 
   lcdInit();
+  HAL_Delay(1000);
 
   vTaskStartScheduler();
 
@@ -388,15 +390,16 @@ static void MX_GPIO_Init(void)
 		uint32_t *str;
 
 		while(1){
-			xQueueReceive(printQueueHandle, &str, portMAX_DELAY); /* msg points to a char, pass reference, make it point to queue item */
-
-			//xTimerStop(rtcUpdateTimerHandle, portMAX_DELAY);
-
+			/* print top row */
+			xQueueReceive(printQueueHandle, &str, portMAX_DELAY);
 			lcdClear();
 			lcdMoveCursor(0, 0);
 			lcdSendString( (char*) str );
 
-			//xTimerStart(rtcUpdateTimerHandle, portMAX_DELAY);
+			/* print bottom row */
+			xQueueReceive(printQueueHandle, &str, portMAX_DELAY);
+			lcdMoveCursor(1, 0);
+			lcdSendString( (char*) str );
 		}
 	}
 
@@ -408,37 +411,41 @@ static void MX_GPIO_Init(void)
 	}
 
 	void rtcUpdateTimerCallback(TimerHandle_t xTimer){
-		static int counter = 0;
+		vTaskResume(rtcUpdateTaskHandle);
+	}
 
+	void rtcUpdateTaskHandler(void *parameters){
 		static char strBuffer[40];
 		static char *str = strBuffer;
 
-		memset(&strBuffer, 0, sizeof(strBuffer) );
+		while(1){
+			vTaskSuspend(NULL);
 
-		sprintf( (char*) strBuffer, "%s%d", "Hello there ", counter);
+			RTC_DateTypeDef rtcDate;
+			RTC_TimeTypeDef rtcTime;
 
-		xQueueSend(printQueueHandle, &str, portMAX_DELAY);
+			memset(&rtcDate,0,sizeof(rtcDate));
+			memset(&rtcTime,0,sizeof(rtcTime));
 
-		counter++;
+			HAL_RTC_GetTime(&hrtc, &rtcTime, RTC_FORMAT_BIN);
+			HAL_RTC_GetDate(&hrtc, &rtcDate, RTC_FORMAT_BIN);
+
+			char *format;
+			format = (rtcTime.TimeFormat == RTC_HOURFORMAT12_AM) ? "AM" : "PM";
+
+			memset(&strBuffer, 0, sizeof(strBuffer) );
+
+			sprintf( (char*) strBuffer, "%02d:%02d:%02d [%s]",rtcTime.Hours, rtcTime.Minutes, rtcTime.Seconds, format);
+			SEGGER_SYSVIEW_PrintfTarget(str);
+			xQueueSend(printQueueHandle, &str, portMAX_DELAY);
+
+			memset(&strBuffer, 0, sizeof(strBuffer) );
+			sprintf( (char*) strBuffer, "%02d-%02d-%2d", rtcDate.Month, rtcDate.Date, 2000 + rtcDate.Year);
+			SEGGER_SYSVIEW_PrintfTarget(str);
+			xQueueSend(printQueueHandle, &str, portMAX_DELAY);
+
+		}
 	}
-
-//	void rtcUpdateTaskHandler(void *parameters){
-//		uint8_t counter = 0;
-//		const char* msg1 = "Hello";
-//		const char* msg2 = "World";
-//
-//		while (1){
-//			vTaskSuspend(NULL);
-//
-//			if (counter % 2 == 0){
-//				xQueueSend(printQueueHandle, (void*) msg1, portMAX_DELAY);
-//			}
-//			else {
-//				xQueueSend(printQueueHandle, (void*) msg2, portMAX_DELAY);
-//			}
-//			counter++;
-//		}
-//	}
 
 /* USER CODE END 4 */
 
