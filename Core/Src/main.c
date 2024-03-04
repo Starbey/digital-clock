@@ -47,7 +47,7 @@ TIM_HandleTypeDef htim1;
 /* USER CODE BEGIN PV */
 TaskHandle_t printTaskHandle, startTimerTaskHandle, rtcUpdateTaskHandle, alarmSetTaskHandle;
 QueueHandle_t printQueueHandle;
-TimerHandle_t rtcUpdateTimerHandle, modeTimerHandle;
+TimerHandle_t rtcUpdateTimerHandle;
 
 
 /* USER CODE END PV */
@@ -59,7 +59,6 @@ static void MX_RTC_Init(void);
 static void MX_TIM1_Init(void);
 /* USER CODE BEGIN PFP */
 void rtcUpdateTimerCallback(TimerHandle_t xTimer);
-void modeTimerCallback(TimerHandle_t xTimer);
 
 void startTimerTaskHandler(void *parameters);
 void printTaskHandler(void *parameters);
@@ -118,8 +117,6 @@ int main(void)
 
   /*create timers */
   rtcUpdateTimerHandle = xTimerCreate("RTC_Timer", pdMS_TO_TICKS(RTC_SAMPLE_PERIOD), pdTRUE, NULL, rtcUpdateTimerCallback);
-
-  modeTimerHandle = xTimerCreate("Mode_Polling_Timer", pdMS_TO_TICKS(MODE_POLL_PERIOD), pdTRUE, NULL, modeTimerCallback);
 
   /* create tasks */
   status = xTaskCreate(startTimerTaskHandler, "Start_Timer_Task", 250, NULL, 2, &startTimerTaskHandle);
@@ -419,7 +416,6 @@ static void MX_GPIO_Init(void)
 	void startTimerTaskHandler(void *parameters){
 		while(1){
 			xTimerStart(rtcUpdateTimerHandle, portMAX_DELAY);
-			xTimerStart(modeTimerHandle, portMAX_DELAY);
 			vTaskSuspend(startTimerTaskHandle);
 		}
 	}
@@ -461,7 +457,7 @@ static void MX_GPIO_Init(void)
 		}
 	}
 
-	void modeTimerCallback(TimerHandle_t xTimer){
+	void vApplicationIdleHook(void){
 		if(HAL_GPIO_ReadPin(MODE_GPIO_Port, MODE_Pin) == GPIO_PIN_SET){
 			vTaskResume(alarmSetTaskHandle);
 		}
@@ -470,7 +466,8 @@ static void MX_GPIO_Init(void)
 	void alarmSetTaskHandler(void *parameters){
 		while(1){
 			vTaskSuspend(NULL);
-			HAL_GPIO_TogglePin(BUZZER_GPIO_Port, BUZZER_Pin);
+			HAL_GPIO_TogglePin(BUZZER_GPIO_Port BUZZER_Pin);
+			vTaskDelay(pdMS_TO_TICKS(300)); // debouncing
 		}
 	}
 
