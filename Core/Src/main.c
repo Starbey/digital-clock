@@ -47,7 +47,7 @@ TIM_HandleTypeDef htim1;
 /* USER CODE BEGIN PV */
 TaskHandle_t printTaskHandle, startTimerTaskHandle, rtcUpdateTaskHandle, alarmSetTaskHandle;
 QueueHandle_t printQueueHandle;
-TimerHandle_t rtcUpdateTimerHandle;
+TimerHandle_t rtcUpdateTimerHandle, alarmSetTimerHandle;
 
 
 /* USER CODE END PV */
@@ -59,6 +59,7 @@ static void MX_RTC_Init(void);
 static void MX_TIM1_Init(void);
 /* USER CODE BEGIN PFP */
 void rtcUpdateTimerCallback(TimerHandle_t xTimer);
+void alarmSetTimerCallback(TimerHandle_t xTimer);
 
 void startTimerTaskHandler(void *parameters);
 void printTaskHandler(void *parameters);
@@ -118,6 +119,8 @@ int main(void)
   /*create timers */
   rtcUpdateTimerHandle = xTimerCreate("RTC_Timer", pdMS_TO_TICKS(RTC_SAMPLE_PERIOD), pdTRUE, NULL, rtcUpdateTimerCallback);
 
+  alarmSetTimerHandle = xTimerCreate("Alarm_Timer", pdMS_TO_TICKS(ALARM_SAMPLE_PERIOD), pdTRUE, NULL, alarmSetTimerCallback);
+
   /* create tasks */
   status = xTaskCreate(startTimerTaskHandler, "Start_Timer_Task", 250, NULL, 2, &startTimerTaskHandle);
   configASSERT(status == pdPASS);
@@ -132,7 +135,6 @@ int main(void)
   configASSERT(status == pdPASS);
 
   lcdInit();
-  HAL_Delay(1000);
 
   vTaskStartScheduler();
 
@@ -459,15 +461,40 @@ static void MX_GPIO_Init(void)
 
 	void vApplicationIdleHook(void){
 		if(HAL_GPIO_ReadPin(MODE_GPIO_Port, MODE_Pin) == GPIO_PIN_SET){
-			vTaskResume(alarmSetTaskHandle);
+			HAL_GPIO_TogglePin(BUZZER_GPIO_Port, BUZZER_Pin);
+			HAL_Delay(300);
+
+			if (xTimerIsTimerActive(rtcUpdateTimerHandle) == pdTRUE){
+				xTimerStop(rtcUpdateTimerHandle, 0);
+				xTimerStart(alarmSetTimerHandle, 0);
+			}
+			else if (xTimerIsTimerActive(alarmSetTimerHandle) == pdTRUE){
+				xTimerStop(alarmSetTimerHandle, 0);
+				xTimerStart(rtcUpdateTimerHandle, 0);
+			}
+
 		}
 	}
 
+	void alarmSetTimerCallback(TimerHandle_t xTimer){
+		vTaskResume(alarmSetTaskHandle);
+	}
+
 	void alarmSetTaskHandler(void *parameters){
+		static char strBuffer[40];
+		static char *str = strBuffer;
+
 		while(1){
 			vTaskSuspend(NULL);
-			HAL_GPIO_TogglePin(BUZZER_GPIO_Port BUZZER_Pin);
-			vTaskDelay(pdMS_TO_TICKS(300)); // debouncing
+
+			memset(&strBuffer, 0, sizeof(strBuffer) );
+			sprintf( (char*) strBuffer, "Alarm" );
+			xQueueSend(printQueueHandle, &str , portMAX_DELAY);
+
+			memset(&strBuffer, 0, sizeof(strBuffer) );
+			sprintf( (char*) strBuffer, "Mode" );
+			xQueueSend(printQueueHandle, &str , portMAX_DELAY);
+
 		}
 	}
 
