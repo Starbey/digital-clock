@@ -55,6 +55,7 @@ extern "C" {
 /* USER CODE BEGIN EM */
 #define PRINT_QUEUE_LEN				10
 #define RTC_SAMPLE_PERIOD			500
+#define MODE_POLL_PERIOD			100
 /* USER CODE END EM */
 
 /* Exported functions prototypes ---------------------------------------------*/
@@ -81,6 +82,8 @@ void Error_Handler(void);
 #define LD2_GPIO_Port GPIOA
 #define DB5_Pin GPIO_PIN_0
 #define DB5_GPIO_Port GPIOB
+#define BUZZER_Pin GPIO_PIN_9
+#define BUZZER_GPIO_Port GPIOC
 #define TMS_Pin GPIO_PIN_13
 #define TMS_GPIO_Port GPIOA
 #define TCK_Pin GPIO_PIN_14
@@ -91,6 +94,8 @@ void Error_Handler(void);
 #define SWO_GPIO_Port GPIOB
 #define RS_Pin GPIO_PIN_7
 #define RS_GPIO_Port GPIOB
+#define MODE_Pin GPIO_PIN_8
+#define MODE_GPIO_Port GPIOB
 
 /* USER CODE BEGIN Private defines */
 

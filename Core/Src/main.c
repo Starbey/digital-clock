@@ -45,9 +45,9 @@ RTC_HandleTypeDef hrtc;
 TIM_HandleTypeDef htim1;
 
 /* USER CODE BEGIN PV */
-TaskHandle_t printTaskHandle, startTimerTaskHandle, rtcUpdateTaskHandle;
+TaskHandle_t printTaskHandle, startTimerTaskHandle, rtcUpdateTaskHandle, alarmSetTaskHandle;
 QueueHandle_t printQueueHandle;
-TimerHandle_t rtcUpdateTimerHandle;
+TimerHandle_t rtcUpdateTimerHandle, modeTimerHandle;
 
 
 /* USER CODE END PV */
@@ -59,10 +59,12 @@ static void MX_RTC_Init(void);
 static void MX_TIM1_Init(void);
 /* USER CODE BEGIN PFP */
 void rtcUpdateTimerCallback(TimerHandle_t xTimer);
+void modeTimerCallback(TimerHandle_t xTimer);
 
 void startTimerTaskHandler(void *parameters);
 void printTaskHandler(void *parameters);
 void rtcUpdateTaskHandler(void *parameters);
+void alarmSetTaskHandler(void *parameters);
 
 /* USER CODE END PFP */
 
@@ -117,14 +119,19 @@ int main(void)
   /*create timers */
   rtcUpdateTimerHandle = xTimerCreate("RTC_Timer", pdMS_TO_TICKS(RTC_SAMPLE_PERIOD), pdTRUE, NULL, rtcUpdateTimerCallback);
 
+  modeTimerHandle = xTimerCreate("Mode_Polling_Timer", pdMS_TO_TICKS(MODE_POLL_PERIOD), pdTRUE, NULL, modeTimerCallback);
+
   /* create tasks */
-  status = xTaskCreate(startTimerTaskHandler, "Start_Timer_Task", 250, NULL, 1, &startTimerTaskHandle);
+  status = xTaskCreate(startTimerTaskHandler, "Start_Timer_Task", 250, NULL, 2, &startTimerTaskHandle);
   configASSERT(status == pdPASS);
 
-  status = xTaskCreate(printTaskHandler, "Print_Task", 250, NULL, 2, &printTaskHandle);
+  status = xTaskCreate(printTaskHandler, "Print_Task", 250, NULL, 3, &printTaskHandle);
   configASSERT(status == pdPASS);
 
-  status = xTaskCreate(rtcUpdateTaskHandler, "RTC_Update_Task", 250, NULL, 1, &rtcUpdateTaskHandle);
+  status = xTaskCreate(rtcUpdateTaskHandler, "RTC_Update_Task", 250, NULL, 2, &rtcUpdateTaskHandle);
+  configASSERT(status == pdPASS);
+
+  status = xTaskCreate(alarmSetTaskHandler, "Alarm_Set_Task", 250, NULL, 2, &alarmSetTaskHandle);
   configASSERT(status == pdPASS);
 
   lcdInit();
@@ -337,7 +344,7 @@ static void MX_GPIO_Init(void)
   __HAL_RCC_GPIOB_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOC, DB7_Pin|DB6_Pin|GPIO_PIN_10, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOC, DB7_Pin|DB6_Pin|BUZZER_Pin|GPIO_PIN_10, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOA, DB4_Pin|LD2_Pin|E_Pin, GPIO_PIN_RESET);
@@ -351,8 +358,8 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(B1_GPIO_Port, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : DB7_Pin DB6_Pin PC10 */
-  GPIO_InitStruct.Pin = DB7_Pin|DB6_Pin|GPIO_PIN_10;
+  /*Configure GPIO pins : DB7_Pin DB6_Pin BUZZER_Pin PC10 */
+  GPIO_InitStruct.Pin = DB7_Pin|DB6_Pin|BUZZER_Pin|GPIO_PIN_10;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
@@ -380,6 +387,12 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
+  /*Configure GPIO pin : MODE_Pin */
+  GPIO_InitStruct.Pin = MODE_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+  GPIO_InitStruct.Pull = GPIO_PULLDOWN;
+  HAL_GPIO_Init(MODE_GPIO_Port, &GPIO_InitStruct);
+
 /* USER CODE BEGIN MX_GPIO_Init_2 */
 /* USER CODE END MX_GPIO_Init_2 */
 }
@@ -406,6 +419,7 @@ static void MX_GPIO_Init(void)
 	void startTimerTaskHandler(void *parameters){
 		while(1){
 			xTimerStart(rtcUpdateTimerHandle, portMAX_DELAY);
+			xTimerStart(modeTimerHandle, portMAX_DELAY);
 			vTaskSuspend(startTimerTaskHandle);
 		}
 	}
@@ -446,6 +460,20 @@ static void MX_GPIO_Init(void)
 
 		}
 	}
+
+	void modeTimerCallback(TimerHandle_t xTimer){
+		if(HAL_GPIO_ReadPin(MODE_GPIO_Port, MODE_Pin) == GPIO_PIN_SET){
+			vTaskResume(alarmSetTaskHandle);
+		}
+	}
+
+	void alarmSetTaskHandler(void *parameters){
+		while(1){
+			vTaskSuspend(NULL);
+			HAL_GPIO_TogglePin(BUZZER_GPIO_Port, BUZZER_Pin);
+		}
+	}
+
 
 /* USER CODE END 4 */
 
