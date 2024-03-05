@@ -423,7 +423,8 @@ static void MX_GPIO_Init(void)
 	}
 
 	void rtcUpdateTimerCallback(TimerHandle_t xTimer){
-		vTaskResume(rtcUpdateTaskHandle);
+		//vTaskResume(rtcUpdateTaskHandle);
+		xTaskNotify(rtcUpdateTaskHandle, 0, eNoAction);
 	}
 
 	void rtcUpdateTaskHandler(void *parameters){
@@ -431,7 +432,8 @@ static void MX_GPIO_Init(void)
 		static char *str = strBuffer;
 
 		while(1){
-			vTaskSuspend(NULL);
+			//vTaskSuspend(NULL);
+			xTaskNotifyWait(0, 0, NULL, portMAX_DELAY);
 
 			RTC_DateTypeDef rtcDate;
 			RTC_TimeTypeDef rtcTime;
@@ -477,7 +479,8 @@ static void MX_GPIO_Init(void)
 	}
 
 	void alarmSetTimerCallback(TimerHandle_t xTimer){
-		vTaskResume(alarmSetTaskHandle);
+		//vTaskResume(alarmSetTaskHandle);
+		xTaskNotify(alarmSetTaskHandle, 0, eNoAction);
 	}
 
 	void alarmSetTaskHandler(void *parameters){
@@ -485,7 +488,8 @@ static void MX_GPIO_Init(void)
 		static char *str = strBuffer;
 
 		while(1){
-			vTaskSuspend(NULL);
+			//vTaskSuspend(NULL);
+			xTaskNotifyWait(0, 0, NULL, portMAX_DELAY);
 
 			memset(&strBuffer, 0, sizeof(strBuffer) );
 			sprintf( (char*) strBuffer, "Alarm" );

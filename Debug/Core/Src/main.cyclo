@@ -6,9 +6,9 @@
 ../Core/Src/main.c:401:7:printTaskHandler	1
 ../Core/Src/main.c:418:7:startTimerTaskHandler	1
 ../Core/Src/main.c:425:7:rtcUpdateTimerCallback	1
-../Core/Src/main.c:429:7:rtcUpdateTaskHandler	2
-../Core/Src/main.c:462:7:vApplicationIdleHook	4
-../Core/Src/main.c:479:7:alarmSetTimerCallback	1
-../Core/Src/main.c:483:7:alarmSetTaskHandler	1
-../Core/Src/main.c:512:6:HAL_TIM_PeriodElapsedCallback	2
-../Core/Src/main.c:529:6:Error_Handler	1
+../Core/Src/main.c:430:7:rtcUpdateTaskHandler	2
+../Core/Src/main.c:464:7:vApplicationIdleHook	4
+../Core/Src/main.c:481:7:alarmSetTimerCallback	1
+../Core/Src/main.c:486:7:alarmSetTaskHandler	1
+../Core/Src/main.c:516:6:HAL_TIM_PeriodElapsedCallback	2
+../Core/Src/main.c:533:6:Error_Handler	1
