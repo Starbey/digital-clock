@@ -45,12 +45,18 @@ RTC_HandleTypeDef hrtc;
 TIM_HandleTypeDef htim1;
 
 /* USER CODE BEGIN PV */
-TaskHandle_t printTaskHandle, startTimerTaskHandle, rtcUpdateTaskHandle, alarmSetTaskHandle;
+TaskHandle_t printTaskHandle, startTimerTaskHandle, rtcUpdateTaskHandle, rtcSetTaskHandle, alarmSetTaskHandle;
 QueueHandle_t printQueueHandle;
 TimerHandle_t printTimerHandle;
 
 displayMode_t currMode = mDisplayRtc;
 selected_t currSet = sHour;
+
+RTC_DateTypeDef rtcDate;
+RTC_TimeTypeDef rtcTime;
+
+RTC_DateTypeDef setDate;
+RTC_TimeTypeDef setTime;
 
 /* USER CODE END PV */
 
@@ -65,6 +71,7 @@ void printTimerCallback(TimerHandle_t xTimer);
 void startTimerTaskHandler(void *parameters);
 void printTaskHandler(void *parameters);
 void rtcUpdateTaskHandler(void *parameters);
+void rtcSetTaskHandler(void *parameters);
 void alarmSetTaskHandler(void *parameters);
 
 /* USER CODE END PFP */
@@ -128,6 +135,9 @@ int main(void)
   configASSERT(status == pdPASS);
 
   status = xTaskCreate(rtcUpdateTaskHandler, "RTC_Update_Task", 250, NULL, 2, &rtcUpdateTaskHandle);
+  configASSERT(status == pdPASS);
+
+  status = xTaskCreate(rtcSetTaskHandler, "RTC_Set_Task", 250, NULL, 2, &rtcSetTaskHandle);
   configASSERT(status == pdPASS);
 
   status = xTaskCreate(alarmSetTaskHandler, "Alarm_Set_Task", 250, NULL, 2, &alarmSetTaskHandle);
@@ -432,11 +442,32 @@ static void MX_GPIO_Init(void)
 			xTaskNotify(rtcUpdateTaskHandle, 0, eNoAction);
 		}
 		else if (currMode == mSetRtc){
-
+			xTaskNotify(rtcSetTaskHandle, 0, eNoAction);
 		}
 		else if(currMode == mSetAlarm){
 			xTaskNotify(alarmSetTaskHandle, 0, eNoAction);
 		}
+	}
+
+	void vApplicationIdleHook(void){
+		if(HAL_GPIO_ReadPin(MODE_GPIO_Port, MODE_Pin) == GPIO_PIN_SET){
+			if (currMode == mDisplayRtc){
+				currMode = mSetRtc;
+				HAL_Delay(DEBOUNCE_DELAY_PERIOD);
+			}
+			else if (currMode == mSetRtc){
+				currMode = mSetAlarm;
+				HAL_Delay(DEBOUNCE_DELAY_PERIOD);
+			}
+			else if(currMode == mSetAlarm){
+				currMode = mDisplayRtc;
+				HAL_Delay(DEBOUNCE_DELAY_PERIOD);
+			}
+		}
+
+//		if (HAL_GPIO_ReadPin(INC_GPIO_Port, INC_Pin) == GPIO_PIN_SET && currMode == mSetRtc) {
+//
+//		}
 	}
 
 	void rtcUpdateTaskHandler(void *parameters){
@@ -446,14 +477,14 @@ static void MX_GPIO_Init(void)
 		while(1){
 			xTaskNotifyWait(0, 0, NULL, portMAX_DELAY);
 
-			RTC_DateTypeDef rtcDate;
-			RTC_TimeTypeDef rtcTime;
-
-			memset(&rtcDate,0,sizeof(rtcDate));
-			memset(&rtcTime,0,sizeof(rtcTime));
+			memset( &rtcDate,0,sizeof(rtcDate) );
+			memset( &rtcTime,0,sizeof(rtcTime) );
 
 			HAL_RTC_GetTime(&hrtc, &rtcTime, RTC_FORMAT_BIN);
+			HAL_RTC_GetTime(&hrtc, &setTime, RTC_FORMAT_BIN); // sets time for "set" mode
+
 			HAL_RTC_GetDate(&hrtc, &rtcDate, RTC_FORMAT_BIN);
+			HAL_RTC_GetDate(&hrtc, &setDate, RTC_FORMAT_BIN); // sets time for "set" mode
 
 			char *format;
 			format = (rtcTime.TimeFormat == RTC_HOURFORMAT12_AM) ? "AM" : "PM";
@@ -472,16 +503,25 @@ static void MX_GPIO_Init(void)
 		}
 	}
 
-	void vApplicationIdleHook(void){
-		if(HAL_GPIO_ReadPin(MODE_GPIO_Port, MODE_Pin) == GPIO_PIN_SET){
-			if (currMode == mDisplayRtc){
-				currMode = mSetAlarm;
-				HAL_Delay(300);
-			}
-			else if(currMode == mSetAlarm){
-				currMode = mDisplayRtc;
-				HAL_Delay(300);
-			}
+	void rtcSetTaskHandler(void *parameters){
+		static char strBuffer[40];
+		static char *str = strBuffer;
+
+		while(1){
+			xTaskNotifyWait(0, 0, NULL, portMAX_DELAY);
+
+			char *format;
+			format = (setTime.TimeFormat == RTC_HOURFORMAT12_AM) ? "AM" : "PM";
+
+			memset(&strBuffer, 0, sizeof(strBuffer) );
+
+			sprintf( (char*) strBuffer, "%02d:%02d:%02d [%s]",setTime.Hours, setTime.Minutes, setTime.Seconds, format);
+			xQueueSend(printQueueHandle, &str, portMAX_DELAY);
+
+			memset(&strBuffer, 0, sizeof(strBuffer) );
+			sprintf( (char*) strBuffer, "%02d-%02d-%2d", setDate.Month, setDate.Date, 2000 + setDate.Year);
+			xQueueSend(printQueueHandle, &str, portMAX_DELAY);
+
 		}
 	}
 

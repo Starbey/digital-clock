@@ -71,6 +71,7 @@ typedef enum{
 #define PRINT_QUEUE_LEN				10
 #define RTC_SAMPLE_PERIOD			500
 #define ALARM_SAMPLE_PERIOD			500
+#define DEBOUNCE_DELAY_PERIOD		300
 /* USER CODE END EM */
 
 /* Exported functions prototypes ---------------------------------------------*/
