@@ -9,6 +9,6 @@
 ../Core/Src/main.c:452:7:vApplicationIdleHook	5
 ../Core/Src/main.c:473:7:rtcUpdateTaskHandler	2
 ../Core/Src/main.c:506:7:rtcSetTaskHandler	2
-../Core/Src/main.c:528:7:alarmSetTaskHandler	1
-../Core/Src/main.c:557:6:HAL_TIM_PeriodElapsedCallback	2
-../Core/Src/main.c:574:6:Error_Handler	1
+../Core/Src/main.c:531:7:alarmSetTaskHandler	1
+../Core/Src/main.c:560:6:HAL_TIM_PeriodElapsedCallback	2
+../Core/Src/main.c:577:6:Error_Handler	1

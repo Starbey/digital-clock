@@ -510,6 +510,9 @@ static void MX_GPIO_Init(void)
 		while(1){
 			xTaskNotifyWait(0, 0, NULL, portMAX_DELAY);
 
+			HAL_RTC_SetTime(&hrtc, &setTime, RTC_FORMAT_BIN);
+			HAL_RTC_SetDate(&hrtc, &setDate, RTC_FORMAT_BIN);
+
 			char *format;
 			format = (setTime.TimeFormat == RTC_HOURFORMAT12_AM) ? "AM" : "PM";
 
