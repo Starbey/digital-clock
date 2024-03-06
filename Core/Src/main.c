@@ -47,7 +47,7 @@ TIM_HandleTypeDef htim1;
 /* USER CODE BEGIN PV */
 TaskHandle_t printTaskHandle, startTimerTaskHandle, rtcUpdateTaskHandle, alarmSetTaskHandle;
 QueueHandle_t printQueueHandle;
-TimerHandle_t rtcUpdateTimerHandle, alarmSetTimerHandle;
+TimerHandle_t printTimerHandle;
 
 displayMode_t currMode = mDisplayRtc;
 selected_t currSet = sHour;
@@ -60,8 +60,7 @@ static void MX_GPIO_Init(void);
 static void MX_RTC_Init(void);
 static void MX_TIM1_Init(void);
 /* USER CODE BEGIN PFP */
-void rtcUpdateTimerCallback(TimerHandle_t xTimer);
-void alarmSetTimerCallback(TimerHandle_t xTimer);
+void printTimerCallback(TimerHandle_t xTimer);
 
 void startTimerTaskHandler(void *parameters);
 void printTaskHandler(void *parameters);
@@ -119,9 +118,7 @@ int main(void)
   configASSERT(printQueueHandle != NULL);
 
   /*create timers */
-  rtcUpdateTimerHandle = xTimerCreate("RTC_Timer", pdMS_TO_TICKS(RTC_SAMPLE_PERIOD), pdTRUE, NULL, rtcUpdateTimerCallback);
-
-  alarmSetTimerHandle = xTimerCreate("Alarm_Timer", pdMS_TO_TICKS(ALARM_SAMPLE_PERIOD), pdTRUE, NULL, alarmSetTimerCallback);
+  printTimerHandle = xTimerCreate("Print_Timer", pdMS_TO_TICKS(RTC_SAMPLE_PERIOD), pdTRUE, NULL, printTimerCallback);
 
   /* create tasks */
   status = xTaskCreate(startTimerTaskHandler, "Start_Timer_Task", 250, NULL, 2, &startTimerTaskHandle);
@@ -425,13 +422,21 @@ static void MX_GPIO_Init(void)
 
 	void startTimerTaskHandler(void *parameters){
 		while(1){
-			xTimerStart(rtcUpdateTimerHandle, portMAX_DELAY);
+			xTimerStart(printTimerHandle, portMAX_DELAY);
 			vTaskSuspend(startTimerTaskHandle);
 		}
 	}
 
-	void rtcUpdateTimerCallback(TimerHandle_t xTimer){
-		xTaskNotify(rtcUpdateTaskHandle, 0, eNoAction);
+	void printTimerCallback(TimerHandle_t xTimer){
+		if (currMode == mDisplayRtc){
+			xTaskNotify(rtcUpdateTaskHandle, 0, eNoAction);
+		}
+		else if (currMode == mSetRtc){
+
+		}
+		else if(currMode == mSetAlarm){
+			xTaskNotify(alarmSetTaskHandle, 0, eNoAction);
+		}
 	}
 
 	void rtcUpdateTaskHandler(void *parameters){
@@ -469,28 +474,15 @@ static void MX_GPIO_Init(void)
 
 	void vApplicationIdleHook(void){
 		if(HAL_GPIO_ReadPin(MODE_GPIO_Port, MODE_Pin) == GPIO_PIN_SET){
-			if (){
-				HAL_GPIO_TogglePin(BUZZER_GPIO_Port, BUZZER_Pin);
+			if (currMode == mDisplayRtc){
+				currMode = mSetAlarm;
 				HAL_Delay(300);
-
-				if (xTimerIsTimerActive(rtcUpdateTimerHandle) == pdTRUE){
-					xTimerStop(rtcUpdateTimerHandle, 0);
-					xTimerStart(alarmSetTimerHandle, 0);
-				}
-				else if (xTimerIsTimerActive(alarmSetTimerHandle) == pdTRUE){
-					xTimerStop(alarmSetTimerHandle, 0);
-					xTimerStart(rtcUpdateTimerHandle, 0);
-				}
+			}
+			else if(currMode == mSetAlarm){
+				currMode = mDisplayRtc;
+				HAL_Delay(300);
 			}
 		}
-
-		else if (HAL_GPIO_ReadPin(SELECT_GPIO_Port, SELECT_Pin) == GPIO_PIN_SET){
-			HAL_Delay(300);
-		}
-	}
-
-	void alarmSetTimerCallback(TimerHandle_t xTimer){
-		xTaskNotify(alarmSetTaskHandle, 0, eNoAction);
 	}
 
 	void alarmSetTaskHandler(void *parameters){
