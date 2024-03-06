@@ -74,6 +74,10 @@ void rtcUpdateTaskHandler(void *parameters);
 void rtcSetTaskHandler(void *parameters);
 void alarmSetTaskHandler(void *parameters);
 
+static void handleSetTime(RTC_TimeTypeDef *setTime);
+static void handleSetDate(RTC_DateTypeDef *setDate);
+static void handleSelect(void);
+
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -247,8 +251,8 @@ static void MX_RTC_Init(void)
   /** Initialize RTC and set the Time and Date
   */
   sTime.Hours = 0x0;
-  sTime.Minutes = 0x0;
-  sTime.Seconds = 0x0;
+  sTime.Minutes = 0x59;
+  sTime.Seconds = 0x30;
   sTime.DayLightSaving = RTC_DAYLIGHTSAVING_NONE;
   sTime.StoreOperation = RTC_STOREOPERATION_RESET;
   if (HAL_RTC_SetTime(&hrtc, &sTime, RTC_FORMAT_BCD) != HAL_OK)
@@ -391,7 +395,7 @@ static void MX_GPIO_Init(void)
   /*Configure GPIO pins : INC_Pin DEC_Pin */
   GPIO_InitStruct.Pin = INC_Pin|DEC_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Pull = GPIO_PULLDOWN;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
   /*Configure GPIO pins : DB5_Pin RS_Pin */
@@ -465,9 +469,98 @@ static void MX_GPIO_Init(void)
 			}
 		}
 
-//		if (HAL_GPIO_ReadPin(INC_GPIO_Port, INC_Pin) == GPIO_PIN_SET && currMode == mSetRtc) {
-//
-//		}
+		if (currMode == mSetRtc) {
+			if(currSet <= 2){
+				handleSetTime(&setTime);
+			}
+			else {
+				handleSetDate(&setDate);
+			}
+			handleSelect();
+		}
+	}
+
+	static void handleSetTime(RTC_TimeTypeDef *setTime){
+		if (HAL_GPIO_ReadPin(INC_GPIO_Port, INC_Pin) == GPIO_PIN_SET){
+			if(currSet == sHour){
+				if(setTime->Hours < 23) setTime->Hours++;
+			}
+			else if(currSet == sMin){
+				if(setTime->Minutes < 59) setTime->Minutes++;
+			}
+			else if(currSet ==sSec){
+				if(setTime->Seconds < 59) setTime->Seconds++;
+			}
+			HAL_Delay(DEBOUNCE_DELAY_PERIOD); // putting delay here improves responsiveness for some reason
+		}
+
+		else if (HAL_GPIO_ReadPin(DEC_GPIO_Port, DEC_Pin) == GPIO_PIN_SET){
+			if(currSet == sHour){
+				if(setTime->Hours > 0) setTime->Hours--;
+			}
+			else if(currSet == sMin){
+				if(setTime->Minutes > 0) setTime->Minutes--;
+			}
+			else if(currSet == sSec){
+				if(setTime->Seconds > 0) setTime->Seconds--;
+			}
+			HAL_Delay(DEBOUNCE_DELAY_PERIOD); // putting delay here improves responsiveness for some reason
+		}
+	}
+
+	static void handleSetDate(RTC_DateTypeDef *setDate){
+		if (HAL_GPIO_ReadPin(INC_GPIO_Port, INC_Pin) == GPIO_PIN_SET){
+			if(currSet == sMonth){
+				if(setDate->Month < 11) setDate->Month++;
+			}
+			else if(currSet == sDay) {
+				if(setDate->Date < 30) setDate->Date++;
+			}
+			else if(currSet == sYear) {
+				if(setDate->Year < 998) setDate->Year++;
+			}
+			HAL_Delay(DEBOUNCE_DELAY_PERIOD); // putting delay here improves responsiveness for some reason
+		}
+
+		else if (HAL_GPIO_ReadPin(DEC_GPIO_Port, DEC_Pin) == GPIO_PIN_SET){
+			if(currSet == sMonth){
+				if(setDate->Month > 1) setDate->Month--;
+			}
+			else if(currSet == sDay) {
+				if(setDate->Date > 1) setDate->Date--;
+			}
+			else if(currSet == sYear) {
+				if(setDate->Year > 0) setDate->Year--;
+			}
+			HAL_Delay(DEBOUNCE_DELAY_PERIOD); // putting delay here improves responsiveness for some reason
+		}
+	}
+
+	static void handleSelect(void){
+		if(HAL_GPIO_ReadPin(SELECT_GPIO_Port, SELECT_Pin) == GPIO_PIN_SET){
+			switch(currSet){
+			case sHour:
+				currSet = sMin;
+				break;
+			case sMin:
+				currSet = sSec;
+				break;
+			case sSec:
+				currSet = sMonth;
+				break;
+			case sMonth:
+				currSet = sDay;
+				break;
+			case sDay:
+				currSet = sYear;
+				break;
+			case sYear:
+				currSet = sHour;
+				break;
+			}
+
+			HAL_Delay(DEBOUNCE_DELAY_PERIOD);
+		}
 	}
 
 	void rtcUpdateTaskHandler(void *parameters){
@@ -484,14 +577,11 @@ static void MX_GPIO_Init(void)
 			HAL_RTC_GetTime(&hrtc, &setTime, RTC_FORMAT_BIN); // sets time for "set" mode
 
 			HAL_RTC_GetDate(&hrtc, &rtcDate, RTC_FORMAT_BIN);
-			HAL_RTC_GetDate(&hrtc, &setDate, RTC_FORMAT_BIN); // sets time for "set" mode
-
-			char *format;
-			format = (rtcTime.TimeFormat == RTC_HOURFORMAT12_AM) ? "AM" : "PM";
+			HAL_RTC_GetDate(&hrtc, &setDate, RTC_FORMAT_BIN); // sets date for "set" mode
 
 			memset(&strBuffer, 0, sizeof(strBuffer) );
 
-			sprintf( (char*) strBuffer, "%02d:%02d:%02d [%s]",rtcTime.Hours, rtcTime.Minutes, rtcTime.Seconds, format);
+			sprintf( (char*) strBuffer, "%02d:%02d:%02d",rtcTime.Hours, rtcTime.Minutes, rtcTime.Seconds);
 			SEGGER_SYSVIEW_PrintfTarget(str);
 			xQueueSend(printQueueHandle, &str, portMAX_DELAY);
 
@@ -513,12 +603,9 @@ static void MX_GPIO_Init(void)
 			HAL_RTC_SetTime(&hrtc, &setTime, RTC_FORMAT_BIN);
 			HAL_RTC_SetDate(&hrtc, &setDate, RTC_FORMAT_BIN);
 
-			char *format;
-			format = (setTime.TimeFormat == RTC_HOURFORMAT12_AM) ? "AM" : "PM";
-
 			memset(&strBuffer, 0, sizeof(strBuffer) );
 
-			sprintf( (char*) strBuffer, "%02d:%02d:%02d [%s]",setTime.Hours, setTime.Minutes, setTime.Seconds, format);
+			sprintf( (char*) strBuffer, "%02d:%02d:%02d",setTime.Hours, setTime.Minutes, setTime.Seconds);
 			xQueueSend(printQueueHandle, &str, portMAX_DELAY);
 
 			memset(&strBuffer, 0, sizeof(strBuffer) );
