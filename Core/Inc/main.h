@@ -44,6 +44,21 @@ extern "C" {
 /* Exported types ------------------------------------------------------------*/
 /* USER CODE BEGIN ET */
 
+typedef enum{
+	mDisplayRtc = 0,
+	mSetRtc,
+	mSetAlarm
+}displayMode_t;
+
+typedef enum{
+	sHour = 0,
+	sMin,
+	sSec,
+	sDay,
+	sMonth,
+	sYear
+}selected_t;
+
 /* USER CODE END ET */
 
 /* Exported constants --------------------------------------------------------*/
@@ -78,8 +93,10 @@ void Error_Handler(void);
 #define USART_RX_GPIO_Port GPIOA
 #define DB4_Pin GPIO_PIN_4
 #define DB4_GPIO_Port GPIOA
-#define LD2_Pin GPIO_PIN_5
-#define LD2_GPIO_Port GPIOA
+#define INC_Pin GPIO_PIN_5
+#define INC_GPIO_Port GPIOA
+#define DEC_Pin GPIO_PIN_6
+#define DEC_GPIO_Port GPIOA
 #define DB5_Pin GPIO_PIN_0
 #define DB5_GPIO_Port GPIOB
 #define BUZZER_Pin GPIO_PIN_9
@@ -96,6 +113,8 @@ void Error_Handler(void);
 #define RS_GPIO_Port GPIOB
 #define MODE_Pin GPIO_PIN_8
 #define MODE_GPIO_Port GPIOB
+#define SELECT_Pin GPIO_PIN_9
+#define SELECT_GPIO_Port GPIOB
 
 /* USER CODE BEGIN Private defines */
 

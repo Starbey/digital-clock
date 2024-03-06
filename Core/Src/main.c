@@ -49,6 +49,8 @@ TaskHandle_t printTaskHandle, startTimerTaskHandle, rtcUpdateTaskHandle, alarmSe
 QueueHandle_t printQueueHandle;
 TimerHandle_t rtcUpdateTimerHandle, alarmSetTimerHandle;
 
+displayMode_t currMode = mDisplayRtc;
+selected_t currSet = sHour;
 
 /* USER CODE END PV */
 
@@ -346,7 +348,7 @@ static void MX_GPIO_Init(void)
   HAL_GPIO_WritePin(GPIOC, DB7_Pin|DB6_Pin|BUZZER_Pin|GPIO_PIN_10, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOA, DB4_Pin|LD2_Pin|E_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOA, DB4_Pin|E_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOB, DB5_Pin|RS_Pin, GPIO_PIN_RESET);
@@ -372,11 +374,17 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Alternate = GPIO_AF7_USART2;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : DB4_Pin LD2_Pin E_Pin */
-  GPIO_InitStruct.Pin = DB4_Pin|LD2_Pin|E_Pin;
+  /*Configure GPIO pins : DB4_Pin E_Pin */
+  GPIO_InitStruct.Pin = DB4_Pin|E_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+
+  /*Configure GPIO pins : INC_Pin DEC_Pin */
+  GPIO_InitStruct.Pin = INC_Pin|DEC_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
   /*Configure GPIO pins : DB5_Pin RS_Pin */
@@ -386,11 +394,11 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
-  /*Configure GPIO pin : MODE_Pin */
-  GPIO_InitStruct.Pin = MODE_Pin;
+  /*Configure GPIO pins : MODE_Pin SELECT_Pin */
+  GPIO_InitStruct.Pin = MODE_Pin|SELECT_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
   GPIO_InitStruct.Pull = GPIO_PULLDOWN;
-  HAL_GPIO_Init(MODE_GPIO_Port, &GPIO_InitStruct);
+  HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
 /* USER CODE BEGIN MX_GPIO_Init_2 */
 /* USER CODE END MX_GPIO_Init_2 */
@@ -423,7 +431,6 @@ static void MX_GPIO_Init(void)
 	}
 
 	void rtcUpdateTimerCallback(TimerHandle_t xTimer){
-		//vTaskResume(rtcUpdateTaskHandle);
 		xTaskNotify(rtcUpdateTaskHandle, 0, eNoAction);
 	}
 
@@ -432,7 +439,6 @@ static void MX_GPIO_Init(void)
 		static char *str = strBuffer;
 
 		while(1){
-			//vTaskSuspend(NULL);
 			xTaskNotifyWait(0, 0, NULL, portMAX_DELAY);
 
 			RTC_DateTypeDef rtcDate;
@@ -463,23 +469,27 @@ static void MX_GPIO_Init(void)
 
 	void vApplicationIdleHook(void){
 		if(HAL_GPIO_ReadPin(MODE_GPIO_Port, MODE_Pin) == GPIO_PIN_SET){
-			HAL_GPIO_TogglePin(BUZZER_GPIO_Port, BUZZER_Pin);
+			if (){
+				HAL_GPIO_TogglePin(BUZZER_GPIO_Port, BUZZER_Pin);
+				HAL_Delay(300);
+
+				if (xTimerIsTimerActive(rtcUpdateTimerHandle) == pdTRUE){
+					xTimerStop(rtcUpdateTimerHandle, 0);
+					xTimerStart(alarmSetTimerHandle, 0);
+				}
+				else if (xTimerIsTimerActive(alarmSetTimerHandle) == pdTRUE){
+					xTimerStop(alarmSetTimerHandle, 0);
+					xTimerStart(rtcUpdateTimerHandle, 0);
+				}
+			}
+		}
+
+		else if (HAL_GPIO_ReadPin(SELECT_GPIO_Port, SELECT_Pin) == GPIO_PIN_SET){
 			HAL_Delay(300);
-
-			if (xTimerIsTimerActive(rtcUpdateTimerHandle) == pdTRUE){
-				xTimerStop(rtcUpdateTimerHandle, 0);
-				xTimerStart(alarmSetTimerHandle, 0);
-			}
-			else if (xTimerIsTimerActive(alarmSetTimerHandle) == pdTRUE){
-				xTimerStop(alarmSetTimerHandle, 0);
-				xTimerStart(rtcUpdateTimerHandle, 0);
-			}
-
 		}
 	}
 
 	void alarmSetTimerCallback(TimerHandle_t xTimer){
-		//vTaskResume(alarmSetTaskHandle);
 		xTaskNotify(alarmSetTaskHandle, 0, eNoAction);
 	}
 
@@ -488,7 +498,6 @@ static void MX_GPIO_Init(void)
 		static char *str = strBuffer;
 
 		while(1){
-			//vTaskSuspend(NULL);
 			xTaskNotifyWait(0, 0, NULL, portMAX_DELAY);
 
 			memset(&strBuffer, 0, sizeof(strBuffer) );
