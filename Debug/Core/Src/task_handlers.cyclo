@@ -1,0 +1,10 @@
+../Core/Src/task_handlers.c:14:6:printTaskHandler	1
+../Core/Src/task_handlers.c:31:6:startTimerTaskHandler	1
+../Core/Src/task_handlers.c:38:6:printTimerCallback	4
+../Core/Src/task_handlers.c:50:6:vApplicationIdleHook	7
+../Core/Src/task_handlers.c:77:13:handleSetTime	15
+../Core/Src/task_handlers.c:105:13:handleSetDate	14
+../Core/Src/task_handlers.c:133:13:handleSelect	8
+../Core/Src/task_handlers.c:160:6:rtcUpdateTaskHandler	1
+../Core/Src/task_handlers.c:190:6:rtcSetTaskHandler	1
+../Core/Src/task_handlers.c:212:6:alarmSetTaskHandler	1

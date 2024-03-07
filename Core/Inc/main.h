@@ -59,6 +59,20 @@ typedef enum{
 	sYear
 }selected_t;
 
+extern RTC_HandleTypeDef hrtc;
+
+extern TaskHandle_t printTaskHandle, startTimerTaskHandle, rtcUpdateTaskHandle, rtcSetTaskHandle, alarmSetTaskHandle;
+extern QueueHandle_t printQueueHandle;
+extern TimerHandle_t printTimerHandle;
+
+extern displayMode_t currMode;
+extern selected_t currSet;
+extern RTC_DateTypeDef rtcDate;
+extern RTC_TimeTypeDef rtcTime;
+
+extern RTC_DateTypeDef setDate;
+extern RTC_TimeTypeDef setTime;
+
 /* USER CODE END ET */
 
 /* Exported constants --------------------------------------------------------*/

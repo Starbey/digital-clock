@@ -29,23 +29,23 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY
  12 .comment      00000043  00000000  00000000  000200a0  2**0
                   CONTENTS, READONLY
- 13 .debug_info   00016fdb  00000000  00000000  000200e3  2**0
+ 13 .debug_info   000177de  00000000  00000000  000200e3  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 14 .debug_abbrev 00003a17  00000000  00000000  000370be  2**0
+ 14 .debug_abbrev 00003c1e  00000000  00000000  000378c1  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 15 .debug_aranges 00001570  00000000  00000000  0003aad8  2**3
+ 15 .debug_aranges 00001588  00000000  00000000  0003b4e0  2**3
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 16 .debug_rnglists 00001070  00000000  00000000  0003c048  2**0
+ 16 .debug_rnglists 0000107d  00000000  00000000  0003ca68  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 17 .debug_macro  0001acc5  00000000  00000000  0003d0b8  2**0
+ 17 .debug_macro  0001b15b  00000000  00000000  0003dae5  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 18 .debug_line   00019872  00000000  00000000  00057d7d  2**0
+ 18 .debug_line   0001a46d  00000000  00000000  00058c40  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 19 .debug_str    000a1573  00000000  00000000  000715ef  2**0
+ 19 .debug_str    000a158f  00000000  00000000  000730ad  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 20 .debug_frame  00005de4  00000000  00000000  00112b64  2**2
+ 20 .debug_frame  00005df4  00000000  00000000  0011463c  2**2
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 21 .debug_line_str 000000b0  00000000  00000000  00118948  2**0
+ 21 .debug_line_str 000000b0  00000000  00000000  0011a430  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
 
 Disassembly of section .text:
@@ -1186,24 +1186,24 @@ int main(void)
  80009f2:	bf00      	nop
  80009f4:	200000ac 	.word	0x200000ac
  80009f8:	20000108 	.word	0x20000108
- 80009fc:	08000eed 	.word	0x08000eed
+ 80009fc:	080011d5 	.word	0x080011d5
  8000a00:	08009574 	.word	0x08009574
  8000a04:	2000010c 	.word	0x2000010c
  8000a08:	200000f8 	.word	0x200000f8
  8000a0c:	08009580 	.word	0x08009580
- 8000a10:	08000eb5 	.word	0x08000eb5
+ 8000a10:	0800119d 	.word	0x0800119d
  8000a14:	200000f4 	.word	0x200000f4
  8000a18:	08009594 	.word	0x08009594
- 8000a1c:	08000e5d 	.word	0x08000e5d
+ 8000a1c:	08001145 	.word	0x08001145
  8000a20:	200000fc 	.word	0x200000fc
  8000a24:	080095a0 	.word	0x080095a0
- 8000a28:	0800125d 	.word	0x0800125d
+ 8000a28:	08001545 	.word	0x08001545
  8000a2c:	20000100 	.word	0x20000100
  8000a30:	080095b0 	.word	0x080095b0
- 8000a34:	08001361 	.word	0x08001361
+ 8000a34:	08001649 	.word	0x08001649
  8000a38:	20000104 	.word	0x20000104
  8000a3c:	080095c0 	.word	0x080095c0
- 8000a40:	08001421 	.word	0x08001421
+ 8000a40:	08001709 	.word	0x08001709
 
 08000a44 <SystemClock_Config>:
 /**
@@ -1299,7 +1299,7 @@ void SystemClock_Config(void)
  8000ada:	d001      	beq.n	8000ae0 <SystemClock_Config+0x9c>
   {
     Error_Handler();
- 8000adc:	f000 fcec 	bl	80014b8 <Error_Handler>
+ 8000adc:	f000 f9d0 	bl	8000e80 <Error_Handler>
   }
 
   /** Initializes the CPU, AHB and APB buses clocks
@@ -1331,7 +1331,7 @@ void SystemClock_Config(void)
  8000b06:	d001      	beq.n	8000b0c <SystemClock_Config+0xc8>
   {
     Error_Handler();
- 8000b08:	f000 fcd6 	bl	80014b8 <Error_Handler>
+ 8000b08:	f000 f9ba 	bl	8000e80 <Error_Handler>
   }
 }
  8000b0c:	bf00      	nop
@@ -1414,7 +1414,7 @@ static void MX_RTC_Init(void)
  8000b76:	d001      	beq.n	8000b7c <MX_RTC_Init+0x60>
   {
     Error_Handler();
- 8000b78:	f000 fc9e 	bl	80014b8 <Error_Handler>
+ 8000b78:	f000 f982 	bl	8000e80 <Error_Handler>
 
   /* USER CODE END Check_RTC_BKUP */
 
@@ -1446,7 +1446,7 @@ static void MX_RTC_Init(void)
  8000ba8:	d001      	beq.n	8000bae <MX_RTC_Init+0x92>
   {
     Error_Handler();
- 8000baa:	f000 fc85 	bl	80014b8 <Error_Handler>
+ 8000baa:	f000 f969 	bl	8000e80 <Error_Handler>
   }
   sDate.WeekDay = RTC_WEEKDAY_MONDAY;
  8000bae:	2301      	movs	r3, #1
@@ -1472,7 +1472,7 @@ static void MX_RTC_Init(void)
  8000bd8:	d001      	beq.n	8000bde <MX_RTC_Init+0xc2>
   {
     Error_Handler();
- 8000bda:	f000 fc6d 	bl	80014b8 <Error_Handler>
+ 8000bda:	f000 f951 	bl	8000e80 <Error_Handler>
   }
 
   /** Enable the Alarm A
@@ -1521,7 +1521,7 @@ static void MX_RTC_Init(void)
  8000c1e:	d001      	beq.n	8000c24 <MX_RTC_Init+0x108>
   {
     Error_Handler();
- 8000c20:	f000 fc4a 	bl	80014b8 <Error_Handler>
+ 8000c20:	f000 f92e 	bl	8000e80 <Error_Handler>
   }
   /* USER CODE BEGIN RTC_Init 2 */
 
@@ -1602,7 +1602,7 @@ static void MX_TIM1_Init(void)
  8000c86:	d001      	beq.n	8000c8c <MX_TIM1_Init+0x58>
   {
     Error_Handler();
- 8000c88:	f000 fc16 	bl	80014b8 <Error_Handler>
+ 8000c88:	f000 f8fa 	bl	8000e80 <Error_Handler>
   }
   sClockSourceConfig.ClockSource = TIM_CLOCKSOURCE_INTERNAL;
  8000c8c:	f44f 5380 	mov.w	r3, #4096	; 0x1000
@@ -1617,7 +1617,7 @@ static void MX_TIM1_Init(void)
  8000ca2:	d001      	beq.n	8000ca8 <MX_TIM1_Init+0x74>
   {
     Error_Handler();
- 8000ca4:	f000 fc08 	bl	80014b8 <Error_Handler>
+ 8000ca4:	f000 f8ec 	bl	8000e80 <Error_Handler>
   }
   sMasterConfig.MasterOutputTrigger = TIM_TRGO_RESET;
  8000ca8:	2300      	movs	r3, #0
@@ -1635,7 +1635,7 @@ static void MX_TIM1_Init(void)
  8000cbe:	d001      	beq.n	8000cc4 <MX_TIM1_Init+0x90>
   {
     Error_Handler();
- 8000cc0:	f000 fbfa 	bl	80014b8 <Error_Handler>
+ 8000cc0:	f000 f8de 	bl	8000e80 <Error_Handler>
   }
   /* USER CODE BEGIN TIM1_Init 2 */
 
@@ -1885,1549 +1885,1551 @@ static void MX_GPIO_Init(void)
  8000e54:	40020000 	.word	0x40020000
  8000e58:	40020400 	.word	0x40020400
 
-08000e5c <printTaskHandler>:
-
-/* USER CODE BEGIN 4 */
-
-	void printTaskHandler(void *parameters){
- 8000e5c:	b580      	push	{r7, lr}
- 8000e5e:	b084      	sub	sp, #16
- 8000e60:	af00      	add	r7, sp, #0
- 8000e62:	6078      	str	r0, [r7, #4]
-		uint32_t *str;
-
-		while(1){
-			/* print top row */
-			xQueueReceive(printQueueHandle, &str, portMAX_DELAY);
- 8000e64:	4b12      	ldr	r3, [pc, #72]	; (8000eb0 <printTaskHandler+0x54>)
- 8000e66:	681b      	ldr	r3, [r3, #0]
- 8000e68:	f107 010c 	add.w	r1, r7, #12
- 8000e6c:	f04f 32ff 	mov.w	r2, #4294967295
- 8000e70:	4618      	mov	r0, r3
- 8000e72:	f003 f97d 	bl	8004170 <xQueueReceive>
-			lcdClear();
- 8000e76:	f7ff fc9a 	bl	80007ae <lcdClear>
-			lcdMoveCursor(0, 0);
- 8000e7a:	2100      	movs	r1, #0
- 8000e7c:	2000      	movs	r0, #0
- 8000e7e:	f7ff fc73 	bl	8000768 <lcdMoveCursor>
-			lcdSendString( (char*) str );
- 8000e82:	68fb      	ldr	r3, [r7, #12]
- 8000e84:	4618      	mov	r0, r3
- 8000e86:	f7ff fc9d 	bl	80007c4 <lcdSendString>
-
-			/* print bottom row */
-			xQueueReceive(printQueueHandle, &str, portMAX_DELAY);
- 8000e8a:	4b09      	ldr	r3, [pc, #36]	; (8000eb0 <printTaskHandler+0x54>)
- 8000e8c:	681b      	ldr	r3, [r3, #0]
- 8000e8e:	f107 010c 	add.w	r1, r7, #12
- 8000e92:	f04f 32ff 	mov.w	r2, #4294967295
- 8000e96:	4618      	mov	r0, r3
- 8000e98:	f003 f96a 	bl	8004170 <xQueueReceive>
-			lcdMoveCursor(1, 0);
- 8000e9c:	2100      	movs	r1, #0
- 8000e9e:	2001      	movs	r0, #1
- 8000ea0:	f7ff fc62 	bl	8000768 <lcdMoveCursor>
-			lcdSendString( (char*) str );
- 8000ea4:	68fb      	ldr	r3, [r7, #12]
- 8000ea6:	4618      	mov	r0, r3
- 8000ea8:	f7ff fc8c 	bl	80007c4 <lcdSendString>
-			xQueueReceive(printQueueHandle, &str, portMAX_DELAY);
- 8000eac:	e7da      	b.n	8000e64 <printTaskHandler+0x8>
- 8000eae:	bf00      	nop
- 8000eb0:	20000108 	.word	0x20000108
-
-08000eb4 <startTimerTaskHandler>:
-		}
-	}
-
-	void startTimerTaskHandler(void *parameters){
- 8000eb4:	b590      	push	{r4, r7, lr}
- 8000eb6:	b085      	sub	sp, #20
- 8000eb8:	af02      	add	r7, sp, #8
- 8000eba:	6078      	str	r0, [r7, #4]
-		while(1){
-			xTimerStart(printTimerHandle, portMAX_DELAY);
- 8000ebc:	4b09      	ldr	r3, [pc, #36]	; (8000ee4 <startTimerTaskHandler+0x30>)
- 8000ebe:	681c      	ldr	r4, [r3, #0]
- 8000ec0:	f003 ff6e 	bl	8004da0 <xTaskGetTickCount>
- 8000ec4:	4602      	mov	r2, r0
- 8000ec6:	f04f 33ff 	mov.w	r3, #4294967295
- 8000eca:	9300      	str	r3, [sp, #0]
- 8000ecc:	2300      	movs	r3, #0
- 8000ece:	2101      	movs	r1, #1
- 8000ed0:	4620      	mov	r0, r4
- 8000ed2:	f004 ff29 	bl	8005d28 <xTimerGenericCommand>
-			vTaskSuspend(startTimerTaskHandle);
- 8000ed6:	4b04      	ldr	r3, [pc, #16]	; (8000ee8 <startTimerTaskHandler+0x34>)
- 8000ed8:	681b      	ldr	r3, [r3, #0]
- 8000eda:	4618      	mov	r0, r3
- 8000edc:	f003 fd42 	bl	8004964 <vTaskSuspend>
-			xTimerStart(printTimerHandle, portMAX_DELAY);
- 8000ee0:	e7ec      	b.n	8000ebc <startTimerTaskHandler+0x8>
- 8000ee2:	bf00      	nop
- 8000ee4:	2000010c 	.word	0x2000010c
- 8000ee8:	200000f8 	.word	0x200000f8
-
-08000eec <printTimerCallback>:
-		}
-	}
-
-	void printTimerCallback(TimerHandle_t xTimer){
- 8000eec:	b580      	push	{r7, lr}
- 8000eee:	b084      	sub	sp, #16
- 8000ef0:	af02      	add	r7, sp, #8
- 8000ef2:	6078      	str	r0, [r7, #4]
-		if (currMode == mDisplayRtc){
- 8000ef4:	4b16      	ldr	r3, [pc, #88]	; (8000f50 <printTimerCallback+0x64>)
- 8000ef6:	781b      	ldrb	r3, [r3, #0]
- 8000ef8:	2b00      	cmp	r3, #0
- 8000efa:	d109      	bne.n	8000f10 <printTimerCallback+0x24>
-			xTaskNotify(rtcUpdateTaskHandle, 0, eNoAction);
- 8000efc:	4b15      	ldr	r3, [pc, #84]	; (8000f54 <printTimerCallback+0x68>)
- 8000efe:	6818      	ldr	r0, [r3, #0]
- 8000f00:	2300      	movs	r3, #0
- 8000f02:	9300      	str	r3, [sp, #0]
- 8000f04:	2300      	movs	r3, #0
- 8000f06:	2200      	movs	r2, #0
- 8000f08:	2100      	movs	r1, #0
- 8000f0a:	f004 fccd 	bl	80058a8 <xTaskGenericNotify>
-			xTaskNotify(rtcSetTaskHandle, 0, eNoAction);
-		}
-		else if(currMode == mSetAlarm){
-			xTaskNotify(alarmSetTaskHandle, 0, eNoAction);
-		}
-	}
- 8000f0e:	e01a      	b.n	8000f46 <printTimerCallback+0x5a>
-		else if (currMode == mSetRtc){
- 8000f10:	4b0f      	ldr	r3, [pc, #60]	; (8000f50 <printTimerCallback+0x64>)
- 8000f12:	781b      	ldrb	r3, [r3, #0]
- 8000f14:	2b01      	cmp	r3, #1
- 8000f16:	d109      	bne.n	8000f2c <printTimerCallback+0x40>
-			xTaskNotify(rtcSetTaskHandle, 0, eNoAction);
- 8000f18:	4b0f      	ldr	r3, [pc, #60]	; (8000f58 <printTimerCallback+0x6c>)
- 8000f1a:	6818      	ldr	r0, [r3, #0]
- 8000f1c:	2300      	movs	r3, #0
- 8000f1e:	9300      	str	r3, [sp, #0]
- 8000f20:	2300      	movs	r3, #0
- 8000f22:	2200      	movs	r2, #0
- 8000f24:	2100      	movs	r1, #0
- 8000f26:	f004 fcbf 	bl	80058a8 <xTaskGenericNotify>
-	}
- 8000f2a:	e00c      	b.n	8000f46 <printTimerCallback+0x5a>
-		else if(currMode == mSetAlarm){
- 8000f2c:	4b08      	ldr	r3, [pc, #32]	; (8000f50 <printTimerCallback+0x64>)
- 8000f2e:	781b      	ldrb	r3, [r3, #0]
- 8000f30:	2b02      	cmp	r3, #2
- 8000f32:	d108      	bne.n	8000f46 <printTimerCallback+0x5a>
-			xTaskNotify(alarmSetTaskHandle, 0, eNoAction);
- 8000f34:	4b09      	ldr	r3, [pc, #36]	; (8000f5c <printTimerCallback+0x70>)
- 8000f36:	6818      	ldr	r0, [r3, #0]
- 8000f38:	2300      	movs	r3, #0
- 8000f3a:	9300      	str	r3, [sp, #0]
- 8000f3c:	2300      	movs	r3, #0
- 8000f3e:	2200      	movs	r2, #0
- 8000f40:	2100      	movs	r1, #0
- 8000f42:	f004 fcb1 	bl	80058a8 <xTaskGenericNotify>
-	}
- 8000f46:	bf00      	nop
- 8000f48:	3708      	adds	r7, #8
- 8000f4a:	46bd      	mov	sp, r7
- 8000f4c:	bd80      	pop	{r7, pc}
- 8000f4e:	bf00      	nop
- 8000f50:	20000110 	.word	0x20000110
- 8000f54:	200000fc 	.word	0x200000fc
- 8000f58:	20000100 	.word	0x20000100
- 8000f5c:	20000104 	.word	0x20000104
-
-08000f60 <vApplicationIdleHook>:
-
-	void vApplicationIdleHook(void){
- 8000f60:	b580      	push	{r7, lr}
- 8000f62:	af00      	add	r7, sp, #0
-		if(HAL_GPIO_ReadPin(MODE_GPIO_Port, MODE_Pin) == GPIO_PIN_SET){
- 8000f64:	f44f 7180 	mov.w	r1, #256	; 0x100
- 8000f68:	481d      	ldr	r0, [pc, #116]	; (8000fe0 <vApplicationIdleHook+0x80>)
- 8000f6a:	f000 fefd 	bl	8001d68 <HAL_GPIO_ReadPin>
- 8000f6e:	4603      	mov	r3, r0
- 8000f70:	2b01      	cmp	r3, #1
- 8000f72:	d122      	bne.n	8000fba <vApplicationIdleHook+0x5a>
-			if (currMode == mDisplayRtc){
- 8000f74:	4b1b      	ldr	r3, [pc, #108]	; (8000fe4 <vApplicationIdleHook+0x84>)
- 8000f76:	781b      	ldrb	r3, [r3, #0]
- 8000f78:	2b00      	cmp	r3, #0
- 8000f7a:	d107      	bne.n	8000f8c <vApplicationIdleHook+0x2c>
-				currMode = mSetRtc;
- 8000f7c:	4b19      	ldr	r3, [pc, #100]	; (8000fe4 <vApplicationIdleHook+0x84>)
- 8000f7e:	2201      	movs	r2, #1
- 8000f80:	701a      	strb	r2, [r3, #0]
-				HAL_Delay(DEBOUNCE_DELAY_PERIOD);
- 8000f82:	f44f 7096 	mov.w	r0, #300	; 0x12c
- 8000f86:	f000 fc65 	bl	8001854 <HAL_Delay>
- 8000f8a:	e016      	b.n	8000fba <vApplicationIdleHook+0x5a>
-			}
-			else if (currMode == mSetRtc){
- 8000f8c:	4b15      	ldr	r3, [pc, #84]	; (8000fe4 <vApplicationIdleHook+0x84>)
- 8000f8e:	781b      	ldrb	r3, [r3, #0]
- 8000f90:	2b01      	cmp	r3, #1
- 8000f92:	d107      	bne.n	8000fa4 <vApplicationIdleHook+0x44>
-				currMode = mSetAlarm;
- 8000f94:	4b13      	ldr	r3, [pc, #76]	; (8000fe4 <vApplicationIdleHook+0x84>)
- 8000f96:	2202      	movs	r2, #2
- 8000f98:	701a      	strb	r2, [r3, #0]
-				HAL_Delay(DEBOUNCE_DELAY_PERIOD);
- 8000f9a:	f44f 7096 	mov.w	r0, #300	; 0x12c
- 8000f9e:	f000 fc59 	bl	8001854 <HAL_Delay>
- 8000fa2:	e00a      	b.n	8000fba <vApplicationIdleHook+0x5a>
-			}
-			else if(currMode == mSetAlarm){
- 8000fa4:	4b0f      	ldr	r3, [pc, #60]	; (8000fe4 <vApplicationIdleHook+0x84>)
- 8000fa6:	781b      	ldrb	r3, [r3, #0]
- 8000fa8:	2b02      	cmp	r3, #2
- 8000faa:	d106      	bne.n	8000fba <vApplicationIdleHook+0x5a>
-				currMode = mDisplayRtc;
- 8000fac:	4b0d      	ldr	r3, [pc, #52]	; (8000fe4 <vApplicationIdleHook+0x84>)
- 8000fae:	2200      	movs	r2, #0
- 8000fb0:	701a      	strb	r2, [r3, #0]
-				HAL_Delay(DEBOUNCE_DELAY_PERIOD);
- 8000fb2:	f44f 7096 	mov.w	r0, #300	; 0x12c
- 8000fb6:	f000 fc4d 	bl	8001854 <HAL_Delay>
-			}
-		}
-
-		if (currMode == mSetRtc) {
- 8000fba:	4b0a      	ldr	r3, [pc, #40]	; (8000fe4 <vApplicationIdleHook+0x84>)
- 8000fbc:	781b      	ldrb	r3, [r3, #0]
- 8000fbe:	2b01      	cmp	r3, #1
- 8000fc0:	d10c      	bne.n	8000fdc <vApplicationIdleHook+0x7c>
-			if(currSet <= 2){
- 8000fc2:	4b09      	ldr	r3, [pc, #36]	; (8000fe8 <vApplicationIdleHook+0x88>)
- 8000fc4:	781b      	ldrb	r3, [r3, #0]
- 8000fc6:	2b02      	cmp	r3, #2
- 8000fc8:	d803      	bhi.n	8000fd2 <vApplicationIdleHook+0x72>
-				handleSetTime(&setTime);
- 8000fca:	4808      	ldr	r0, [pc, #32]	; (8000fec <vApplicationIdleHook+0x8c>)
- 8000fcc:	f000 f812 	bl	8000ff4 <handleSetTime>
- 8000fd0:	e002      	b.n	8000fd8 <vApplicationIdleHook+0x78>
-			}
-			else {
-				handleSetDate(&setDate);
- 8000fd2:	4807      	ldr	r0, [pc, #28]	; (8000ff0 <vApplicationIdleHook+0x90>)
- 8000fd4:	f000 f88a 	bl	80010ec <handleSetDate>
-			}
-			handleSelect();
- 8000fd8:	f000 f900 	bl	80011dc <handleSelect>
-		}
-	}
- 8000fdc:	bf00      	nop
- 8000fde:	bd80      	pop	{r7, pc}
- 8000fe0:	40020400 	.word	0x40020400
- 8000fe4:	20000110 	.word	0x20000110
- 8000fe8:	20000111 	.word	0x20000111
- 8000fec:	20000130 	.word	0x20000130
- 8000ff0:	2000012c 	.word	0x2000012c
-
-08000ff4 <handleSetTime>:
-
-	static void handleSetTime(RTC_TimeTypeDef *setTime){
- 8000ff4:	b580      	push	{r7, lr}
- 8000ff6:	b082      	sub	sp, #8
- 8000ff8:	af00      	add	r7, sp, #0
- 8000ffa:	6078      	str	r0, [r7, #4]
-		if (HAL_GPIO_ReadPin(INC_GPIO_Port, INC_Pin) == GPIO_PIN_SET){
- 8000ffc:	2120      	movs	r1, #32
- 8000ffe:	4839      	ldr	r0, [pc, #228]	; (80010e4 <handleSetTime+0xf0>)
- 8001000:	f000 feb2 	bl	8001d68 <HAL_GPIO_ReadPin>
- 8001004:	4603      	mov	r3, r0
- 8001006:	2b01      	cmp	r3, #1
- 8001008:	d130      	bne.n	800106c <handleSetTime+0x78>
-			if(currSet == sHour){
- 800100a:	4b37      	ldr	r3, [pc, #220]	; (80010e8 <handleSetTime+0xf4>)
- 800100c:	781b      	ldrb	r3, [r3, #0]
- 800100e:	2b00      	cmp	r3, #0
- 8001010:	d10a      	bne.n	8001028 <handleSetTime+0x34>
-				if(setTime->Hours < 23) setTime->Hours++;
- 8001012:	687b      	ldr	r3, [r7, #4]
- 8001014:	781b      	ldrb	r3, [r3, #0]
- 8001016:	2b16      	cmp	r3, #22
- 8001018:	d823      	bhi.n	8001062 <handleSetTime+0x6e>
- 800101a:	687b      	ldr	r3, [r7, #4]
- 800101c:	781b      	ldrb	r3, [r3, #0]
- 800101e:	3301      	adds	r3, #1
- 8001020:	b2da      	uxtb	r2, r3
- 8001022:	687b      	ldr	r3, [r7, #4]
- 8001024:	701a      	strb	r2, [r3, #0]
- 8001026:	e01c      	b.n	8001062 <handleSetTime+0x6e>
-			}
-			else if(currSet == sMin){
- 8001028:	4b2f      	ldr	r3, [pc, #188]	; (80010e8 <handleSetTime+0xf4>)
- 800102a:	781b      	ldrb	r3, [r3, #0]
- 800102c:	2b01      	cmp	r3, #1
- 800102e:	d10a      	bne.n	8001046 <handleSetTime+0x52>
-				if(setTime->Minutes < 59) setTime->Minutes++;
- 8001030:	687b      	ldr	r3, [r7, #4]
- 8001032:	785b      	ldrb	r3, [r3, #1]
- 8001034:	2b3a      	cmp	r3, #58	; 0x3a
- 8001036:	d814      	bhi.n	8001062 <handleSetTime+0x6e>
- 8001038:	687b      	ldr	r3, [r7, #4]
- 800103a:	785b      	ldrb	r3, [r3, #1]
- 800103c:	3301      	adds	r3, #1
- 800103e:	b2da      	uxtb	r2, r3
- 8001040:	687b      	ldr	r3, [r7, #4]
- 8001042:	705a      	strb	r2, [r3, #1]
- 8001044:	e00d      	b.n	8001062 <handleSetTime+0x6e>
-			}
-			else if(currSet ==sSec){
- 8001046:	4b28      	ldr	r3, [pc, #160]	; (80010e8 <handleSetTime+0xf4>)
- 8001048:	781b      	ldrb	r3, [r3, #0]
- 800104a:	2b02      	cmp	r3, #2
- 800104c:	d109      	bne.n	8001062 <handleSetTime+0x6e>
-				if(setTime->Seconds < 59) setTime->Seconds++;
- 800104e:	687b      	ldr	r3, [r7, #4]
- 8001050:	789b      	ldrb	r3, [r3, #2]
- 8001052:	2b3a      	cmp	r3, #58	; 0x3a
- 8001054:	d805      	bhi.n	8001062 <handleSetTime+0x6e>
- 8001056:	687b      	ldr	r3, [r7, #4]
- 8001058:	789b      	ldrb	r3, [r3, #2]
- 800105a:	3301      	adds	r3, #1
- 800105c:	b2da      	uxtb	r2, r3
- 800105e:	687b      	ldr	r3, [r7, #4]
- 8001060:	709a      	strb	r2, [r3, #2]
-			}
-			HAL_Delay(DEBOUNCE_DELAY_PERIOD); // putting delay here improves responsiveness for some reason
- 8001062:	f44f 7096 	mov.w	r0, #300	; 0x12c
- 8001066:	f000 fbf5 	bl	8001854 <HAL_Delay>
-			else if(currSet == sSec){
-				if(setTime->Seconds > 0) setTime->Seconds--;
-			}
-			HAL_Delay(DEBOUNCE_DELAY_PERIOD); // putting delay here improves responsiveness for some reason
-		}
-	}
- 800106a:	e036      	b.n	80010da <handleSetTime+0xe6>
-		else if (HAL_GPIO_ReadPin(DEC_GPIO_Port, DEC_Pin) == GPIO_PIN_SET){
- 800106c:	2140      	movs	r1, #64	; 0x40
- 800106e:	481d      	ldr	r0, [pc, #116]	; (80010e4 <handleSetTime+0xf0>)
- 8001070:	f000 fe7a 	bl	8001d68 <HAL_GPIO_ReadPin>
- 8001074:	4603      	mov	r3, r0
- 8001076:	2b01      	cmp	r3, #1
- 8001078:	d12f      	bne.n	80010da <handleSetTime+0xe6>
-			if(currSet == sHour){
- 800107a:	4b1b      	ldr	r3, [pc, #108]	; (80010e8 <handleSetTime+0xf4>)
- 800107c:	781b      	ldrb	r3, [r3, #0]
- 800107e:	2b00      	cmp	r3, #0
- 8001080:	d10a      	bne.n	8001098 <handleSetTime+0xa4>
-				if(setTime->Hours > 0) setTime->Hours--;
- 8001082:	687b      	ldr	r3, [r7, #4]
- 8001084:	781b      	ldrb	r3, [r3, #0]
- 8001086:	2b00      	cmp	r3, #0
- 8001088:	d023      	beq.n	80010d2 <handleSetTime+0xde>
- 800108a:	687b      	ldr	r3, [r7, #4]
- 800108c:	781b      	ldrb	r3, [r3, #0]
- 800108e:	3b01      	subs	r3, #1
- 8001090:	b2da      	uxtb	r2, r3
- 8001092:	687b      	ldr	r3, [r7, #4]
- 8001094:	701a      	strb	r2, [r3, #0]
- 8001096:	e01c      	b.n	80010d2 <handleSetTime+0xde>
-			else if(currSet == sMin){
- 8001098:	4b13      	ldr	r3, [pc, #76]	; (80010e8 <handleSetTime+0xf4>)
- 800109a:	781b      	ldrb	r3, [r3, #0]
- 800109c:	2b01      	cmp	r3, #1
- 800109e:	d10a      	bne.n	80010b6 <handleSetTime+0xc2>
-				if(setTime->Minutes > 0) setTime->Minutes--;
- 80010a0:	687b      	ldr	r3, [r7, #4]
- 80010a2:	785b      	ldrb	r3, [r3, #1]
- 80010a4:	2b00      	cmp	r3, #0
- 80010a6:	d014      	beq.n	80010d2 <handleSetTime+0xde>
- 80010a8:	687b      	ldr	r3, [r7, #4]
- 80010aa:	785b      	ldrb	r3, [r3, #1]
- 80010ac:	3b01      	subs	r3, #1
- 80010ae:	b2da      	uxtb	r2, r3
- 80010b0:	687b      	ldr	r3, [r7, #4]
- 80010b2:	705a      	strb	r2, [r3, #1]
- 80010b4:	e00d      	b.n	80010d2 <handleSetTime+0xde>
-			else if(currSet == sSec){
- 80010b6:	4b0c      	ldr	r3, [pc, #48]	; (80010e8 <handleSetTime+0xf4>)
- 80010b8:	781b      	ldrb	r3, [r3, #0]
- 80010ba:	2b02      	cmp	r3, #2
- 80010bc:	d109      	bne.n	80010d2 <handleSetTime+0xde>
-				if(setTime->Seconds > 0) setTime->Seconds--;
- 80010be:	687b      	ldr	r3, [r7, #4]
- 80010c0:	789b      	ldrb	r3, [r3, #2]
- 80010c2:	2b00      	cmp	r3, #0
- 80010c4:	d005      	beq.n	80010d2 <handleSetTime+0xde>
- 80010c6:	687b      	ldr	r3, [r7, #4]
- 80010c8:	789b      	ldrb	r3, [r3, #2]
- 80010ca:	3b01      	subs	r3, #1
- 80010cc:	b2da      	uxtb	r2, r3
- 80010ce:	687b      	ldr	r3, [r7, #4]
- 80010d0:	709a      	strb	r2, [r3, #2]
-			HAL_Delay(DEBOUNCE_DELAY_PERIOD); // putting delay here improves responsiveness for some reason
- 80010d2:	f44f 7096 	mov.w	r0, #300	; 0x12c
- 80010d6:	f000 fbbd 	bl	8001854 <HAL_Delay>
-	}
- 80010da:	bf00      	nop
- 80010dc:	3708      	adds	r7, #8
- 80010de:	46bd      	mov	sp, r7
- 80010e0:	bd80      	pop	{r7, pc}
- 80010e2:	bf00      	nop
- 80010e4:	40020000 	.word	0x40020000
- 80010e8:	20000111 	.word	0x20000111
-
-080010ec <handleSetDate>:
-
-	static void handleSetDate(RTC_DateTypeDef *setDate){
- 80010ec:	b580      	push	{r7, lr}
- 80010ee:	b082      	sub	sp, #8
- 80010f0:	af00      	add	r7, sp, #0
- 80010f2:	6078      	str	r0, [r7, #4]
-		if (HAL_GPIO_ReadPin(INC_GPIO_Port, INC_Pin) == GPIO_PIN_SET){
- 80010f4:	2120      	movs	r1, #32
- 80010f6:	4837      	ldr	r0, [pc, #220]	; (80011d4 <handleSetDate+0xe8>)
- 80010f8:	f000 fe36 	bl	8001d68 <HAL_GPIO_ReadPin>
- 80010fc:	4603      	mov	r3, r0
- 80010fe:	2b01      	cmp	r3, #1
- 8001100:	d12c      	bne.n	800115c <handleSetDate+0x70>
-			if(currSet == sMonth){
- 8001102:	4b35      	ldr	r3, [pc, #212]	; (80011d8 <handleSetDate+0xec>)
- 8001104:	781b      	ldrb	r3, [r3, #0]
- 8001106:	2b04      	cmp	r3, #4
- 8001108:	d10a      	bne.n	8001120 <handleSetDate+0x34>
-				if(setDate->Month < 11) setDate->Month++;
- 800110a:	687b      	ldr	r3, [r7, #4]
- 800110c:	785b      	ldrb	r3, [r3, #1]
- 800110e:	2b0a      	cmp	r3, #10
- 8001110:	d81f      	bhi.n	8001152 <handleSetDate+0x66>
- 8001112:	687b      	ldr	r3, [r7, #4]
- 8001114:	785b      	ldrb	r3, [r3, #1]
- 8001116:	3301      	adds	r3, #1
- 8001118:	b2da      	uxtb	r2, r3
- 800111a:	687b      	ldr	r3, [r7, #4]
- 800111c:	705a      	strb	r2, [r3, #1]
- 800111e:	e018      	b.n	8001152 <handleSetDate+0x66>
-			}
-			else if(currSet == sDay) {
- 8001120:	4b2d      	ldr	r3, [pc, #180]	; (80011d8 <handleSetDate+0xec>)
- 8001122:	781b      	ldrb	r3, [r3, #0]
- 8001124:	2b03      	cmp	r3, #3
- 8001126:	d10a      	bne.n	800113e <handleSetDate+0x52>
-				if(setDate->Date < 30) setDate->Date++;
- 8001128:	687b      	ldr	r3, [r7, #4]
- 800112a:	789b      	ldrb	r3, [r3, #2]
- 800112c:	2b1d      	cmp	r3, #29
- 800112e:	d810      	bhi.n	8001152 <handleSetDate+0x66>
- 8001130:	687b      	ldr	r3, [r7, #4]
- 8001132:	789b      	ldrb	r3, [r3, #2]
- 8001134:	3301      	adds	r3, #1
- 8001136:	b2da      	uxtb	r2, r3
- 8001138:	687b      	ldr	r3, [r7, #4]
- 800113a:	709a      	strb	r2, [r3, #2]
- 800113c:	e009      	b.n	8001152 <handleSetDate+0x66>
-			}
-			else if(currSet == sYear) {
- 800113e:	4b26      	ldr	r3, [pc, #152]	; (80011d8 <handleSetDate+0xec>)
- 8001140:	781b      	ldrb	r3, [r3, #0]
- 8001142:	2b05      	cmp	r3, #5
- 8001144:	d105      	bne.n	8001152 <handleSetDate+0x66>
-				if(setDate->Year < 998) setDate->Year++;
- 8001146:	687b      	ldr	r3, [r7, #4]
- 8001148:	78db      	ldrb	r3, [r3, #3]
- 800114a:	3301      	adds	r3, #1
- 800114c:	b2da      	uxtb	r2, r3
- 800114e:	687b      	ldr	r3, [r7, #4]
- 8001150:	70da      	strb	r2, [r3, #3]
-			}
-			HAL_Delay(DEBOUNCE_DELAY_PERIOD); // putting delay here improves responsiveness for some reason
- 8001152:	f44f 7096 	mov.w	r0, #300	; 0x12c
- 8001156:	f000 fb7d 	bl	8001854 <HAL_Delay>
-			else if(currSet == sYear) {
-				if(setDate->Year > 0) setDate->Year--;
-			}
-			HAL_Delay(DEBOUNCE_DELAY_PERIOD); // putting delay here improves responsiveness for some reason
-		}
-	}
- 800115a:	e036      	b.n	80011ca <handleSetDate+0xde>
-		else if (HAL_GPIO_ReadPin(DEC_GPIO_Port, DEC_Pin) == GPIO_PIN_SET){
- 800115c:	2140      	movs	r1, #64	; 0x40
- 800115e:	481d      	ldr	r0, [pc, #116]	; (80011d4 <handleSetDate+0xe8>)
- 8001160:	f000 fe02 	bl	8001d68 <HAL_GPIO_ReadPin>
- 8001164:	4603      	mov	r3, r0
- 8001166:	2b01      	cmp	r3, #1
- 8001168:	d12f      	bne.n	80011ca <handleSetDate+0xde>
-			if(currSet == sMonth){
- 800116a:	4b1b      	ldr	r3, [pc, #108]	; (80011d8 <handleSetDate+0xec>)
- 800116c:	781b      	ldrb	r3, [r3, #0]
- 800116e:	2b04      	cmp	r3, #4
- 8001170:	d10a      	bne.n	8001188 <handleSetDate+0x9c>
-				if(setDate->Month > 1) setDate->Month--;
- 8001172:	687b      	ldr	r3, [r7, #4]
- 8001174:	785b      	ldrb	r3, [r3, #1]
- 8001176:	2b01      	cmp	r3, #1
- 8001178:	d923      	bls.n	80011c2 <handleSetDate+0xd6>
- 800117a:	687b      	ldr	r3, [r7, #4]
- 800117c:	785b      	ldrb	r3, [r3, #1]
- 800117e:	3b01      	subs	r3, #1
- 8001180:	b2da      	uxtb	r2, r3
- 8001182:	687b      	ldr	r3, [r7, #4]
- 8001184:	705a      	strb	r2, [r3, #1]
- 8001186:	e01c      	b.n	80011c2 <handleSetDate+0xd6>
-			else if(currSet == sDay) {
- 8001188:	4b13      	ldr	r3, [pc, #76]	; (80011d8 <handleSetDate+0xec>)
- 800118a:	781b      	ldrb	r3, [r3, #0]
- 800118c:	2b03      	cmp	r3, #3
- 800118e:	d10a      	bne.n	80011a6 <handleSetDate+0xba>
-				if(setDate->Date > 1) setDate->Date--;
- 8001190:	687b      	ldr	r3, [r7, #4]
- 8001192:	789b      	ldrb	r3, [r3, #2]
- 8001194:	2b01      	cmp	r3, #1
- 8001196:	d914      	bls.n	80011c2 <handleSetDate+0xd6>
- 8001198:	687b      	ldr	r3, [r7, #4]
- 800119a:	789b      	ldrb	r3, [r3, #2]
- 800119c:	3b01      	subs	r3, #1
- 800119e:	b2da      	uxtb	r2, r3
- 80011a0:	687b      	ldr	r3, [r7, #4]
- 80011a2:	709a      	strb	r2, [r3, #2]
- 80011a4:	e00d      	b.n	80011c2 <handleSetDate+0xd6>
-			else if(currSet == sYear) {
- 80011a6:	4b0c      	ldr	r3, [pc, #48]	; (80011d8 <handleSetDate+0xec>)
- 80011a8:	781b      	ldrb	r3, [r3, #0]
- 80011aa:	2b05      	cmp	r3, #5
- 80011ac:	d109      	bne.n	80011c2 <handleSetDate+0xd6>
-				if(setDate->Year > 0) setDate->Year--;
- 80011ae:	687b      	ldr	r3, [r7, #4]
- 80011b0:	78db      	ldrb	r3, [r3, #3]
- 80011b2:	2b00      	cmp	r3, #0
- 80011b4:	d005      	beq.n	80011c2 <handleSetDate+0xd6>
- 80011b6:	687b      	ldr	r3, [r7, #4]
- 80011b8:	78db      	ldrb	r3, [r3, #3]
- 80011ba:	3b01      	subs	r3, #1
- 80011bc:	b2da      	uxtb	r2, r3
- 80011be:	687b      	ldr	r3, [r7, #4]
- 80011c0:	70da      	strb	r2, [r3, #3]
-			HAL_Delay(DEBOUNCE_DELAY_PERIOD); // putting delay here improves responsiveness for some reason
- 80011c2:	f44f 7096 	mov.w	r0, #300	; 0x12c
- 80011c6:	f000 fb45 	bl	8001854 <HAL_Delay>
-	}
- 80011ca:	bf00      	nop
- 80011cc:	3708      	adds	r7, #8
- 80011ce:	46bd      	mov	sp, r7
- 80011d0:	bd80      	pop	{r7, pc}
- 80011d2:	bf00      	nop
- 80011d4:	40020000 	.word	0x40020000
- 80011d8:	20000111 	.word	0x20000111
-
-080011dc <handleSelect>:
-
-	static void handleSelect(void){
- 80011dc:	b580      	push	{r7, lr}
- 80011de:	af00      	add	r7, sp, #0
-		if(HAL_GPIO_ReadPin(SELECT_GPIO_Port, SELECT_Pin) == GPIO_PIN_SET){
- 80011e0:	f44f 7100 	mov.w	r1, #512	; 0x200
- 80011e4:	481b      	ldr	r0, [pc, #108]	; (8001254 <handleSelect+0x78>)
- 80011e6:	f000 fdbf 	bl	8001d68 <HAL_GPIO_ReadPin>
- 80011ea:	4603      	mov	r3, r0
- 80011ec:	2b01      	cmp	r3, #1
- 80011ee:	d12f      	bne.n	8001250 <handleSelect+0x74>
-			switch(currSet){
- 80011f0:	4b19      	ldr	r3, [pc, #100]	; (8001258 <handleSelect+0x7c>)
- 80011f2:	781b      	ldrb	r3, [r3, #0]
- 80011f4:	2b05      	cmp	r3, #5
- 80011f6:	d827      	bhi.n	8001248 <handleSelect+0x6c>
- 80011f8:	a201      	add	r2, pc, #4	; (adr r2, 8001200 <handleSelect+0x24>)
- 80011fa:	f852 f023 	ldr.w	pc, [r2, r3, lsl #2]
- 80011fe:	bf00      	nop
- 8001200:	08001219 	.word	0x08001219
- 8001204:	08001221 	.word	0x08001221
- 8001208:	08001229 	.word	0x08001229
- 800120c:	08001239 	.word	0x08001239
- 8001210:	08001231 	.word	0x08001231
- 8001214:	08001241 	.word	0x08001241
-			case sHour:
-				currSet = sMin;
- 8001218:	4b0f      	ldr	r3, [pc, #60]	; (8001258 <handleSelect+0x7c>)
- 800121a:	2201      	movs	r2, #1
- 800121c:	701a      	strb	r2, [r3, #0]
-				break;
- 800121e:	e013      	b.n	8001248 <handleSelect+0x6c>
-			case sMin:
-				currSet = sSec;
- 8001220:	4b0d      	ldr	r3, [pc, #52]	; (8001258 <handleSelect+0x7c>)
- 8001222:	2202      	movs	r2, #2
- 8001224:	701a      	strb	r2, [r3, #0]
-				break;
- 8001226:	e00f      	b.n	8001248 <handleSelect+0x6c>
-			case sSec:
-				currSet = sMonth;
- 8001228:	4b0b      	ldr	r3, [pc, #44]	; (8001258 <handleSelect+0x7c>)
- 800122a:	2204      	movs	r2, #4
- 800122c:	701a      	strb	r2, [r3, #0]
-				break;
- 800122e:	e00b      	b.n	8001248 <handleSelect+0x6c>
-			case sMonth:
-				currSet = sDay;
- 8001230:	4b09      	ldr	r3, [pc, #36]	; (8001258 <handleSelect+0x7c>)
- 8001232:	2203      	movs	r2, #3
- 8001234:	701a      	strb	r2, [r3, #0]
-				break;
- 8001236:	e007      	b.n	8001248 <handleSelect+0x6c>
-			case sDay:
-				currSet = sYear;
- 8001238:	4b07      	ldr	r3, [pc, #28]	; (8001258 <handleSelect+0x7c>)
- 800123a:	2205      	movs	r2, #5
- 800123c:	701a      	strb	r2, [r3, #0]
-				break;
- 800123e:	e003      	b.n	8001248 <handleSelect+0x6c>
-			case sYear:
-				currSet = sHour;
- 8001240:	4b05      	ldr	r3, [pc, #20]	; (8001258 <handleSelect+0x7c>)
- 8001242:	2200      	movs	r2, #0
- 8001244:	701a      	strb	r2, [r3, #0]
-				break;
- 8001246:	bf00      	nop
-			}
-
-			HAL_Delay(DEBOUNCE_DELAY_PERIOD);
- 8001248:	f44f 7096 	mov.w	r0, #300	; 0x12c
- 800124c:	f000 fb02 	bl	8001854 <HAL_Delay>
-		}
-	}
- 8001250:	bf00      	nop
- 8001252:	bd80      	pop	{r7, pc}
- 8001254:	40020400 	.word	0x40020400
- 8001258:	20000111 	.word	0x20000111
-
-0800125c <rtcUpdateTaskHandler>:
-
-	void rtcUpdateTaskHandler(void *parameters){
- 800125c:	b580      	push	{r7, lr}
- 800125e:	b084      	sub	sp, #16
- 8001260:	af02      	add	r7, sp, #8
- 8001262:	6078      	str	r0, [r7, #4]
-		static char strBuffer[40];
-		static char *str = strBuffer;
-
-		while(1){
-			xTaskNotifyWait(0, 0, NULL, portMAX_DELAY);
- 8001264:	f04f 33ff 	mov.w	r3, #4294967295
- 8001268:	9300      	str	r3, [sp, #0]
- 800126a:	2300      	movs	r3, #0
- 800126c:	2200      	movs	r2, #0
- 800126e:	2100      	movs	r1, #0
- 8001270:	2000      	movs	r0, #0
- 8001272:	f004 fa91 	bl	8005798 <xTaskGenericNotifyWait>
-
-			memset( &rtcDate,0,sizeof(rtcDate) );
- 8001276:	2204      	movs	r2, #4
- 8001278:	2100      	movs	r1, #0
- 800127a:	482f      	ldr	r0, [pc, #188]	; (8001338 <rtcUpdateTaskHandler+0xdc>)
- 800127c:	f007 fcea 	bl	8008c54 <memset>
-			memset( &rtcTime,0,sizeof(rtcTime) );
- 8001280:	2214      	movs	r2, #20
- 8001282:	2100      	movs	r1, #0
- 8001284:	482d      	ldr	r0, [pc, #180]	; (800133c <rtcUpdateTaskHandler+0xe0>)
- 8001286:	f007 fce5 	bl	8008c54 <memset>
-
-			HAL_RTC_GetTime(&hrtc, &rtcTime, RTC_FORMAT_BIN);
- 800128a:	2200      	movs	r2, #0
- 800128c:	492b      	ldr	r1, [pc, #172]	; (800133c <rtcUpdateTaskHandler+0xe0>)
- 800128e:	482c      	ldr	r0, [pc, #176]	; (8001340 <rtcUpdateTaskHandler+0xe4>)
- 8001290:	f001 fc50 	bl	8002b34 <HAL_RTC_GetTime>
-			HAL_RTC_GetTime(&hrtc, &setTime, RTC_FORMAT_BIN); // sets time for "set" mode
- 8001294:	2200      	movs	r2, #0
- 8001296:	492b      	ldr	r1, [pc, #172]	; (8001344 <rtcUpdateTaskHandler+0xe8>)
- 8001298:	4829      	ldr	r0, [pc, #164]	; (8001340 <rtcUpdateTaskHandler+0xe4>)
- 800129a:	f001 fc4b 	bl	8002b34 <HAL_RTC_GetTime>
-
-			HAL_RTC_GetDate(&hrtc, &rtcDate, RTC_FORMAT_BIN);
- 800129e:	2200      	movs	r2, #0
- 80012a0:	4925      	ldr	r1, [pc, #148]	; (8001338 <rtcUpdateTaskHandler+0xdc>)
- 80012a2:	4827      	ldr	r0, [pc, #156]	; (8001340 <rtcUpdateTaskHandler+0xe4>)
- 80012a4:	f001 fd28 	bl	8002cf8 <HAL_RTC_GetDate>
-			HAL_RTC_GetDate(&hrtc, &setDate, RTC_FORMAT_BIN); // sets date for "set" mode
- 80012a8:	2200      	movs	r2, #0
- 80012aa:	4927      	ldr	r1, [pc, #156]	; (8001348 <rtcUpdateTaskHandler+0xec>)
- 80012ac:	4824      	ldr	r0, [pc, #144]	; (8001340 <rtcUpdateTaskHandler+0xe4>)
- 80012ae:	f001 fd23 	bl	8002cf8 <HAL_RTC_GetDate>
-
-			memset(&strBuffer, 0, sizeof(strBuffer) );
- 80012b2:	2228      	movs	r2, #40	; 0x28
- 80012b4:	2100      	movs	r1, #0
- 80012b6:	4825      	ldr	r0, [pc, #148]	; (800134c <rtcUpdateTaskHandler+0xf0>)
- 80012b8:	f007 fccc 	bl	8008c54 <memset>
-
-			sprintf( (char*) strBuffer, "%02d:%02d:%02d",rtcTime.Hours, rtcTime.Minutes, rtcTime.Seconds);
- 80012bc:	4b1f      	ldr	r3, [pc, #124]	; (800133c <rtcUpdateTaskHandler+0xe0>)
- 80012be:	781b      	ldrb	r3, [r3, #0]
- 80012c0:	461a      	mov	r2, r3
- 80012c2:	4b1e      	ldr	r3, [pc, #120]	; (800133c <rtcUpdateTaskHandler+0xe0>)
- 80012c4:	785b      	ldrb	r3, [r3, #1]
- 80012c6:	4619      	mov	r1, r3
- 80012c8:	4b1c      	ldr	r3, [pc, #112]	; (800133c <rtcUpdateTaskHandler+0xe0>)
- 80012ca:	789b      	ldrb	r3, [r3, #2]
- 80012cc:	9300      	str	r3, [sp, #0]
- 80012ce:	460b      	mov	r3, r1
- 80012d0:	491f      	ldr	r1, [pc, #124]	; (8001350 <rtcUpdateTaskHandler+0xf4>)
- 80012d2:	481e      	ldr	r0, [pc, #120]	; (800134c <rtcUpdateTaskHandler+0xf0>)
- 80012d4:	f007 fc8e 	bl	8008bf4 <siprintf>
-			SEGGER_SYSVIEW_PrintfTarget(str);
- 80012d8:	4b1e      	ldr	r3, [pc, #120]	; (8001354 <rtcUpdateTaskHandler+0xf8>)
- 80012da:	681b      	ldr	r3, [r3, #0]
- 80012dc:	4618      	mov	r0, r3
- 80012de:	f007 fc19 	bl	8008b14 <SEGGER_SYSVIEW_PrintfTarget>
-			xQueueSend(printQueueHandle, &str, portMAX_DELAY);
- 80012e2:	4b1d      	ldr	r3, [pc, #116]	; (8001358 <rtcUpdateTaskHandler+0xfc>)
- 80012e4:	6818      	ldr	r0, [r3, #0]
- 80012e6:	2300      	movs	r3, #0
- 80012e8:	f04f 32ff 	mov.w	r2, #4294967295
- 80012ec:	4919      	ldr	r1, [pc, #100]	; (8001354 <rtcUpdateTaskHandler+0xf8>)
- 80012ee:	f002 fd8f 	bl	8003e10 <xQueueGenericSend>
-
-			memset(&strBuffer, 0, sizeof(strBuffer) );
- 80012f2:	2228      	movs	r2, #40	; 0x28
- 80012f4:	2100      	movs	r1, #0
- 80012f6:	4815      	ldr	r0, [pc, #84]	; (800134c <rtcUpdateTaskHandler+0xf0>)
- 80012f8:	f007 fcac 	bl	8008c54 <memset>
-			sprintf( (char*) strBuffer, "%02d-%02d-%2d", rtcDate.Month, rtcDate.Date, 2000 + rtcDate.Year);
- 80012fc:	4b0e      	ldr	r3, [pc, #56]	; (8001338 <rtcUpdateTaskHandler+0xdc>)
- 80012fe:	785b      	ldrb	r3, [r3, #1]
- 8001300:	461a      	mov	r2, r3
- 8001302:	4b0d      	ldr	r3, [pc, #52]	; (8001338 <rtcUpdateTaskHandler+0xdc>)
- 8001304:	789b      	ldrb	r3, [r3, #2]
- 8001306:	4619      	mov	r1, r3
- 8001308:	4b0b      	ldr	r3, [pc, #44]	; (8001338 <rtcUpdateTaskHandler+0xdc>)
- 800130a:	78db      	ldrb	r3, [r3, #3]
- 800130c:	f503 63fa 	add.w	r3, r3, #2000	; 0x7d0
- 8001310:	9300      	str	r3, [sp, #0]
- 8001312:	460b      	mov	r3, r1
- 8001314:	4911      	ldr	r1, [pc, #68]	; (800135c <rtcUpdateTaskHandler+0x100>)
- 8001316:	480d      	ldr	r0, [pc, #52]	; (800134c <rtcUpdateTaskHandler+0xf0>)
- 8001318:	f007 fc6c 	bl	8008bf4 <siprintf>
-			SEGGER_SYSVIEW_PrintfTarget(str);
- 800131c:	4b0d      	ldr	r3, [pc, #52]	; (8001354 <rtcUpdateTaskHandler+0xf8>)
- 800131e:	681b      	ldr	r3, [r3, #0]
- 8001320:	4618      	mov	r0, r3
- 8001322:	f007 fbf7 	bl	8008b14 <SEGGER_SYSVIEW_PrintfTarget>
-			xQueueSend(printQueueHandle, &str, portMAX_DELAY);
- 8001326:	4b0c      	ldr	r3, [pc, #48]	; (8001358 <rtcUpdateTaskHandler+0xfc>)
- 8001328:	6818      	ldr	r0, [r3, #0]
- 800132a:	2300      	movs	r3, #0
- 800132c:	f04f 32ff 	mov.w	r2, #4294967295
- 8001330:	4908      	ldr	r1, [pc, #32]	; (8001354 <rtcUpdateTaskHandler+0xf8>)
- 8001332:	f002 fd6d 	bl	8003e10 <xQueueGenericSend>
-			xTaskNotifyWait(0, 0, NULL, portMAX_DELAY);
- 8001336:	e795      	b.n	8001264 <rtcUpdateTaskHandler+0x8>
- 8001338:	20000114 	.word	0x20000114
- 800133c:	20000118 	.word	0x20000118
- 8001340:	2000008c 	.word	0x2000008c
- 8001344:	20000130 	.word	0x20000130
- 8001348:	2000012c 	.word	0x2000012c
- 800134c:	20000144 	.word	0x20000144
- 8001350:	080095d0 	.word	0x080095d0
- 8001354:	20000000 	.word	0x20000000
- 8001358:	20000108 	.word	0x20000108
- 800135c:	080095e0 	.word	0x080095e0
-
-08001360 <rtcSetTaskHandler>:
-
-		}
-	}
-
-	void rtcSetTaskHandler(void *parameters){
- 8001360:	b580      	push	{r7, lr}
- 8001362:	b084      	sub	sp, #16
- 8001364:	af02      	add	r7, sp, #8
- 8001366:	6078      	str	r0, [r7, #4]
-		static char strBuffer[40];
-		static char *str = strBuffer;
-
-		while(1){
-			xTaskNotifyWait(0, 0, NULL, portMAX_DELAY);
- 8001368:	f04f 33ff 	mov.w	r3, #4294967295
- 800136c:	9300      	str	r3, [sp, #0]
- 800136e:	2300      	movs	r3, #0
- 8001370:	2200      	movs	r2, #0
- 8001372:	2100      	movs	r1, #0
- 8001374:	2000      	movs	r0, #0
- 8001376:	f004 fa0f 	bl	8005798 <xTaskGenericNotifyWait>
-
-			HAL_RTC_SetTime(&hrtc, &setTime, RTC_FORMAT_BIN);
- 800137a:	2200      	movs	r2, #0
- 800137c:	4920      	ldr	r1, [pc, #128]	; (8001400 <rtcSetTaskHandler+0xa0>)
- 800137e:	4821      	ldr	r0, [pc, #132]	; (8001404 <rtcSetTaskHandler+0xa4>)
- 8001380:	f001 fb3e 	bl	8002a00 <HAL_RTC_SetTime>
-			HAL_RTC_SetDate(&hrtc, &setDate, RTC_FORMAT_BIN);
- 8001384:	2200      	movs	r2, #0
- 8001386:	4920      	ldr	r1, [pc, #128]	; (8001408 <rtcSetTaskHandler+0xa8>)
- 8001388:	481e      	ldr	r0, [pc, #120]	; (8001404 <rtcSetTaskHandler+0xa4>)
- 800138a:	f001 fc31 	bl	8002bf0 <HAL_RTC_SetDate>
-
-			memset(&strBuffer, 0, sizeof(strBuffer) );
- 800138e:	2228      	movs	r2, #40	; 0x28
- 8001390:	2100      	movs	r1, #0
- 8001392:	481e      	ldr	r0, [pc, #120]	; (800140c <rtcSetTaskHandler+0xac>)
- 8001394:	f007 fc5e 	bl	8008c54 <memset>
-
-			sprintf( (char*) strBuffer, "%02d:%02d:%02d",setTime.Hours, setTime.Minutes, setTime.Seconds);
- 8001398:	4b19      	ldr	r3, [pc, #100]	; (8001400 <rtcSetTaskHandler+0xa0>)
- 800139a:	781b      	ldrb	r3, [r3, #0]
- 800139c:	461a      	mov	r2, r3
- 800139e:	4b18      	ldr	r3, [pc, #96]	; (8001400 <rtcSetTaskHandler+0xa0>)
- 80013a0:	785b      	ldrb	r3, [r3, #1]
- 80013a2:	4619      	mov	r1, r3
- 80013a4:	4b16      	ldr	r3, [pc, #88]	; (8001400 <rtcSetTaskHandler+0xa0>)
- 80013a6:	789b      	ldrb	r3, [r3, #2]
- 80013a8:	9300      	str	r3, [sp, #0]
- 80013aa:	460b      	mov	r3, r1
- 80013ac:	4918      	ldr	r1, [pc, #96]	; (8001410 <rtcSetTaskHandler+0xb0>)
- 80013ae:	4817      	ldr	r0, [pc, #92]	; (800140c <rtcSetTaskHandler+0xac>)
- 80013b0:	f007 fc20 	bl	8008bf4 <siprintf>
-			xQueueSend(printQueueHandle, &str, portMAX_DELAY);
- 80013b4:	4b17      	ldr	r3, [pc, #92]	; (8001414 <rtcSetTaskHandler+0xb4>)
- 80013b6:	6818      	ldr	r0, [r3, #0]
- 80013b8:	2300      	movs	r3, #0
- 80013ba:	f04f 32ff 	mov.w	r2, #4294967295
- 80013be:	4916      	ldr	r1, [pc, #88]	; (8001418 <rtcSetTaskHandler+0xb8>)
- 80013c0:	f002 fd26 	bl	8003e10 <xQueueGenericSend>
-
-			memset(&strBuffer, 0, sizeof(strBuffer) );
- 80013c4:	2228      	movs	r2, #40	; 0x28
- 80013c6:	2100      	movs	r1, #0
- 80013c8:	4810      	ldr	r0, [pc, #64]	; (800140c <rtcSetTaskHandler+0xac>)
- 80013ca:	f007 fc43 	bl	8008c54 <memset>
-			sprintf( (char*) strBuffer, "%02d-%02d-%2d", setDate.Month, setDate.Date, 2000 + setDate.Year);
- 80013ce:	4b0e      	ldr	r3, [pc, #56]	; (8001408 <rtcSetTaskHandler+0xa8>)
- 80013d0:	785b      	ldrb	r3, [r3, #1]
- 80013d2:	461a      	mov	r2, r3
- 80013d4:	4b0c      	ldr	r3, [pc, #48]	; (8001408 <rtcSetTaskHandler+0xa8>)
- 80013d6:	789b      	ldrb	r3, [r3, #2]
- 80013d8:	4619      	mov	r1, r3
- 80013da:	4b0b      	ldr	r3, [pc, #44]	; (8001408 <rtcSetTaskHandler+0xa8>)
- 80013dc:	78db      	ldrb	r3, [r3, #3]
- 80013de:	f503 63fa 	add.w	r3, r3, #2000	; 0x7d0
- 80013e2:	9300      	str	r3, [sp, #0]
- 80013e4:	460b      	mov	r3, r1
- 80013e6:	490d      	ldr	r1, [pc, #52]	; (800141c <rtcSetTaskHandler+0xbc>)
- 80013e8:	4808      	ldr	r0, [pc, #32]	; (800140c <rtcSetTaskHandler+0xac>)
- 80013ea:	f007 fc03 	bl	8008bf4 <siprintf>
-			xQueueSend(printQueueHandle, &str, portMAX_DELAY);
- 80013ee:	4b09      	ldr	r3, [pc, #36]	; (8001414 <rtcSetTaskHandler+0xb4>)
- 80013f0:	6818      	ldr	r0, [r3, #0]
- 80013f2:	2300      	movs	r3, #0
- 80013f4:	f04f 32ff 	mov.w	r2, #4294967295
- 80013f8:	4907      	ldr	r1, [pc, #28]	; (8001418 <rtcSetTaskHandler+0xb8>)
- 80013fa:	f002 fd09 	bl	8003e10 <xQueueGenericSend>
-			xTaskNotifyWait(0, 0, NULL, portMAX_DELAY);
- 80013fe:	e7b3      	b.n	8001368 <rtcSetTaskHandler+0x8>
- 8001400:	20000130 	.word	0x20000130
- 8001404:	2000008c 	.word	0x2000008c
- 8001408:	2000012c 	.word	0x2000012c
- 800140c:	2000016c 	.word	0x2000016c
- 8001410:	080095d0 	.word	0x080095d0
- 8001414:	20000108 	.word	0x20000108
- 8001418:	20000004 	.word	0x20000004
- 800141c:	080095e0 	.word	0x080095e0
-
-08001420 <alarmSetTaskHandler>:
-
-		}
-	}
-
-	void alarmSetTaskHandler(void *parameters){
- 8001420:	b580      	push	{r7, lr}
- 8001422:	b084      	sub	sp, #16
- 8001424:	af02      	add	r7, sp, #8
- 8001426:	6078      	str	r0, [r7, #4]
-		static char strBuffer[40];
-		static char *str = strBuffer;
-
-		while(1){
-			xTaskNotifyWait(0, 0, NULL, portMAX_DELAY);
- 8001428:	f04f 33ff 	mov.w	r3, #4294967295
- 800142c:	9300      	str	r3, [sp, #0]
- 800142e:	2300      	movs	r3, #0
- 8001430:	2200      	movs	r2, #0
- 8001432:	2100      	movs	r1, #0
- 8001434:	2000      	movs	r0, #0
- 8001436:	f004 f9af 	bl	8005798 <xTaskGenericNotifyWait>
-
-			memset(&strBuffer, 0, sizeof(strBuffer) );
- 800143a:	2228      	movs	r2, #40	; 0x28
- 800143c:	2100      	movs	r1, #0
- 800143e:	4810      	ldr	r0, [pc, #64]	; (8001480 <alarmSetTaskHandler+0x60>)
- 8001440:	f007 fc08 	bl	8008c54 <memset>
-			sprintf( (char*) strBuffer, "Alarm" );
- 8001444:	490f      	ldr	r1, [pc, #60]	; (8001484 <alarmSetTaskHandler+0x64>)
- 8001446:	480e      	ldr	r0, [pc, #56]	; (8001480 <alarmSetTaskHandler+0x60>)
- 8001448:	f007 fbd4 	bl	8008bf4 <siprintf>
-			xQueueSend(printQueueHandle, &str , portMAX_DELAY);
- 800144c:	4b0e      	ldr	r3, [pc, #56]	; (8001488 <alarmSetTaskHandler+0x68>)
- 800144e:	6818      	ldr	r0, [r3, #0]
- 8001450:	2300      	movs	r3, #0
- 8001452:	f04f 32ff 	mov.w	r2, #4294967295
- 8001456:	490d      	ldr	r1, [pc, #52]	; (800148c <alarmSetTaskHandler+0x6c>)
- 8001458:	f002 fcda 	bl	8003e10 <xQueueGenericSend>
-
-			memset(&strBuffer, 0, sizeof(strBuffer) );
- 800145c:	2228      	movs	r2, #40	; 0x28
- 800145e:	2100      	movs	r1, #0
- 8001460:	4807      	ldr	r0, [pc, #28]	; (8001480 <alarmSetTaskHandler+0x60>)
- 8001462:	f007 fbf7 	bl	8008c54 <memset>
-			sprintf( (char*) strBuffer, "Mode" );
- 8001466:	490a      	ldr	r1, [pc, #40]	; (8001490 <alarmSetTaskHandler+0x70>)
- 8001468:	4805      	ldr	r0, [pc, #20]	; (8001480 <alarmSetTaskHandler+0x60>)
- 800146a:	f007 fbc3 	bl	8008bf4 <siprintf>
-			xQueueSend(printQueueHandle, &str , portMAX_DELAY);
- 800146e:	4b06      	ldr	r3, [pc, #24]	; (8001488 <alarmSetTaskHandler+0x68>)
- 8001470:	6818      	ldr	r0, [r3, #0]
- 8001472:	2300      	movs	r3, #0
- 8001474:	f04f 32ff 	mov.w	r2, #4294967295
- 8001478:	4904      	ldr	r1, [pc, #16]	; (800148c <alarmSetTaskHandler+0x6c>)
- 800147a:	f002 fcc9 	bl	8003e10 <xQueueGenericSend>
-			xTaskNotifyWait(0, 0, NULL, portMAX_DELAY);
- 800147e:	e7d3      	b.n	8001428 <alarmSetTaskHandler+0x8>
- 8001480:	20000194 	.word	0x20000194
- 8001484:	080095f0 	.word	0x080095f0
- 8001488:	20000108 	.word	0x20000108
- 800148c:	20000008 	.word	0x20000008
- 8001490:	080095f8 	.word	0x080095f8
-
-08001494 <HAL_TIM_PeriodElapsedCallback>:
+08000e5c <HAL_TIM_PeriodElapsedCallback>:
   * a global variable "uwTick" used as application time base.
   * @param  htim : TIM handle
   * @retval None
   */
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
- 8001494:	b580      	push	{r7, lr}
- 8001496:	b082      	sub	sp, #8
- 8001498:	af00      	add	r7, sp, #0
- 800149a:	6078      	str	r0, [r7, #4]
+ 8000e5c:	b580      	push	{r7, lr}
+ 8000e5e:	b082      	sub	sp, #8
+ 8000e60:	af00      	add	r7, sp, #0
+ 8000e62:	6078      	str	r0, [r7, #4]
   /* USER CODE BEGIN Callback 0 */
 
   /* USER CODE END Callback 0 */
   if (htim->Instance == TIM5) {
- 800149c:	687b      	ldr	r3, [r7, #4]
- 800149e:	681b      	ldr	r3, [r3, #0]
- 80014a0:	4a04      	ldr	r2, [pc, #16]	; (80014b4 <HAL_TIM_PeriodElapsedCallback+0x20>)
- 80014a2:	4293      	cmp	r3, r2
- 80014a4:	d101      	bne.n	80014aa <HAL_TIM_PeriodElapsedCallback+0x16>
+ 8000e64:	687b      	ldr	r3, [r7, #4]
+ 8000e66:	681b      	ldr	r3, [r3, #0]
+ 8000e68:	4a04      	ldr	r2, [pc, #16]	; (8000e7c <HAL_TIM_PeriodElapsedCallback+0x20>)
+ 8000e6a:	4293      	cmp	r3, r2
+ 8000e6c:	d101      	bne.n	8000e72 <HAL_TIM_PeriodElapsedCallback+0x16>
     HAL_IncTick();
- 80014a6:	f000 f9b5 	bl	8001814 <HAL_IncTick>
+ 8000e6e:	f000 fcd1 	bl	8001814 <HAL_IncTick>
   }
   /* USER CODE BEGIN Callback 1 */
 
   /* USER CODE END Callback 1 */
 }
- 80014aa:	bf00      	nop
- 80014ac:	3708      	adds	r7, #8
- 80014ae:	46bd      	mov	sp, r7
- 80014b0:	bd80      	pop	{r7, pc}
- 80014b2:	bf00      	nop
- 80014b4:	40000c00 	.word	0x40000c00
+ 8000e72:	bf00      	nop
+ 8000e74:	3708      	adds	r7, #8
+ 8000e76:	46bd      	mov	sp, r7
+ 8000e78:	bd80      	pop	{r7, pc}
+ 8000e7a:	bf00      	nop
+ 8000e7c:	40000c00 	.word	0x40000c00
 
-080014b8 <Error_Handler>:
+08000e80 <Error_Handler>:
 /**
   * @brief  This function is executed in case of error occurrence.
   * @retval None
   */
 void Error_Handler(void)
 {
- 80014b8:	b480      	push	{r7}
- 80014ba:	af00      	add	r7, sp, #0
+ 8000e80:	b480      	push	{r7}
+ 8000e82:	af00      	add	r7, sp, #0
   \details Disables IRQ interrupts by setting the I-bit in the CPSR.
            Can only be executed in Privileged modes.
  */
 __STATIC_FORCEINLINE void __disable_irq(void)
 {
   __ASM volatile ("cpsid i" : : : "memory");
- 80014bc:	b672      	cpsid	i
+ 8000e84:	b672      	cpsid	i
 }
- 80014be:	bf00      	nop
+ 8000e86:	bf00      	nop
   /* USER CODE BEGIN Error_Handler_Debug */
   /* User can add his own implementation to report the HAL error return state */
   __disable_irq();
   while (1)
- 80014c0:	e7fe      	b.n	80014c0 <Error_Handler+0x8>
+ 8000e88:	e7fe      	b.n	8000e88 <Error_Handler+0x8>
 	...
 
-080014c4 <HAL_MspInit>:
+08000e8c <HAL_MspInit>:
 /* USER CODE END 0 */
 /**
   * Initializes the Global MSP.
   */
 void HAL_MspInit(void)
 {
- 80014c4:	b580      	push	{r7, lr}
- 80014c6:	b082      	sub	sp, #8
- 80014c8:	af00      	add	r7, sp, #0
+ 8000e8c:	b580      	push	{r7, lr}
+ 8000e8e:	b082      	sub	sp, #8
+ 8000e90:	af00      	add	r7, sp, #0
   /* USER CODE BEGIN MspInit 0 */
 
   /* USER CODE END MspInit 0 */
 
   __HAL_RCC_SYSCFG_CLK_ENABLE();
- 80014ca:	2300      	movs	r3, #0
- 80014cc:	607b      	str	r3, [r7, #4]
- 80014ce:	4b11      	ldr	r3, [pc, #68]	; (8001514 <HAL_MspInit+0x50>)
- 80014d0:	6c5b      	ldr	r3, [r3, #68]	; 0x44
- 80014d2:	4a10      	ldr	r2, [pc, #64]	; (8001514 <HAL_MspInit+0x50>)
- 80014d4:	f443 4380 	orr.w	r3, r3, #16384	; 0x4000
- 80014d8:	6453      	str	r3, [r2, #68]	; 0x44
- 80014da:	4b0e      	ldr	r3, [pc, #56]	; (8001514 <HAL_MspInit+0x50>)
- 80014dc:	6c5b      	ldr	r3, [r3, #68]	; 0x44
- 80014de:	f403 4380 	and.w	r3, r3, #16384	; 0x4000
- 80014e2:	607b      	str	r3, [r7, #4]
- 80014e4:	687b      	ldr	r3, [r7, #4]
+ 8000e92:	2300      	movs	r3, #0
+ 8000e94:	607b      	str	r3, [r7, #4]
+ 8000e96:	4b11      	ldr	r3, [pc, #68]	; (8000edc <HAL_MspInit+0x50>)
+ 8000e98:	6c5b      	ldr	r3, [r3, #68]	; 0x44
+ 8000e9a:	4a10      	ldr	r2, [pc, #64]	; (8000edc <HAL_MspInit+0x50>)
+ 8000e9c:	f443 4380 	orr.w	r3, r3, #16384	; 0x4000
+ 8000ea0:	6453      	str	r3, [r2, #68]	; 0x44
+ 8000ea2:	4b0e      	ldr	r3, [pc, #56]	; (8000edc <HAL_MspInit+0x50>)
+ 8000ea4:	6c5b      	ldr	r3, [r3, #68]	; 0x44
+ 8000ea6:	f403 4380 	and.w	r3, r3, #16384	; 0x4000
+ 8000eaa:	607b      	str	r3, [r7, #4]
+ 8000eac:	687b      	ldr	r3, [r7, #4]
   __HAL_RCC_PWR_CLK_ENABLE();
- 80014e6:	2300      	movs	r3, #0
- 80014e8:	603b      	str	r3, [r7, #0]
- 80014ea:	4b0a      	ldr	r3, [pc, #40]	; (8001514 <HAL_MspInit+0x50>)
- 80014ec:	6c1b      	ldr	r3, [r3, #64]	; 0x40
- 80014ee:	4a09      	ldr	r2, [pc, #36]	; (8001514 <HAL_MspInit+0x50>)
- 80014f0:	f043 5380 	orr.w	r3, r3, #268435456	; 0x10000000
- 80014f4:	6413      	str	r3, [r2, #64]	; 0x40
- 80014f6:	4b07      	ldr	r3, [pc, #28]	; (8001514 <HAL_MspInit+0x50>)
- 80014f8:	6c1b      	ldr	r3, [r3, #64]	; 0x40
- 80014fa:	f003 5380 	and.w	r3, r3, #268435456	; 0x10000000
- 80014fe:	603b      	str	r3, [r7, #0]
- 8001500:	683b      	ldr	r3, [r7, #0]
+ 8000eae:	2300      	movs	r3, #0
+ 8000eb0:	603b      	str	r3, [r7, #0]
+ 8000eb2:	4b0a      	ldr	r3, [pc, #40]	; (8000edc <HAL_MspInit+0x50>)
+ 8000eb4:	6c1b      	ldr	r3, [r3, #64]	; 0x40
+ 8000eb6:	4a09      	ldr	r2, [pc, #36]	; (8000edc <HAL_MspInit+0x50>)
+ 8000eb8:	f043 5380 	orr.w	r3, r3, #268435456	; 0x10000000
+ 8000ebc:	6413      	str	r3, [r2, #64]	; 0x40
+ 8000ebe:	4b07      	ldr	r3, [pc, #28]	; (8000edc <HAL_MspInit+0x50>)
+ 8000ec0:	6c1b      	ldr	r3, [r3, #64]	; 0x40
+ 8000ec2:	f003 5380 	and.w	r3, r3, #268435456	; 0x10000000
+ 8000ec6:	603b      	str	r3, [r7, #0]
+ 8000ec8:	683b      	ldr	r3, [r7, #0]
 
   /* System interrupt init*/
 
   /* USER CODE BEGIN MspInit 1 */
   HAL_NVIC_SetPriorityGrouping(NVIC_PRIORITYGROUP_4);
- 8001502:	2003      	movs	r0, #3
- 8001504:	f000 fa77 	bl	80019f6 <HAL_NVIC_SetPriorityGrouping>
+ 8000eca:	2003      	movs	r0, #3
+ 8000ecc:	f000 fd93 	bl	80019f6 <HAL_NVIC_SetPriorityGrouping>
   vInitPrioGroupValue();
- 8001508:	f004 ffde 	bl	80064c8 <vInitPrioGroupValue>
+ 8000ed0:	f005 fafa 	bl	80064c8 <vInitPrioGroupValue>
   /* USER CODE END MspInit 1 */
 }
- 800150c:	bf00      	nop
- 800150e:	3708      	adds	r7, #8
- 8001510:	46bd      	mov	sp, r7
- 8001512:	bd80      	pop	{r7, pc}
- 8001514:	40023800 	.word	0x40023800
+ 8000ed4:	bf00      	nop
+ 8000ed6:	3708      	adds	r7, #8
+ 8000ed8:	46bd      	mov	sp, r7
+ 8000eda:	bd80      	pop	{r7, pc}
+ 8000edc:	40023800 	.word	0x40023800
 
-08001518 <HAL_RTC_MspInit>:
+08000ee0 <HAL_RTC_MspInit>:
 * This function configures the hardware resources used in this example
 * @param hrtc: RTC handle pointer
 * @retval None
 */
 void HAL_RTC_MspInit(RTC_HandleTypeDef* hrtc)
 {
- 8001518:	b580      	push	{r7, lr}
- 800151a:	b088      	sub	sp, #32
- 800151c:	af00      	add	r7, sp, #0
- 800151e:	6078      	str	r0, [r7, #4]
+ 8000ee0:	b580      	push	{r7, lr}
+ 8000ee2:	b088      	sub	sp, #32
+ 8000ee4:	af00      	add	r7, sp, #0
+ 8000ee6:	6078      	str	r0, [r7, #4]
   RCC_PeriphCLKInitTypeDef PeriphClkInitStruct = {0};
- 8001520:	f107 030c 	add.w	r3, r7, #12
- 8001524:	2200      	movs	r2, #0
- 8001526:	601a      	str	r2, [r3, #0]
- 8001528:	605a      	str	r2, [r3, #4]
- 800152a:	609a      	str	r2, [r3, #8]
- 800152c:	60da      	str	r2, [r3, #12]
- 800152e:	611a      	str	r2, [r3, #16]
+ 8000ee8:	f107 030c 	add.w	r3, r7, #12
+ 8000eec:	2200      	movs	r2, #0
+ 8000eee:	601a      	str	r2, [r3, #0]
+ 8000ef0:	605a      	str	r2, [r3, #4]
+ 8000ef2:	609a      	str	r2, [r3, #8]
+ 8000ef4:	60da      	str	r2, [r3, #12]
+ 8000ef6:	611a      	str	r2, [r3, #16]
   if(hrtc->Instance==RTC)
- 8001530:	687b      	ldr	r3, [r7, #4]
- 8001532:	681b      	ldr	r3, [r3, #0]
- 8001534:	4a0c      	ldr	r2, [pc, #48]	; (8001568 <HAL_RTC_MspInit+0x50>)
- 8001536:	4293      	cmp	r3, r2
- 8001538:	d111      	bne.n	800155e <HAL_RTC_MspInit+0x46>
+ 8000ef8:	687b      	ldr	r3, [r7, #4]
+ 8000efa:	681b      	ldr	r3, [r3, #0]
+ 8000efc:	4a0c      	ldr	r2, [pc, #48]	; (8000f30 <HAL_RTC_MspInit+0x50>)
+ 8000efe:	4293      	cmp	r3, r2
+ 8000f00:	d111      	bne.n	8000f26 <HAL_RTC_MspInit+0x46>
 
   /* USER CODE END RTC_MspInit 0 */
 
   /** Initializes the peripherals clock
   */
     PeriphClkInitStruct.PeriphClockSelection = RCC_PERIPHCLK_RTC;
- 800153a:	2302      	movs	r3, #2
- 800153c:	60fb      	str	r3, [r7, #12]
+ 8000f02:	2302      	movs	r3, #2
+ 8000f04:	60fb      	str	r3, [r7, #12]
     PeriphClkInitStruct.RTCClockSelection = RCC_RTCCLKSOURCE_LSI;
- 800153e:	f44f 7300 	mov.w	r3, #512	; 0x200
- 8001542:	61bb      	str	r3, [r7, #24]
+ 8000f06:	f44f 7300 	mov.w	r3, #512	; 0x200
+ 8000f0a:	61bb      	str	r3, [r7, #24]
     if (HAL_RCCEx_PeriphCLKConfig(&PeriphClkInitStruct) != HAL_OK)
- 8001544:	f107 030c 	add.w	r3, r7, #12
- 8001548:	4618      	mov	r0, r3
- 800154a:	f001 f8f5 	bl	8002738 <HAL_RCCEx_PeriphCLKConfig>
- 800154e:	4603      	mov	r3, r0
- 8001550:	2b00      	cmp	r3, #0
- 8001552:	d001      	beq.n	8001558 <HAL_RTC_MspInit+0x40>
+ 8000f0c:	f107 030c 	add.w	r3, r7, #12
+ 8000f10:	4618      	mov	r0, r3
+ 8000f12:	f001 fc11 	bl	8002738 <HAL_RCCEx_PeriphCLKConfig>
+ 8000f16:	4603      	mov	r3, r0
+ 8000f18:	2b00      	cmp	r3, #0
+ 8000f1a:	d001      	beq.n	8000f20 <HAL_RTC_MspInit+0x40>
     {
       Error_Handler();
- 8001554:	f7ff ffb0 	bl	80014b8 <Error_Handler>
+ 8000f1c:	f7ff ffb0 	bl	8000e80 <Error_Handler>
     }
 
     /* Peripheral clock enable */
     __HAL_RCC_RTC_ENABLE();
- 8001558:	4b04      	ldr	r3, [pc, #16]	; (800156c <HAL_RTC_MspInit+0x54>)
- 800155a:	2201      	movs	r2, #1
- 800155c:	601a      	str	r2, [r3, #0]
+ 8000f20:	4b04      	ldr	r3, [pc, #16]	; (8000f34 <HAL_RTC_MspInit+0x54>)
+ 8000f22:	2201      	movs	r2, #1
+ 8000f24:	601a      	str	r2, [r3, #0]
   /* USER CODE BEGIN RTC_MspInit 1 */
 
   /* USER CODE END RTC_MspInit 1 */
   }
 
 }
- 800155e:	bf00      	nop
- 8001560:	3720      	adds	r7, #32
- 8001562:	46bd      	mov	sp, r7
- 8001564:	bd80      	pop	{r7, pc}
- 8001566:	bf00      	nop
- 8001568:	40002800 	.word	0x40002800
- 800156c:	42470e3c 	.word	0x42470e3c
+ 8000f26:	bf00      	nop
+ 8000f28:	3720      	adds	r7, #32
+ 8000f2a:	46bd      	mov	sp, r7
+ 8000f2c:	bd80      	pop	{r7, pc}
+ 8000f2e:	bf00      	nop
+ 8000f30:	40002800 	.word	0x40002800
+ 8000f34:	42470e3c 	.word	0x42470e3c
 
-08001570 <HAL_TIM_Base_MspInit>:
+08000f38 <HAL_TIM_Base_MspInit>:
 * This function configures the hardware resources used in this example
 * @param htim_base: TIM_Base handle pointer
 * @retval None
 */
 void HAL_TIM_Base_MspInit(TIM_HandleTypeDef* htim_base)
 {
- 8001570:	b480      	push	{r7}
- 8001572:	b085      	sub	sp, #20
- 8001574:	af00      	add	r7, sp, #0
- 8001576:	6078      	str	r0, [r7, #4]
+ 8000f38:	b480      	push	{r7}
+ 8000f3a:	b085      	sub	sp, #20
+ 8000f3c:	af00      	add	r7, sp, #0
+ 8000f3e:	6078      	str	r0, [r7, #4]
   if(htim_base->Instance==TIM1)
- 8001578:	687b      	ldr	r3, [r7, #4]
- 800157a:	681b      	ldr	r3, [r3, #0]
- 800157c:	4a0b      	ldr	r2, [pc, #44]	; (80015ac <HAL_TIM_Base_MspInit+0x3c>)
- 800157e:	4293      	cmp	r3, r2
- 8001580:	d10d      	bne.n	800159e <HAL_TIM_Base_MspInit+0x2e>
+ 8000f40:	687b      	ldr	r3, [r7, #4]
+ 8000f42:	681b      	ldr	r3, [r3, #0]
+ 8000f44:	4a0b      	ldr	r2, [pc, #44]	; (8000f74 <HAL_TIM_Base_MspInit+0x3c>)
+ 8000f46:	4293      	cmp	r3, r2
+ 8000f48:	d10d      	bne.n	8000f66 <HAL_TIM_Base_MspInit+0x2e>
   {
   /* USER CODE BEGIN TIM1_MspInit 0 */
 
   /* USER CODE END TIM1_MspInit 0 */
     /* Peripheral clock enable */
     __HAL_RCC_TIM1_CLK_ENABLE();
- 8001582:	2300      	movs	r3, #0
- 8001584:	60fb      	str	r3, [r7, #12]
- 8001586:	4b0a      	ldr	r3, [pc, #40]	; (80015b0 <HAL_TIM_Base_MspInit+0x40>)
- 8001588:	6c5b      	ldr	r3, [r3, #68]	; 0x44
- 800158a:	4a09      	ldr	r2, [pc, #36]	; (80015b0 <HAL_TIM_Base_MspInit+0x40>)
- 800158c:	f043 0301 	orr.w	r3, r3, #1
- 8001590:	6453      	str	r3, [r2, #68]	; 0x44
- 8001592:	4b07      	ldr	r3, [pc, #28]	; (80015b0 <HAL_TIM_Base_MspInit+0x40>)
- 8001594:	6c5b      	ldr	r3, [r3, #68]	; 0x44
- 8001596:	f003 0301 	and.w	r3, r3, #1
- 800159a:	60fb      	str	r3, [r7, #12]
- 800159c:	68fb      	ldr	r3, [r7, #12]
+ 8000f4a:	2300      	movs	r3, #0
+ 8000f4c:	60fb      	str	r3, [r7, #12]
+ 8000f4e:	4b0a      	ldr	r3, [pc, #40]	; (8000f78 <HAL_TIM_Base_MspInit+0x40>)
+ 8000f50:	6c5b      	ldr	r3, [r3, #68]	; 0x44
+ 8000f52:	4a09      	ldr	r2, [pc, #36]	; (8000f78 <HAL_TIM_Base_MspInit+0x40>)
+ 8000f54:	f043 0301 	orr.w	r3, r3, #1
+ 8000f58:	6453      	str	r3, [r2, #68]	; 0x44
+ 8000f5a:	4b07      	ldr	r3, [pc, #28]	; (8000f78 <HAL_TIM_Base_MspInit+0x40>)
+ 8000f5c:	6c5b      	ldr	r3, [r3, #68]	; 0x44
+ 8000f5e:	f003 0301 	and.w	r3, r3, #1
+ 8000f62:	60fb      	str	r3, [r7, #12]
+ 8000f64:	68fb      	ldr	r3, [r7, #12]
   /* USER CODE BEGIN TIM1_MspInit 1 */
 
   /* USER CODE END TIM1_MspInit 1 */
   }
 
 }
- 800159e:	bf00      	nop
- 80015a0:	3714      	adds	r7, #20
- 80015a2:	46bd      	mov	sp, r7
- 80015a4:	f85d 7b04 	ldr.w	r7, [sp], #4
- 80015a8:	4770      	bx	lr
- 80015aa:	bf00      	nop
- 80015ac:	40010000 	.word	0x40010000
- 80015b0:	40023800 	.word	0x40023800
+ 8000f66:	bf00      	nop
+ 8000f68:	3714      	adds	r7, #20
+ 8000f6a:	46bd      	mov	sp, r7
+ 8000f6c:	f85d 7b04 	ldr.w	r7, [sp], #4
+ 8000f70:	4770      	bx	lr
+ 8000f72:	bf00      	nop
+ 8000f74:	40010000 	.word	0x40010000
+ 8000f78:	40023800 	.word	0x40023800
 
-080015b4 <HAL_InitTick>:
+08000f7c <HAL_InitTick>:
   *         reset by HAL_Init() or at any time when clock is configured, by HAL_RCC_ClockConfig().
   * @param  TickPriority: Tick interrupt priority.
   * @retval HAL status
   */
 HAL_StatusTypeDef HAL_InitTick(uint32_t TickPriority)
 {
- 80015b4:	b580      	push	{r7, lr}
- 80015b6:	b08e      	sub	sp, #56	; 0x38
- 80015b8:	af00      	add	r7, sp, #0
- 80015ba:	6078      	str	r0, [r7, #4]
+ 8000f7c:	b580      	push	{r7, lr}
+ 8000f7e:	b08e      	sub	sp, #56	; 0x38
+ 8000f80:	af00      	add	r7, sp, #0
+ 8000f82:	6078      	str	r0, [r7, #4]
   RCC_ClkInitTypeDef    clkconfig;
   uint32_t              uwTimclock, uwAPB1Prescaler = 0U;
- 80015bc:	2300      	movs	r3, #0
- 80015be:	62fb      	str	r3, [r7, #44]	; 0x2c
+ 8000f84:	2300      	movs	r3, #0
+ 8000f86:	62fb      	str	r3, [r7, #44]	; 0x2c
 
   uint32_t              uwPrescalerValue = 0U;
- 80015c0:	2300      	movs	r3, #0
- 80015c2:	62bb      	str	r3, [r7, #40]	; 0x28
+ 8000f88:	2300      	movs	r3, #0
+ 8000f8a:	62bb      	str	r3, [r7, #40]	; 0x28
   uint32_t              pFLatency;
   HAL_StatusTypeDef     status;
 
   /* Enable TIM5 clock */
   __HAL_RCC_TIM5_CLK_ENABLE();
- 80015c4:	2300      	movs	r3, #0
- 80015c6:	60fb      	str	r3, [r7, #12]
- 80015c8:	4b33      	ldr	r3, [pc, #204]	; (8001698 <HAL_InitTick+0xe4>)
- 80015ca:	6c1b      	ldr	r3, [r3, #64]	; 0x40
- 80015cc:	4a32      	ldr	r2, [pc, #200]	; (8001698 <HAL_InitTick+0xe4>)
- 80015ce:	f043 0308 	orr.w	r3, r3, #8
- 80015d2:	6413      	str	r3, [r2, #64]	; 0x40
- 80015d4:	4b30      	ldr	r3, [pc, #192]	; (8001698 <HAL_InitTick+0xe4>)
- 80015d6:	6c1b      	ldr	r3, [r3, #64]	; 0x40
- 80015d8:	f003 0308 	and.w	r3, r3, #8
- 80015dc:	60fb      	str	r3, [r7, #12]
- 80015de:	68fb      	ldr	r3, [r7, #12]
+ 8000f8c:	2300      	movs	r3, #0
+ 8000f8e:	60fb      	str	r3, [r7, #12]
+ 8000f90:	4b33      	ldr	r3, [pc, #204]	; (8001060 <HAL_InitTick+0xe4>)
+ 8000f92:	6c1b      	ldr	r3, [r3, #64]	; 0x40
+ 8000f94:	4a32      	ldr	r2, [pc, #200]	; (8001060 <HAL_InitTick+0xe4>)
+ 8000f96:	f043 0308 	orr.w	r3, r3, #8
+ 8000f9a:	6413      	str	r3, [r2, #64]	; 0x40
+ 8000f9c:	4b30      	ldr	r3, [pc, #192]	; (8001060 <HAL_InitTick+0xe4>)
+ 8000f9e:	6c1b      	ldr	r3, [r3, #64]	; 0x40
+ 8000fa0:	f003 0308 	and.w	r3, r3, #8
+ 8000fa4:	60fb      	str	r3, [r7, #12]
+ 8000fa6:	68fb      	ldr	r3, [r7, #12]
 
   /* Get clock configuration */
   HAL_RCC_GetClockConfig(&clkconfig, &pFLatency);
- 80015e0:	f107 0210 	add.w	r2, r7, #16
- 80015e4:	f107 0314 	add.w	r3, r7, #20
- 80015e8:	4611      	mov	r1, r2
- 80015ea:	4618      	mov	r0, r3
- 80015ec:	f001 f872 	bl	80026d4 <HAL_RCC_GetClockConfig>
+ 8000fa8:	f107 0210 	add.w	r2, r7, #16
+ 8000fac:	f107 0314 	add.w	r3, r7, #20
+ 8000fb0:	4611      	mov	r1, r2
+ 8000fb2:	4618      	mov	r0, r3
+ 8000fb4:	f001 fb8e 	bl	80026d4 <HAL_RCC_GetClockConfig>
 
   /* Get APB1 prescaler */
   uwAPB1Prescaler = clkconfig.APB1CLKDivider;
- 80015f0:	6a3b      	ldr	r3, [r7, #32]
- 80015f2:	62fb      	str	r3, [r7, #44]	; 0x2c
+ 8000fb8:	6a3b      	ldr	r3, [r7, #32]
+ 8000fba:	62fb      	str	r3, [r7, #44]	; 0x2c
   /* Compute TIM5 clock */
   if (uwAPB1Prescaler == RCC_HCLK_DIV1)
- 80015f4:	6afb      	ldr	r3, [r7, #44]	; 0x2c
- 80015f6:	2b00      	cmp	r3, #0
- 80015f8:	d103      	bne.n	8001602 <HAL_InitTick+0x4e>
+ 8000fbc:	6afb      	ldr	r3, [r7, #44]	; 0x2c
+ 8000fbe:	2b00      	cmp	r3, #0
+ 8000fc0:	d103      	bne.n	8000fca <HAL_InitTick+0x4e>
   {
     uwTimclock = HAL_RCC_GetPCLK1Freq();
- 80015fa:	f001 f857 	bl	80026ac <HAL_RCC_GetPCLK1Freq>
- 80015fe:	6378      	str	r0, [r7, #52]	; 0x34
- 8001600:	e004      	b.n	800160c <HAL_InitTick+0x58>
+ 8000fc2:	f001 fb73 	bl	80026ac <HAL_RCC_GetPCLK1Freq>
+ 8000fc6:	6378      	str	r0, [r7, #52]	; 0x34
+ 8000fc8:	e004      	b.n	8000fd4 <HAL_InitTick+0x58>
   }
   else
   {
     uwTimclock = 2UL * HAL_RCC_GetPCLK1Freq();
- 8001602:	f001 f853 	bl	80026ac <HAL_RCC_GetPCLK1Freq>
- 8001606:	4603      	mov	r3, r0
- 8001608:	005b      	lsls	r3, r3, #1
- 800160a:	637b      	str	r3, [r7, #52]	; 0x34
+ 8000fca:	f001 fb6f 	bl	80026ac <HAL_RCC_GetPCLK1Freq>
+ 8000fce:	4603      	mov	r3, r0
+ 8000fd0:	005b      	lsls	r3, r3, #1
+ 8000fd2:	637b      	str	r3, [r7, #52]	; 0x34
   }
 
   /* Compute the prescaler value to have TIM5 counter clock equal to 1MHz */
   uwPrescalerValue = (uint32_t) ((uwTimclock / 1000000U) - 1U);
- 800160c:	6b7b      	ldr	r3, [r7, #52]	; 0x34
- 800160e:	4a23      	ldr	r2, [pc, #140]	; (800169c <HAL_InitTick+0xe8>)
- 8001610:	fba2 2303 	umull	r2, r3, r2, r3
- 8001614:	0c9b      	lsrs	r3, r3, #18
- 8001616:	3b01      	subs	r3, #1
- 8001618:	62bb      	str	r3, [r7, #40]	; 0x28
+ 8000fd4:	6b7b      	ldr	r3, [r7, #52]	; 0x34
+ 8000fd6:	4a23      	ldr	r2, [pc, #140]	; (8001064 <HAL_InitTick+0xe8>)
+ 8000fd8:	fba2 2303 	umull	r2, r3, r2, r3
+ 8000fdc:	0c9b      	lsrs	r3, r3, #18
+ 8000fde:	3b01      	subs	r3, #1
+ 8000fe0:	62bb      	str	r3, [r7, #40]	; 0x28
 
   /* Initialize TIM5 */
   htim5.Instance = TIM5;
- 800161a:	4b21      	ldr	r3, [pc, #132]	; (80016a0 <HAL_InitTick+0xec>)
- 800161c:	4a21      	ldr	r2, [pc, #132]	; (80016a4 <HAL_InitTick+0xf0>)
- 800161e:	601a      	str	r2, [r3, #0]
+ 8000fe2:	4b21      	ldr	r3, [pc, #132]	; (8001068 <HAL_InitTick+0xec>)
+ 8000fe4:	4a21      	ldr	r2, [pc, #132]	; (800106c <HAL_InitTick+0xf0>)
+ 8000fe6:	601a      	str	r2, [r3, #0]
   + Period = [(TIM5CLK/1000) - 1]. to have a (1/1000) s time base.
   + Prescaler = (uwTimclock/1000000 - 1) to have a 1MHz counter clock.
   + ClockDivision = 0
   + Counter direction = Up
   */
   htim5.Init.Period = (1000000U / 1000U) - 1U;
- 8001620:	4b1f      	ldr	r3, [pc, #124]	; (80016a0 <HAL_InitTick+0xec>)
- 8001622:	f240 32e7 	movw	r2, #999	; 0x3e7
- 8001626:	60da      	str	r2, [r3, #12]
+ 8000fe8:	4b1f      	ldr	r3, [pc, #124]	; (8001068 <HAL_InitTick+0xec>)
+ 8000fea:	f240 32e7 	movw	r2, #999	; 0x3e7
+ 8000fee:	60da      	str	r2, [r3, #12]
   htim5.Init.Prescaler = uwPrescalerValue;
- 8001628:	4a1d      	ldr	r2, [pc, #116]	; (80016a0 <HAL_InitTick+0xec>)
- 800162a:	6abb      	ldr	r3, [r7, #40]	; 0x28
- 800162c:	6053      	str	r3, [r2, #4]
+ 8000ff0:	4a1d      	ldr	r2, [pc, #116]	; (8001068 <HAL_InitTick+0xec>)
+ 8000ff2:	6abb      	ldr	r3, [r7, #40]	; 0x28
+ 8000ff4:	6053      	str	r3, [r2, #4]
   htim5.Init.ClockDivision = 0;
- 800162e:	4b1c      	ldr	r3, [pc, #112]	; (80016a0 <HAL_InitTick+0xec>)
- 8001630:	2200      	movs	r2, #0
- 8001632:	611a      	str	r2, [r3, #16]
+ 8000ff6:	4b1c      	ldr	r3, [pc, #112]	; (8001068 <HAL_InitTick+0xec>)
+ 8000ff8:	2200      	movs	r2, #0
+ 8000ffa:	611a      	str	r2, [r3, #16]
   htim5.Init.CounterMode = TIM_COUNTERMODE_UP;
- 8001634:	4b1a      	ldr	r3, [pc, #104]	; (80016a0 <HAL_InitTick+0xec>)
- 8001636:	2200      	movs	r2, #0
- 8001638:	609a      	str	r2, [r3, #8]
+ 8000ffc:	4b1a      	ldr	r3, [pc, #104]	; (8001068 <HAL_InitTick+0xec>)
+ 8000ffe:	2200      	movs	r2, #0
+ 8001000:	609a      	str	r2, [r3, #8]
   htim5.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
- 800163a:	4b19      	ldr	r3, [pc, #100]	; (80016a0 <HAL_InitTick+0xec>)
- 800163c:	2200      	movs	r2, #0
- 800163e:	619a      	str	r2, [r3, #24]
+ 8001002:	4b19      	ldr	r3, [pc, #100]	; (8001068 <HAL_InitTick+0xec>)
+ 8001004:	2200      	movs	r2, #0
+ 8001006:	619a      	str	r2, [r3, #24]
 
   status = HAL_TIM_Base_Init(&htim5);
- 8001640:	4817      	ldr	r0, [pc, #92]	; (80016a0 <HAL_InitTick+0xec>)
- 8001642:	f001 fd8f 	bl	8003164 <HAL_TIM_Base_Init>
- 8001646:	4603      	mov	r3, r0
- 8001648:	f887 3033 	strb.w	r3, [r7, #51]	; 0x33
+ 8001008:	4817      	ldr	r0, [pc, #92]	; (8001068 <HAL_InitTick+0xec>)
+ 800100a:	f002 f8ab 	bl	8003164 <HAL_TIM_Base_Init>
+ 800100e:	4603      	mov	r3, r0
+ 8001010:	f887 3033 	strb.w	r3, [r7, #51]	; 0x33
   if (status == HAL_OK)
- 800164c:	f897 3033 	ldrb.w	r3, [r7, #51]	; 0x33
- 8001650:	2b00      	cmp	r3, #0
- 8001652:	d11b      	bne.n	800168c <HAL_InitTick+0xd8>
+ 8001014:	f897 3033 	ldrb.w	r3, [r7, #51]	; 0x33
+ 8001018:	2b00      	cmp	r3, #0
+ 800101a:	d11b      	bne.n	8001054 <HAL_InitTick+0xd8>
   {
     /* Start the TIM time Base generation in interrupt mode */
     status = HAL_TIM_Base_Start_IT(&htim5);
- 8001654:	4812      	ldr	r0, [pc, #72]	; (80016a0 <HAL_InitTick+0xec>)
- 8001656:	f001 fe2f 	bl	80032b8 <HAL_TIM_Base_Start_IT>
- 800165a:	4603      	mov	r3, r0
- 800165c:	f887 3033 	strb.w	r3, [r7, #51]	; 0x33
+ 800101c:	4812      	ldr	r0, [pc, #72]	; (8001068 <HAL_InitTick+0xec>)
+ 800101e:	f002 f94b 	bl	80032b8 <HAL_TIM_Base_Start_IT>
+ 8001022:	4603      	mov	r3, r0
+ 8001024:	f887 3033 	strb.w	r3, [r7, #51]	; 0x33
     if (status == HAL_OK)
- 8001660:	f897 3033 	ldrb.w	r3, [r7, #51]	; 0x33
- 8001664:	2b00      	cmp	r3, #0
- 8001666:	d111      	bne.n	800168c <HAL_InitTick+0xd8>
+ 8001028:	f897 3033 	ldrb.w	r3, [r7, #51]	; 0x33
+ 800102c:	2b00      	cmp	r3, #0
+ 800102e:	d111      	bne.n	8001054 <HAL_InitTick+0xd8>
     {
     /* Enable the TIM5 global Interrupt */
         HAL_NVIC_EnableIRQ(TIM5_IRQn);
- 8001668:	2032      	movs	r0, #50	; 0x32
- 800166a:	f000 f9eb 	bl	8001a44 <HAL_NVIC_EnableIRQ>
+ 8001030:	2032      	movs	r0, #50	; 0x32
+ 8001032:	f000 fd07 	bl	8001a44 <HAL_NVIC_EnableIRQ>
       /* Configure the SysTick IRQ priority */
       if (TickPriority < (1UL << __NVIC_PRIO_BITS))
- 800166e:	687b      	ldr	r3, [r7, #4]
- 8001670:	2b0f      	cmp	r3, #15
- 8001672:	d808      	bhi.n	8001686 <HAL_InitTick+0xd2>
+ 8001036:	687b      	ldr	r3, [r7, #4]
+ 8001038:	2b0f      	cmp	r3, #15
+ 800103a:	d808      	bhi.n	800104e <HAL_InitTick+0xd2>
       {
         /* Configure the TIM IRQ priority */
         HAL_NVIC_SetPriority(TIM5_IRQn, TickPriority, 0U);
- 8001674:	2200      	movs	r2, #0
- 8001676:	6879      	ldr	r1, [r7, #4]
- 8001678:	2032      	movs	r0, #50	; 0x32
- 800167a:	f000 f9c7 	bl	8001a0c <HAL_NVIC_SetPriority>
+ 800103c:	2200      	movs	r2, #0
+ 800103e:	6879      	ldr	r1, [r7, #4]
+ 8001040:	2032      	movs	r0, #50	; 0x32
+ 8001042:	f000 fce3 	bl	8001a0c <HAL_NVIC_SetPriority>
         uwTickPrio = TickPriority;
- 800167e:	4a0a      	ldr	r2, [pc, #40]	; (80016a8 <HAL_InitTick+0xf4>)
- 8001680:	687b      	ldr	r3, [r7, #4]
- 8001682:	6013      	str	r3, [r2, #0]
- 8001684:	e002      	b.n	800168c <HAL_InitTick+0xd8>
+ 8001046:	4a0a      	ldr	r2, [pc, #40]	; (8001070 <HAL_InitTick+0xf4>)
+ 8001048:	687b      	ldr	r3, [r7, #4]
+ 800104a:	6013      	str	r3, [r2, #0]
+ 800104c:	e002      	b.n	8001054 <HAL_InitTick+0xd8>
       }
       else
       {
         status = HAL_ERROR;
- 8001686:	2301      	movs	r3, #1
- 8001688:	f887 3033 	strb.w	r3, [r7, #51]	; 0x33
+ 800104e:	2301      	movs	r3, #1
+ 8001050:	f887 3033 	strb.w	r3, [r7, #51]	; 0x33
       }
     }
   }
 
  /* Return function status */
   return status;
- 800168c:	f897 3033 	ldrb.w	r3, [r7, #51]	; 0x33
+ 8001054:	f897 3033 	ldrb.w	r3, [r7, #51]	; 0x33
 }
- 8001690:	4618      	mov	r0, r3
- 8001692:	3738      	adds	r7, #56	; 0x38
- 8001694:	46bd      	mov	sp, r7
- 8001696:	bd80      	pop	{r7, pc}
- 8001698:	40023800 	.word	0x40023800
- 800169c:	431bde83 	.word	0x431bde83
- 80016a0:	200001bc 	.word	0x200001bc
- 80016a4:	40000c00 	.word	0x40000c00
- 80016a8:	20000010 	.word	0x20000010
+ 8001058:	4618      	mov	r0, r3
+ 800105a:	3738      	adds	r7, #56	; 0x38
+ 800105c:	46bd      	mov	sp, r7
+ 800105e:	bd80      	pop	{r7, pc}
+ 8001060:	40023800 	.word	0x40023800
+ 8001064:	431bde83 	.word	0x431bde83
+ 8001068:	20000144 	.word	0x20000144
+ 800106c:	40000c00 	.word	0x40000c00
+ 8001070:	20000010 	.word	0x20000010
 
-080016ac <NMI_Handler>:
+08001074 <NMI_Handler>:
 /******************************************************************************/
 /**
   * @brief This function handles Non maskable interrupt.
   */
 void NMI_Handler(void)
 {
- 80016ac:	b480      	push	{r7}
- 80016ae:	af00      	add	r7, sp, #0
+ 8001074:	b480      	push	{r7}
+ 8001076:	af00      	add	r7, sp, #0
   /* USER CODE BEGIN NonMaskableInt_IRQn 0 */
 
   /* USER CODE END NonMaskableInt_IRQn 0 */
   /* USER CODE BEGIN NonMaskableInt_IRQn 1 */
   while (1)
- 80016b0:	e7fe      	b.n	80016b0 <NMI_Handler+0x4>
+ 8001078:	e7fe      	b.n	8001078 <NMI_Handler+0x4>
 
-080016b2 <HardFault_Handler>:
+0800107a <HardFault_Handler>:
 
 /**
   * @brief This function handles Hard fault interrupt.
   */
 void HardFault_Handler(void)
 {
- 80016b2:	b480      	push	{r7}
- 80016b4:	af00      	add	r7, sp, #0
+ 800107a:	b480      	push	{r7}
+ 800107c:	af00      	add	r7, sp, #0
   /* USER CODE BEGIN HardFault_IRQn 0 */
 
   /* USER CODE END HardFault_IRQn 0 */
   while (1)
- 80016b6:	e7fe      	b.n	80016b6 <HardFault_Handler+0x4>
+ 800107e:	e7fe      	b.n	800107e <HardFault_Handler+0x4>
 
-080016b8 <MemManage_Handler>:
+08001080 <MemManage_Handler>:
 
 /**
   * @brief This function handles Memory management fault.
   */
 void MemManage_Handler(void)
 {
- 80016b8:	b480      	push	{r7}
- 80016ba:	af00      	add	r7, sp, #0
+ 8001080:	b480      	push	{r7}
+ 8001082:	af00      	add	r7, sp, #0
   /* USER CODE BEGIN MemoryManagement_IRQn 0 */
 
   /* USER CODE END MemoryManagement_IRQn 0 */
   while (1)
- 80016bc:	e7fe      	b.n	80016bc <MemManage_Handler+0x4>
+ 8001084:	e7fe      	b.n	8001084 <MemManage_Handler+0x4>
 
-080016be <BusFault_Handler>:
+08001086 <BusFault_Handler>:
 
 /**
   * @brief This function handles Pre-fetch fault, memory access fault.
   */
 void BusFault_Handler(void)
 {
- 80016be:	b480      	push	{r7}
- 80016c0:	af00      	add	r7, sp, #0
+ 8001086:	b480      	push	{r7}
+ 8001088:	af00      	add	r7, sp, #0
   /* USER CODE BEGIN BusFault_IRQn 0 */
 
   /* USER CODE END BusFault_IRQn 0 */
   while (1)
- 80016c2:	e7fe      	b.n	80016c2 <BusFault_Handler+0x4>
+ 800108a:	e7fe      	b.n	800108a <BusFault_Handler+0x4>
 
-080016c4 <UsageFault_Handler>:
+0800108c <UsageFault_Handler>:
 
 /**
   * @brief This function handles Undefined instruction or illegal state.
   */
 void UsageFault_Handler(void)
 {
- 80016c4:	b480      	push	{r7}
- 80016c6:	af00      	add	r7, sp, #0
+ 800108c:	b480      	push	{r7}
+ 800108e:	af00      	add	r7, sp, #0
   /* USER CODE BEGIN UsageFault_IRQn 0 */
 
   /* USER CODE END UsageFault_IRQn 0 */
   while (1)
- 80016c8:	e7fe      	b.n	80016c8 <UsageFault_Handler+0x4>
+ 8001090:	e7fe      	b.n	8001090 <UsageFault_Handler+0x4>
 
-080016ca <DebugMon_Handler>:
+08001092 <DebugMon_Handler>:
 
 /**
   * @brief This function handles Debug monitor.
   */
 void DebugMon_Handler(void)
 {
- 80016ca:	b480      	push	{r7}
- 80016cc:	af00      	add	r7, sp, #0
+ 8001092:	b480      	push	{r7}
+ 8001094:	af00      	add	r7, sp, #0
 
   /* USER CODE END DebugMonitor_IRQn 0 */
   /* USER CODE BEGIN DebugMonitor_IRQn 1 */
 
   /* USER CODE END DebugMonitor_IRQn 1 */
 }
- 80016ce:	bf00      	nop
- 80016d0:	46bd      	mov	sp, r7
- 80016d2:	f85d 7b04 	ldr.w	r7, [sp], #4
- 80016d6:	4770      	bx	lr
+ 8001096:	bf00      	nop
+ 8001098:	46bd      	mov	sp, r7
+ 800109a:	f85d 7b04 	ldr.w	r7, [sp], #4
+ 800109e:	4770      	bx	lr
 
-080016d8 <TIM5_IRQHandler>:
+080010a0 <TIM5_IRQHandler>:
 
 /**
   * @brief This function handles TIM5 global interrupt.
   */
 void TIM5_IRQHandler(void)
 {
- 80016d8:	b580      	push	{r7, lr}
- 80016da:	af00      	add	r7, sp, #0
+ 80010a0:	b580      	push	{r7, lr}
+ 80010a2:	af00      	add	r7, sp, #0
   /* USER CODE BEGIN TIM5_IRQn 0 */
 
   /* USER CODE END TIM5_IRQn 0 */
   HAL_TIM_IRQHandler(&htim5);
- 80016dc:	4802      	ldr	r0, [pc, #8]	; (80016e8 <TIM5_IRQHandler+0x10>)
- 80016de:	f001 fe4d 	bl	800337c <HAL_TIM_IRQHandler>
+ 80010a4:	4802      	ldr	r0, [pc, #8]	; (80010b0 <TIM5_IRQHandler+0x10>)
+ 80010a6:	f002 f969 	bl	800337c <HAL_TIM_IRQHandler>
   /* USER CODE BEGIN TIM5_IRQn 1 */
 
   /* USER CODE END TIM5_IRQn 1 */
 }
- 80016e2:	bf00      	nop
- 80016e4:	bd80      	pop	{r7, pc}
- 80016e6:	bf00      	nop
- 80016e8:	200001bc 	.word	0x200001bc
+ 80010aa:	bf00      	nop
+ 80010ac:	bd80      	pop	{r7, pc}
+ 80010ae:	bf00      	nop
+ 80010b0:	20000144 	.word	0x20000144
 
-080016ec <_sbrk>:
+080010b4 <_sbrk>:
  *
  * @param incr Memory size
  * @return Pointer to allocated memory
  */
 void *_sbrk(ptrdiff_t incr)
 {
- 80016ec:	b580      	push	{r7, lr}
- 80016ee:	b086      	sub	sp, #24
- 80016f0:	af00      	add	r7, sp, #0
- 80016f2:	6078      	str	r0, [r7, #4]
+ 80010b4:	b580      	push	{r7, lr}
+ 80010b6:	b086      	sub	sp, #24
+ 80010b8:	af00      	add	r7, sp, #0
+ 80010ba:	6078      	str	r0, [r7, #4]
   extern uint8_t _end; /* Symbol defined in the linker script */
   extern uint8_t _estack; /* Symbol defined in the linker script */
   extern uint32_t _Min_Stack_Size; /* Symbol defined in the linker script */
   const uint32_t stack_limit = (uint32_t)&_estack - (uint32_t)&_Min_Stack_Size;
- 80016f4:	4a14      	ldr	r2, [pc, #80]	; (8001748 <_sbrk+0x5c>)
- 80016f6:	4b15      	ldr	r3, [pc, #84]	; (800174c <_sbrk+0x60>)
- 80016f8:	1ad3      	subs	r3, r2, r3
- 80016fa:	617b      	str	r3, [r7, #20]
+ 80010bc:	4a14      	ldr	r2, [pc, #80]	; (8001110 <_sbrk+0x5c>)
+ 80010be:	4b15      	ldr	r3, [pc, #84]	; (8001114 <_sbrk+0x60>)
+ 80010c0:	1ad3      	subs	r3, r2, r3
+ 80010c2:	617b      	str	r3, [r7, #20]
   const uint8_t *max_heap = (uint8_t *)stack_limit;
- 80016fc:	697b      	ldr	r3, [r7, #20]
- 80016fe:	613b      	str	r3, [r7, #16]
+ 80010c4:	697b      	ldr	r3, [r7, #20]
+ 80010c6:	613b      	str	r3, [r7, #16]
   uint8_t *prev_heap_end;
 
   /* Initialize heap end at first call */
   if (NULL == __sbrk_heap_end)
- 8001700:	4b13      	ldr	r3, [pc, #76]	; (8001750 <_sbrk+0x64>)
- 8001702:	681b      	ldr	r3, [r3, #0]
- 8001704:	2b00      	cmp	r3, #0
- 8001706:	d102      	bne.n	800170e <_sbrk+0x22>
+ 80010c8:	4b13      	ldr	r3, [pc, #76]	; (8001118 <_sbrk+0x64>)
+ 80010ca:	681b      	ldr	r3, [r3, #0]
+ 80010cc:	2b00      	cmp	r3, #0
+ 80010ce:	d102      	bne.n	80010d6 <_sbrk+0x22>
   {
     __sbrk_heap_end = &_end;
- 8001708:	4b11      	ldr	r3, [pc, #68]	; (8001750 <_sbrk+0x64>)
- 800170a:	4a12      	ldr	r2, [pc, #72]	; (8001754 <_sbrk+0x68>)
- 800170c:	601a      	str	r2, [r3, #0]
+ 80010d0:	4b11      	ldr	r3, [pc, #68]	; (8001118 <_sbrk+0x64>)
+ 80010d2:	4a12      	ldr	r2, [pc, #72]	; (800111c <_sbrk+0x68>)
+ 80010d4:	601a      	str	r2, [r3, #0]
   }
 
   /* Protect heap from growing into the reserved MSP stack */
   if (__sbrk_heap_end + incr > max_heap)
- 800170e:	4b10      	ldr	r3, [pc, #64]	; (8001750 <_sbrk+0x64>)
- 8001710:	681a      	ldr	r2, [r3, #0]
- 8001712:	687b      	ldr	r3, [r7, #4]
- 8001714:	4413      	add	r3, r2
- 8001716:	693a      	ldr	r2, [r7, #16]
- 8001718:	429a      	cmp	r2, r3
- 800171a:	d207      	bcs.n	800172c <_sbrk+0x40>
+ 80010d6:	4b10      	ldr	r3, [pc, #64]	; (8001118 <_sbrk+0x64>)
+ 80010d8:	681a      	ldr	r2, [r3, #0]
+ 80010da:	687b      	ldr	r3, [r7, #4]
+ 80010dc:	4413      	add	r3, r2
+ 80010de:	693a      	ldr	r2, [r7, #16]
+ 80010e0:	429a      	cmp	r2, r3
+ 80010e2:	d207      	bcs.n	80010f4 <_sbrk+0x40>
   {
     errno = ENOMEM;
- 800171c:	f007 faa2 	bl	8008c64 <__errno>
- 8001720:	4603      	mov	r3, r0
- 8001722:	220c      	movs	r2, #12
- 8001724:	601a      	str	r2, [r3, #0]
+ 80010e4:	f007 fdbe 	bl	8008c64 <__errno>
+ 80010e8:	4603      	mov	r3, r0
+ 80010ea:	220c      	movs	r2, #12
+ 80010ec:	601a      	str	r2, [r3, #0]
     return (void *)-1;
- 8001726:	f04f 33ff 	mov.w	r3, #4294967295
- 800172a:	e009      	b.n	8001740 <_sbrk+0x54>
+ 80010ee:	f04f 33ff 	mov.w	r3, #4294967295
+ 80010f2:	e009      	b.n	8001108 <_sbrk+0x54>
   }
 
   prev_heap_end = __sbrk_heap_end;
- 800172c:	4b08      	ldr	r3, [pc, #32]	; (8001750 <_sbrk+0x64>)
- 800172e:	681b      	ldr	r3, [r3, #0]
- 8001730:	60fb      	str	r3, [r7, #12]
+ 80010f4:	4b08      	ldr	r3, [pc, #32]	; (8001118 <_sbrk+0x64>)
+ 80010f6:	681b      	ldr	r3, [r3, #0]
+ 80010f8:	60fb      	str	r3, [r7, #12]
   __sbrk_heap_end += incr;
- 8001732:	4b07      	ldr	r3, [pc, #28]	; (8001750 <_sbrk+0x64>)
- 8001734:	681a      	ldr	r2, [r3, #0]
- 8001736:	687b      	ldr	r3, [r7, #4]
- 8001738:	4413      	add	r3, r2
- 800173a:	4a05      	ldr	r2, [pc, #20]	; (8001750 <_sbrk+0x64>)
- 800173c:	6013      	str	r3, [r2, #0]
+ 80010fa:	4b07      	ldr	r3, [pc, #28]	; (8001118 <_sbrk+0x64>)
+ 80010fc:	681a      	ldr	r2, [r3, #0]
+ 80010fe:	687b      	ldr	r3, [r7, #4]
+ 8001100:	4413      	add	r3, r2
+ 8001102:	4a05      	ldr	r2, [pc, #20]	; (8001118 <_sbrk+0x64>)
+ 8001104:	6013      	str	r3, [r2, #0]
 
   return (void *)prev_heap_end;
- 800173e:	68fb      	ldr	r3, [r7, #12]
+ 8001106:	68fb      	ldr	r3, [r7, #12]
 }
- 8001740:	4618      	mov	r0, r3
- 8001742:	3718      	adds	r7, #24
- 8001744:	46bd      	mov	sp, r7
- 8001746:	bd80      	pop	{r7, pc}
- 8001748:	20018000 	.word	0x20018000
- 800174c:	00000400 	.word	0x00000400
- 8001750:	20000204 	.word	0x20000204
- 8001754:	20014790 	.word	0x20014790
+ 8001108:	4618      	mov	r0, r3
+ 800110a:	3718      	adds	r7, #24
+ 800110c:	46bd      	mov	sp, r7
+ 800110e:	bd80      	pop	{r7, pc}
+ 8001110:	20018000 	.word	0x20018000
+ 8001114:	00000400 	.word	0x00000400
+ 8001118:	2000018c 	.word	0x2000018c
+ 800111c:	20014790 	.word	0x20014790
 
-08001758 <SystemInit>:
+08001120 <SystemInit>:
   *         configuration.
   * @param  None
   * @retval None
   */
 void SystemInit(void)
 {
- 8001758:	b480      	push	{r7}
- 800175a:	af00      	add	r7, sp, #0
+ 8001120:	b480      	push	{r7}
+ 8001122:	af00      	add	r7, sp, #0
   /* FPU settings ------------------------------------------------------------*/
   #if (__FPU_PRESENT == 1) && (__FPU_USED == 1)
     SCB->CPACR |= ((3UL << 10*2)|(3UL << 11*2));  /* set CP10 and CP11 Full Access */
- 800175c:	4b06      	ldr	r3, [pc, #24]	; (8001778 <SystemInit+0x20>)
- 800175e:	f8d3 3088 	ldr.w	r3, [r3, #136]	; 0x88
- 8001762:	4a05      	ldr	r2, [pc, #20]	; (8001778 <SystemInit+0x20>)
- 8001764:	f443 0370 	orr.w	r3, r3, #15728640	; 0xf00000
- 8001768:	f8c2 3088 	str.w	r3, [r2, #136]	; 0x88
+ 8001124:	4b06      	ldr	r3, [pc, #24]	; (8001140 <SystemInit+0x20>)
+ 8001126:	f8d3 3088 	ldr.w	r3, [r3, #136]	; 0x88
+ 800112a:	4a05      	ldr	r2, [pc, #20]	; (8001140 <SystemInit+0x20>)
+ 800112c:	f443 0370 	orr.w	r3, r3, #15728640	; 0xf00000
+ 8001130:	f8c2 3088 	str.w	r3, [r2, #136]	; 0x88
 
   /* Configure the Vector Table location -------------------------------------*/
 #if defined(USER_VECT_TAB_ADDRESS)
   SCB->VTOR = VECT_TAB_BASE_ADDRESS | VECT_TAB_OFFSET; /* Vector Table Relocation in Internal SRAM */
 #endif /* USER_VECT_TAB_ADDRESS */
 }
- 800176c:	bf00      	nop
- 800176e:	46bd      	mov	sp, r7
- 8001770:	f85d 7b04 	ldr.w	r7, [sp], #4
- 8001774:	4770      	bx	lr
- 8001776:	bf00      	nop
- 8001778:	e000ed00 	.word	0xe000ed00
+ 8001134:	bf00      	nop
+ 8001136:	46bd      	mov	sp, r7
+ 8001138:	f85d 7b04 	ldr.w	r7, [sp], #4
+ 800113c:	4770      	bx	lr
+ 800113e:	bf00      	nop
+ 8001140:	e000ed00 	.word	0xe000ed00
+
+08001144 <printTaskHandler>:
+
+static void handleSetTime(RTC_TimeTypeDef *setTime);
+static void handleSetDate(RTC_DateTypeDef *setDate);
+static void handleSelect(void);
+
+void printTaskHandler(void *parameters){
+ 8001144:	b580      	push	{r7, lr}
+ 8001146:	b084      	sub	sp, #16
+ 8001148:	af00      	add	r7, sp, #0
+ 800114a:	6078      	str	r0, [r7, #4]
+	uint32_t *str;
+
+	while(1){
+		/* print top row */
+		xQueueReceive(printQueueHandle, &str, portMAX_DELAY);
+ 800114c:	4b12      	ldr	r3, [pc, #72]	; (8001198 <printTaskHandler+0x54>)
+ 800114e:	681b      	ldr	r3, [r3, #0]
+ 8001150:	f107 010c 	add.w	r1, r7, #12
+ 8001154:	f04f 32ff 	mov.w	r2, #4294967295
+ 8001158:	4618      	mov	r0, r3
+ 800115a:	f003 f809 	bl	8004170 <xQueueReceive>
+		lcdClear();
+ 800115e:	f7ff fb26 	bl	80007ae <lcdClear>
+		lcdMoveCursor(0, 0);
+ 8001162:	2100      	movs	r1, #0
+ 8001164:	2000      	movs	r0, #0
+ 8001166:	f7ff faff 	bl	8000768 <lcdMoveCursor>
+		lcdSendString( (char*) str );
+ 800116a:	68fb      	ldr	r3, [r7, #12]
+ 800116c:	4618      	mov	r0, r3
+ 800116e:	f7ff fb29 	bl	80007c4 <lcdSendString>
+
+		/* print bottom row */
+		xQueueReceive(printQueueHandle, &str, portMAX_DELAY);
+ 8001172:	4b09      	ldr	r3, [pc, #36]	; (8001198 <printTaskHandler+0x54>)
+ 8001174:	681b      	ldr	r3, [r3, #0]
+ 8001176:	f107 010c 	add.w	r1, r7, #12
+ 800117a:	f04f 32ff 	mov.w	r2, #4294967295
+ 800117e:	4618      	mov	r0, r3
+ 8001180:	f002 fff6 	bl	8004170 <xQueueReceive>
+		lcdMoveCursor(1, 0);
+ 8001184:	2100      	movs	r1, #0
+ 8001186:	2001      	movs	r0, #1
+ 8001188:	f7ff faee 	bl	8000768 <lcdMoveCursor>
+		lcdSendString( (char*) str );
+ 800118c:	68fb      	ldr	r3, [r7, #12]
+ 800118e:	4618      	mov	r0, r3
+ 8001190:	f7ff fb18 	bl	80007c4 <lcdSendString>
+		xQueueReceive(printQueueHandle, &str, portMAX_DELAY);
+ 8001194:	e7da      	b.n	800114c <printTaskHandler+0x8>
+ 8001196:	bf00      	nop
+ 8001198:	20000108 	.word	0x20000108
+
+0800119c <startTimerTaskHandler>:
+	}
+}
+
+void startTimerTaskHandler(void *parameters){
+ 800119c:	b590      	push	{r4, r7, lr}
+ 800119e:	b085      	sub	sp, #20
+ 80011a0:	af02      	add	r7, sp, #8
+ 80011a2:	6078      	str	r0, [r7, #4]
+	while(1){
+		xTimerStart(printTimerHandle, portMAX_DELAY);
+ 80011a4:	4b09      	ldr	r3, [pc, #36]	; (80011cc <startTimerTaskHandler+0x30>)
+ 80011a6:	681c      	ldr	r4, [r3, #0]
+ 80011a8:	f003 fdfa 	bl	8004da0 <xTaskGetTickCount>
+ 80011ac:	4602      	mov	r2, r0
+ 80011ae:	f04f 33ff 	mov.w	r3, #4294967295
+ 80011b2:	9300      	str	r3, [sp, #0]
+ 80011b4:	2300      	movs	r3, #0
+ 80011b6:	2101      	movs	r1, #1
+ 80011b8:	4620      	mov	r0, r4
+ 80011ba:	f004 fdb5 	bl	8005d28 <xTimerGenericCommand>
+		vTaskSuspend(startTimerTaskHandle);
+ 80011be:	4b04      	ldr	r3, [pc, #16]	; (80011d0 <startTimerTaskHandler+0x34>)
+ 80011c0:	681b      	ldr	r3, [r3, #0]
+ 80011c2:	4618      	mov	r0, r3
+ 80011c4:	f003 fbce 	bl	8004964 <vTaskSuspend>
+		xTimerStart(printTimerHandle, portMAX_DELAY);
+ 80011c8:	e7ec      	b.n	80011a4 <startTimerTaskHandler+0x8>
+ 80011ca:	bf00      	nop
+ 80011cc:	2000010c 	.word	0x2000010c
+ 80011d0:	200000f8 	.word	0x200000f8
+
+080011d4 <printTimerCallback>:
+	}
+}
+
+void printTimerCallback(TimerHandle_t xTimer){
+ 80011d4:	b580      	push	{r7, lr}
+ 80011d6:	b084      	sub	sp, #16
+ 80011d8:	af02      	add	r7, sp, #8
+ 80011da:	6078      	str	r0, [r7, #4]
+	if (currMode == mDisplayRtc){
+ 80011dc:	4b16      	ldr	r3, [pc, #88]	; (8001238 <printTimerCallback+0x64>)
+ 80011de:	781b      	ldrb	r3, [r3, #0]
+ 80011e0:	2b00      	cmp	r3, #0
+ 80011e2:	d109      	bne.n	80011f8 <printTimerCallback+0x24>
+		xTaskNotify(rtcUpdateTaskHandle, 0, eNoAction);
+ 80011e4:	4b15      	ldr	r3, [pc, #84]	; (800123c <printTimerCallback+0x68>)
+ 80011e6:	6818      	ldr	r0, [r3, #0]
+ 80011e8:	2300      	movs	r3, #0
+ 80011ea:	9300      	str	r3, [sp, #0]
+ 80011ec:	2300      	movs	r3, #0
+ 80011ee:	2200      	movs	r2, #0
+ 80011f0:	2100      	movs	r1, #0
+ 80011f2:	f004 fb59 	bl	80058a8 <xTaskGenericNotify>
+		xTaskNotify(rtcSetTaskHandle, 0, eNoAction);
+	}
+	else if(currMode == mSetAlarm){
+		xTaskNotify(alarmSetTaskHandle, 0, eNoAction);
+	}
+}
+ 80011f6:	e01a      	b.n	800122e <printTimerCallback+0x5a>
+	else if (currMode == mSetRtc){
+ 80011f8:	4b0f      	ldr	r3, [pc, #60]	; (8001238 <printTimerCallback+0x64>)
+ 80011fa:	781b      	ldrb	r3, [r3, #0]
+ 80011fc:	2b01      	cmp	r3, #1
+ 80011fe:	d109      	bne.n	8001214 <printTimerCallback+0x40>
+		xTaskNotify(rtcSetTaskHandle, 0, eNoAction);
+ 8001200:	4b0f      	ldr	r3, [pc, #60]	; (8001240 <printTimerCallback+0x6c>)
+ 8001202:	6818      	ldr	r0, [r3, #0]
+ 8001204:	2300      	movs	r3, #0
+ 8001206:	9300      	str	r3, [sp, #0]
+ 8001208:	2300      	movs	r3, #0
+ 800120a:	2200      	movs	r2, #0
+ 800120c:	2100      	movs	r1, #0
+ 800120e:	f004 fb4b 	bl	80058a8 <xTaskGenericNotify>
+}
+ 8001212:	e00c      	b.n	800122e <printTimerCallback+0x5a>
+	else if(currMode == mSetAlarm){
+ 8001214:	4b08      	ldr	r3, [pc, #32]	; (8001238 <printTimerCallback+0x64>)
+ 8001216:	781b      	ldrb	r3, [r3, #0]
+ 8001218:	2b02      	cmp	r3, #2
+ 800121a:	d108      	bne.n	800122e <printTimerCallback+0x5a>
+		xTaskNotify(alarmSetTaskHandle, 0, eNoAction);
+ 800121c:	4b09      	ldr	r3, [pc, #36]	; (8001244 <printTimerCallback+0x70>)
+ 800121e:	6818      	ldr	r0, [r3, #0]
+ 8001220:	2300      	movs	r3, #0
+ 8001222:	9300      	str	r3, [sp, #0]
+ 8001224:	2300      	movs	r3, #0
+ 8001226:	2200      	movs	r2, #0
+ 8001228:	2100      	movs	r1, #0
+ 800122a:	f004 fb3d 	bl	80058a8 <xTaskGenericNotify>
+}
+ 800122e:	bf00      	nop
+ 8001230:	3708      	adds	r7, #8
+ 8001232:	46bd      	mov	sp, r7
+ 8001234:	bd80      	pop	{r7, pc}
+ 8001236:	bf00      	nop
+ 8001238:	20000110 	.word	0x20000110
+ 800123c:	200000fc 	.word	0x200000fc
+ 8001240:	20000100 	.word	0x20000100
+ 8001244:	20000104 	.word	0x20000104
+
+08001248 <vApplicationIdleHook>:
+
+void vApplicationIdleHook(void){
+ 8001248:	b580      	push	{r7, lr}
+ 800124a:	af00      	add	r7, sp, #0
+	if(HAL_GPIO_ReadPin(MODE_GPIO_Port, MODE_Pin) == GPIO_PIN_SET){
+ 800124c:	f44f 7180 	mov.w	r1, #256	; 0x100
+ 8001250:	481d      	ldr	r0, [pc, #116]	; (80012c8 <vApplicationIdleHook+0x80>)
+ 8001252:	f000 fd89 	bl	8001d68 <HAL_GPIO_ReadPin>
+ 8001256:	4603      	mov	r3, r0
+ 8001258:	2b01      	cmp	r3, #1
+ 800125a:	d122      	bne.n	80012a2 <vApplicationIdleHook+0x5a>
+		if (currMode == mDisplayRtc){
+ 800125c:	4b1b      	ldr	r3, [pc, #108]	; (80012cc <vApplicationIdleHook+0x84>)
+ 800125e:	781b      	ldrb	r3, [r3, #0]
+ 8001260:	2b00      	cmp	r3, #0
+ 8001262:	d107      	bne.n	8001274 <vApplicationIdleHook+0x2c>
+			currMode = mSetRtc;
+ 8001264:	4b19      	ldr	r3, [pc, #100]	; (80012cc <vApplicationIdleHook+0x84>)
+ 8001266:	2201      	movs	r2, #1
+ 8001268:	701a      	strb	r2, [r3, #0]
+			HAL_Delay(DEBOUNCE_DELAY_PERIOD);
+ 800126a:	f44f 7096 	mov.w	r0, #300	; 0x12c
+ 800126e:	f000 faf1 	bl	8001854 <HAL_Delay>
+ 8001272:	e016      	b.n	80012a2 <vApplicationIdleHook+0x5a>
+		}
+		else if (currMode == mSetRtc){
+ 8001274:	4b15      	ldr	r3, [pc, #84]	; (80012cc <vApplicationIdleHook+0x84>)
+ 8001276:	781b      	ldrb	r3, [r3, #0]
+ 8001278:	2b01      	cmp	r3, #1
+ 800127a:	d107      	bne.n	800128c <vApplicationIdleHook+0x44>
+			currMode = mSetAlarm;
+ 800127c:	4b13      	ldr	r3, [pc, #76]	; (80012cc <vApplicationIdleHook+0x84>)
+ 800127e:	2202      	movs	r2, #2
+ 8001280:	701a      	strb	r2, [r3, #0]
+			HAL_Delay(DEBOUNCE_DELAY_PERIOD);
+ 8001282:	f44f 7096 	mov.w	r0, #300	; 0x12c
+ 8001286:	f000 fae5 	bl	8001854 <HAL_Delay>
+ 800128a:	e00a      	b.n	80012a2 <vApplicationIdleHook+0x5a>
+		}
+		else if(currMode == mSetAlarm){
+ 800128c:	4b0f      	ldr	r3, [pc, #60]	; (80012cc <vApplicationIdleHook+0x84>)
+ 800128e:	781b      	ldrb	r3, [r3, #0]
+ 8001290:	2b02      	cmp	r3, #2
+ 8001292:	d106      	bne.n	80012a2 <vApplicationIdleHook+0x5a>
+			currMode = mDisplayRtc;
+ 8001294:	4b0d      	ldr	r3, [pc, #52]	; (80012cc <vApplicationIdleHook+0x84>)
+ 8001296:	2200      	movs	r2, #0
+ 8001298:	701a      	strb	r2, [r3, #0]
+			HAL_Delay(DEBOUNCE_DELAY_PERIOD);
+ 800129a:	f44f 7096 	mov.w	r0, #300	; 0x12c
+ 800129e:	f000 fad9 	bl	8001854 <HAL_Delay>
+		}
+	}
+
+	if (currMode == mSetRtc) {
+ 80012a2:	4b0a      	ldr	r3, [pc, #40]	; (80012cc <vApplicationIdleHook+0x84>)
+ 80012a4:	781b      	ldrb	r3, [r3, #0]
+ 80012a6:	2b01      	cmp	r3, #1
+ 80012a8:	d10c      	bne.n	80012c4 <vApplicationIdleHook+0x7c>
+		if(currSet <= 2){
+ 80012aa:	4b09      	ldr	r3, [pc, #36]	; (80012d0 <vApplicationIdleHook+0x88>)
+ 80012ac:	781b      	ldrb	r3, [r3, #0]
+ 80012ae:	2b02      	cmp	r3, #2
+ 80012b0:	d803      	bhi.n	80012ba <vApplicationIdleHook+0x72>
+			handleSetTime(&setTime);
+ 80012b2:	4808      	ldr	r0, [pc, #32]	; (80012d4 <vApplicationIdleHook+0x8c>)
+ 80012b4:	f000 f812 	bl	80012dc <handleSetTime>
+ 80012b8:	e002      	b.n	80012c0 <vApplicationIdleHook+0x78>
+		}
+		else {
+			handleSetDate(&setDate);
+ 80012ba:	4807      	ldr	r0, [pc, #28]	; (80012d8 <vApplicationIdleHook+0x90>)
+ 80012bc:	f000 f88a 	bl	80013d4 <handleSetDate>
+		}
+		handleSelect();
+ 80012c0:	f000 f900 	bl	80014c4 <handleSelect>
+	}
+}
+ 80012c4:	bf00      	nop
+ 80012c6:	bd80      	pop	{r7, pc}
+ 80012c8:	40020400 	.word	0x40020400
+ 80012cc:	20000110 	.word	0x20000110
+ 80012d0:	20000111 	.word	0x20000111
+ 80012d4:	20000130 	.word	0x20000130
+ 80012d8:	2000012c 	.word	0x2000012c
+
+080012dc <handleSetTime>:
+
+static void handleSetTime(RTC_TimeTypeDef *setTime){
+ 80012dc:	b580      	push	{r7, lr}
+ 80012de:	b082      	sub	sp, #8
+ 80012e0:	af00      	add	r7, sp, #0
+ 80012e2:	6078      	str	r0, [r7, #4]
+	if (HAL_GPIO_ReadPin(INC_GPIO_Port, INC_Pin) == GPIO_PIN_SET){
+ 80012e4:	2120      	movs	r1, #32
+ 80012e6:	4839      	ldr	r0, [pc, #228]	; (80013cc <handleSetTime+0xf0>)
+ 80012e8:	f000 fd3e 	bl	8001d68 <HAL_GPIO_ReadPin>
+ 80012ec:	4603      	mov	r3, r0
+ 80012ee:	2b01      	cmp	r3, #1
+ 80012f0:	d130      	bne.n	8001354 <handleSetTime+0x78>
+		if(currSet == sHour){
+ 80012f2:	4b37      	ldr	r3, [pc, #220]	; (80013d0 <handleSetTime+0xf4>)
+ 80012f4:	781b      	ldrb	r3, [r3, #0]
+ 80012f6:	2b00      	cmp	r3, #0
+ 80012f8:	d10a      	bne.n	8001310 <handleSetTime+0x34>
+			if(setTime->Hours < 23) setTime->Hours++;
+ 80012fa:	687b      	ldr	r3, [r7, #4]
+ 80012fc:	781b      	ldrb	r3, [r3, #0]
+ 80012fe:	2b16      	cmp	r3, #22
+ 8001300:	d823      	bhi.n	800134a <handleSetTime+0x6e>
+ 8001302:	687b      	ldr	r3, [r7, #4]
+ 8001304:	781b      	ldrb	r3, [r3, #0]
+ 8001306:	3301      	adds	r3, #1
+ 8001308:	b2da      	uxtb	r2, r3
+ 800130a:	687b      	ldr	r3, [r7, #4]
+ 800130c:	701a      	strb	r2, [r3, #0]
+ 800130e:	e01c      	b.n	800134a <handleSetTime+0x6e>
+		}
+		else if(currSet == sMin){
+ 8001310:	4b2f      	ldr	r3, [pc, #188]	; (80013d0 <handleSetTime+0xf4>)
+ 8001312:	781b      	ldrb	r3, [r3, #0]
+ 8001314:	2b01      	cmp	r3, #1
+ 8001316:	d10a      	bne.n	800132e <handleSetTime+0x52>
+			if(setTime->Minutes < 59) setTime->Minutes++;
+ 8001318:	687b      	ldr	r3, [r7, #4]
+ 800131a:	785b      	ldrb	r3, [r3, #1]
+ 800131c:	2b3a      	cmp	r3, #58	; 0x3a
+ 800131e:	d814      	bhi.n	800134a <handleSetTime+0x6e>
+ 8001320:	687b      	ldr	r3, [r7, #4]
+ 8001322:	785b      	ldrb	r3, [r3, #1]
+ 8001324:	3301      	adds	r3, #1
+ 8001326:	b2da      	uxtb	r2, r3
+ 8001328:	687b      	ldr	r3, [r7, #4]
+ 800132a:	705a      	strb	r2, [r3, #1]
+ 800132c:	e00d      	b.n	800134a <handleSetTime+0x6e>
+		}
+		else if(currSet ==sSec){
+ 800132e:	4b28      	ldr	r3, [pc, #160]	; (80013d0 <handleSetTime+0xf4>)
+ 8001330:	781b      	ldrb	r3, [r3, #0]
+ 8001332:	2b02      	cmp	r3, #2
+ 8001334:	d109      	bne.n	800134a <handleSetTime+0x6e>
+			if(setTime->Seconds < 59) setTime->Seconds++;
+ 8001336:	687b      	ldr	r3, [r7, #4]
+ 8001338:	789b      	ldrb	r3, [r3, #2]
+ 800133a:	2b3a      	cmp	r3, #58	; 0x3a
+ 800133c:	d805      	bhi.n	800134a <handleSetTime+0x6e>
+ 800133e:	687b      	ldr	r3, [r7, #4]
+ 8001340:	789b      	ldrb	r3, [r3, #2]
+ 8001342:	3301      	adds	r3, #1
+ 8001344:	b2da      	uxtb	r2, r3
+ 8001346:	687b      	ldr	r3, [r7, #4]
+ 8001348:	709a      	strb	r2, [r3, #2]
+		}
+		HAL_Delay(DEBOUNCE_DELAY_PERIOD); // putting delay here improves responsiveness for some reason
+ 800134a:	f44f 7096 	mov.w	r0, #300	; 0x12c
+ 800134e:	f000 fa81 	bl	8001854 <HAL_Delay>
+		else if(currSet == sSec){
+			if(setTime->Seconds > 0) setTime->Seconds--;
+		}
+		HAL_Delay(DEBOUNCE_DELAY_PERIOD); // putting delay here improves responsiveness for some reason
+	}
+}
+ 8001352:	e036      	b.n	80013c2 <handleSetTime+0xe6>
+	else if (HAL_GPIO_ReadPin(DEC_GPIO_Port, DEC_Pin) == GPIO_PIN_SET){
+ 8001354:	2140      	movs	r1, #64	; 0x40
+ 8001356:	481d      	ldr	r0, [pc, #116]	; (80013cc <handleSetTime+0xf0>)
+ 8001358:	f000 fd06 	bl	8001d68 <HAL_GPIO_ReadPin>
+ 800135c:	4603      	mov	r3, r0
+ 800135e:	2b01      	cmp	r3, #1
+ 8001360:	d12f      	bne.n	80013c2 <handleSetTime+0xe6>
+		if(currSet == sHour){
+ 8001362:	4b1b      	ldr	r3, [pc, #108]	; (80013d0 <handleSetTime+0xf4>)
+ 8001364:	781b      	ldrb	r3, [r3, #0]
+ 8001366:	2b00      	cmp	r3, #0
+ 8001368:	d10a      	bne.n	8001380 <handleSetTime+0xa4>
+			if(setTime->Hours > 0) setTime->Hours--;
+ 800136a:	687b      	ldr	r3, [r7, #4]
+ 800136c:	781b      	ldrb	r3, [r3, #0]
+ 800136e:	2b00      	cmp	r3, #0
+ 8001370:	d023      	beq.n	80013ba <handleSetTime+0xde>
+ 8001372:	687b      	ldr	r3, [r7, #4]
+ 8001374:	781b      	ldrb	r3, [r3, #0]
+ 8001376:	3b01      	subs	r3, #1
+ 8001378:	b2da      	uxtb	r2, r3
+ 800137a:	687b      	ldr	r3, [r7, #4]
+ 800137c:	701a      	strb	r2, [r3, #0]
+ 800137e:	e01c      	b.n	80013ba <handleSetTime+0xde>
+		else if(currSet == sMin){
+ 8001380:	4b13      	ldr	r3, [pc, #76]	; (80013d0 <handleSetTime+0xf4>)
+ 8001382:	781b      	ldrb	r3, [r3, #0]
+ 8001384:	2b01      	cmp	r3, #1
+ 8001386:	d10a      	bne.n	800139e <handleSetTime+0xc2>
+			if(setTime->Minutes > 0) setTime->Minutes--;
+ 8001388:	687b      	ldr	r3, [r7, #4]
+ 800138a:	785b      	ldrb	r3, [r3, #1]
+ 800138c:	2b00      	cmp	r3, #0
+ 800138e:	d014      	beq.n	80013ba <handleSetTime+0xde>
+ 8001390:	687b      	ldr	r3, [r7, #4]
+ 8001392:	785b      	ldrb	r3, [r3, #1]
+ 8001394:	3b01      	subs	r3, #1
+ 8001396:	b2da      	uxtb	r2, r3
+ 8001398:	687b      	ldr	r3, [r7, #4]
+ 800139a:	705a      	strb	r2, [r3, #1]
+ 800139c:	e00d      	b.n	80013ba <handleSetTime+0xde>
+		else if(currSet == sSec){
+ 800139e:	4b0c      	ldr	r3, [pc, #48]	; (80013d0 <handleSetTime+0xf4>)
+ 80013a0:	781b      	ldrb	r3, [r3, #0]
+ 80013a2:	2b02      	cmp	r3, #2
+ 80013a4:	d109      	bne.n	80013ba <handleSetTime+0xde>
+			if(setTime->Seconds > 0) setTime->Seconds--;
+ 80013a6:	687b      	ldr	r3, [r7, #4]
+ 80013a8:	789b      	ldrb	r3, [r3, #2]
+ 80013aa:	2b00      	cmp	r3, #0
+ 80013ac:	d005      	beq.n	80013ba <handleSetTime+0xde>
+ 80013ae:	687b      	ldr	r3, [r7, #4]
+ 80013b0:	789b      	ldrb	r3, [r3, #2]
+ 80013b2:	3b01      	subs	r3, #1
+ 80013b4:	b2da      	uxtb	r2, r3
+ 80013b6:	687b      	ldr	r3, [r7, #4]
+ 80013b8:	709a      	strb	r2, [r3, #2]
+		HAL_Delay(DEBOUNCE_DELAY_PERIOD); // putting delay here improves responsiveness for some reason
+ 80013ba:	f44f 7096 	mov.w	r0, #300	; 0x12c
+ 80013be:	f000 fa49 	bl	8001854 <HAL_Delay>
+}
+ 80013c2:	bf00      	nop
+ 80013c4:	3708      	adds	r7, #8
+ 80013c6:	46bd      	mov	sp, r7
+ 80013c8:	bd80      	pop	{r7, pc}
+ 80013ca:	bf00      	nop
+ 80013cc:	40020000 	.word	0x40020000
+ 80013d0:	20000111 	.word	0x20000111
+
+080013d4 <handleSetDate>:
+
+static void handleSetDate(RTC_DateTypeDef *setDate){
+ 80013d4:	b580      	push	{r7, lr}
+ 80013d6:	b082      	sub	sp, #8
+ 80013d8:	af00      	add	r7, sp, #0
+ 80013da:	6078      	str	r0, [r7, #4]
+	if (HAL_GPIO_ReadPin(INC_GPIO_Port, INC_Pin) == GPIO_PIN_SET){
+ 80013dc:	2120      	movs	r1, #32
+ 80013de:	4837      	ldr	r0, [pc, #220]	; (80014bc <handleSetDate+0xe8>)
+ 80013e0:	f000 fcc2 	bl	8001d68 <HAL_GPIO_ReadPin>
+ 80013e4:	4603      	mov	r3, r0
+ 80013e6:	2b01      	cmp	r3, #1
+ 80013e8:	d12c      	bne.n	8001444 <handleSetDate+0x70>
+		if(currSet == sMonth){
+ 80013ea:	4b35      	ldr	r3, [pc, #212]	; (80014c0 <handleSetDate+0xec>)
+ 80013ec:	781b      	ldrb	r3, [r3, #0]
+ 80013ee:	2b04      	cmp	r3, #4
+ 80013f0:	d10a      	bne.n	8001408 <handleSetDate+0x34>
+			if(setDate->Month < 11) setDate->Month++;
+ 80013f2:	687b      	ldr	r3, [r7, #4]
+ 80013f4:	785b      	ldrb	r3, [r3, #1]
+ 80013f6:	2b0a      	cmp	r3, #10
+ 80013f8:	d81f      	bhi.n	800143a <handleSetDate+0x66>
+ 80013fa:	687b      	ldr	r3, [r7, #4]
+ 80013fc:	785b      	ldrb	r3, [r3, #1]
+ 80013fe:	3301      	adds	r3, #1
+ 8001400:	b2da      	uxtb	r2, r3
+ 8001402:	687b      	ldr	r3, [r7, #4]
+ 8001404:	705a      	strb	r2, [r3, #1]
+ 8001406:	e018      	b.n	800143a <handleSetDate+0x66>
+		}
+		else if(currSet == sDay) {
+ 8001408:	4b2d      	ldr	r3, [pc, #180]	; (80014c0 <handleSetDate+0xec>)
+ 800140a:	781b      	ldrb	r3, [r3, #0]
+ 800140c:	2b03      	cmp	r3, #3
+ 800140e:	d10a      	bne.n	8001426 <handleSetDate+0x52>
+			if(setDate->Date < 30) setDate->Date++;
+ 8001410:	687b      	ldr	r3, [r7, #4]
+ 8001412:	789b      	ldrb	r3, [r3, #2]
+ 8001414:	2b1d      	cmp	r3, #29
+ 8001416:	d810      	bhi.n	800143a <handleSetDate+0x66>
+ 8001418:	687b      	ldr	r3, [r7, #4]
+ 800141a:	789b      	ldrb	r3, [r3, #2]
+ 800141c:	3301      	adds	r3, #1
+ 800141e:	b2da      	uxtb	r2, r3
+ 8001420:	687b      	ldr	r3, [r7, #4]
+ 8001422:	709a      	strb	r2, [r3, #2]
+ 8001424:	e009      	b.n	800143a <handleSetDate+0x66>
+		}
+		else if(currSet == sYear) {
+ 8001426:	4b26      	ldr	r3, [pc, #152]	; (80014c0 <handleSetDate+0xec>)
+ 8001428:	781b      	ldrb	r3, [r3, #0]
+ 800142a:	2b05      	cmp	r3, #5
+ 800142c:	d105      	bne.n	800143a <handleSetDate+0x66>
+			if(setDate->Year < 998) setDate->Year++;
+ 800142e:	687b      	ldr	r3, [r7, #4]
+ 8001430:	78db      	ldrb	r3, [r3, #3]
+ 8001432:	3301      	adds	r3, #1
+ 8001434:	b2da      	uxtb	r2, r3
+ 8001436:	687b      	ldr	r3, [r7, #4]
+ 8001438:	70da      	strb	r2, [r3, #3]
+		}
+		HAL_Delay(DEBOUNCE_DELAY_PERIOD); // putting delay here improves responsiveness for some reason
+ 800143a:	f44f 7096 	mov.w	r0, #300	; 0x12c
+ 800143e:	f000 fa09 	bl	8001854 <HAL_Delay>
+		else if(currSet == sYear) {
+			if(setDate->Year > 0) setDate->Year--;
+		}
+		HAL_Delay(DEBOUNCE_DELAY_PERIOD); // putting delay here improves responsiveness for some reason
+	}
+}
+ 8001442:	e036      	b.n	80014b2 <handleSetDate+0xde>
+	else if (HAL_GPIO_ReadPin(DEC_GPIO_Port, DEC_Pin) == GPIO_PIN_SET){
+ 8001444:	2140      	movs	r1, #64	; 0x40
+ 8001446:	481d      	ldr	r0, [pc, #116]	; (80014bc <handleSetDate+0xe8>)
+ 8001448:	f000 fc8e 	bl	8001d68 <HAL_GPIO_ReadPin>
+ 800144c:	4603      	mov	r3, r0
+ 800144e:	2b01      	cmp	r3, #1
+ 8001450:	d12f      	bne.n	80014b2 <handleSetDate+0xde>
+		if(currSet == sMonth){
+ 8001452:	4b1b      	ldr	r3, [pc, #108]	; (80014c0 <handleSetDate+0xec>)
+ 8001454:	781b      	ldrb	r3, [r3, #0]
+ 8001456:	2b04      	cmp	r3, #4
+ 8001458:	d10a      	bne.n	8001470 <handleSetDate+0x9c>
+			if(setDate->Month > 1) setDate->Month--;
+ 800145a:	687b      	ldr	r3, [r7, #4]
+ 800145c:	785b      	ldrb	r3, [r3, #1]
+ 800145e:	2b01      	cmp	r3, #1
+ 8001460:	d923      	bls.n	80014aa <handleSetDate+0xd6>
+ 8001462:	687b      	ldr	r3, [r7, #4]
+ 8001464:	785b      	ldrb	r3, [r3, #1]
+ 8001466:	3b01      	subs	r3, #1
+ 8001468:	b2da      	uxtb	r2, r3
+ 800146a:	687b      	ldr	r3, [r7, #4]
+ 800146c:	705a      	strb	r2, [r3, #1]
+ 800146e:	e01c      	b.n	80014aa <handleSetDate+0xd6>
+		else if(currSet == sDay) {
+ 8001470:	4b13      	ldr	r3, [pc, #76]	; (80014c0 <handleSetDate+0xec>)
+ 8001472:	781b      	ldrb	r3, [r3, #0]
+ 8001474:	2b03      	cmp	r3, #3
+ 8001476:	d10a      	bne.n	800148e <handleSetDate+0xba>
+			if(setDate->Date > 1) setDate->Date--;
+ 8001478:	687b      	ldr	r3, [r7, #4]
+ 800147a:	789b      	ldrb	r3, [r3, #2]
+ 800147c:	2b01      	cmp	r3, #1
+ 800147e:	d914      	bls.n	80014aa <handleSetDate+0xd6>
+ 8001480:	687b      	ldr	r3, [r7, #4]
+ 8001482:	789b      	ldrb	r3, [r3, #2]
+ 8001484:	3b01      	subs	r3, #1
+ 8001486:	b2da      	uxtb	r2, r3
+ 8001488:	687b      	ldr	r3, [r7, #4]
+ 800148a:	709a      	strb	r2, [r3, #2]
+ 800148c:	e00d      	b.n	80014aa <handleSetDate+0xd6>
+		else if(currSet == sYear) {
+ 800148e:	4b0c      	ldr	r3, [pc, #48]	; (80014c0 <handleSetDate+0xec>)
+ 8001490:	781b      	ldrb	r3, [r3, #0]
+ 8001492:	2b05      	cmp	r3, #5
+ 8001494:	d109      	bne.n	80014aa <handleSetDate+0xd6>
+			if(setDate->Year > 0) setDate->Year--;
+ 8001496:	687b      	ldr	r3, [r7, #4]
+ 8001498:	78db      	ldrb	r3, [r3, #3]
+ 800149a:	2b00      	cmp	r3, #0
+ 800149c:	d005      	beq.n	80014aa <handleSetDate+0xd6>
+ 800149e:	687b      	ldr	r3, [r7, #4]
+ 80014a0:	78db      	ldrb	r3, [r3, #3]
+ 80014a2:	3b01      	subs	r3, #1
+ 80014a4:	b2da      	uxtb	r2, r3
+ 80014a6:	687b      	ldr	r3, [r7, #4]
+ 80014a8:	70da      	strb	r2, [r3, #3]
+		HAL_Delay(DEBOUNCE_DELAY_PERIOD); // putting delay here improves responsiveness for some reason
+ 80014aa:	f44f 7096 	mov.w	r0, #300	; 0x12c
+ 80014ae:	f000 f9d1 	bl	8001854 <HAL_Delay>
+}
+ 80014b2:	bf00      	nop
+ 80014b4:	3708      	adds	r7, #8
+ 80014b6:	46bd      	mov	sp, r7
+ 80014b8:	bd80      	pop	{r7, pc}
+ 80014ba:	bf00      	nop
+ 80014bc:	40020000 	.word	0x40020000
+ 80014c0:	20000111 	.word	0x20000111
+
+080014c4 <handleSelect>:
+
+static void handleSelect(void){
+ 80014c4:	b580      	push	{r7, lr}
+ 80014c6:	af00      	add	r7, sp, #0
+	if(HAL_GPIO_ReadPin(SELECT_GPIO_Port, SELECT_Pin) == GPIO_PIN_SET){
+ 80014c8:	f44f 7100 	mov.w	r1, #512	; 0x200
+ 80014cc:	481b      	ldr	r0, [pc, #108]	; (800153c <handleSelect+0x78>)
+ 80014ce:	f000 fc4b 	bl	8001d68 <HAL_GPIO_ReadPin>
+ 80014d2:	4603      	mov	r3, r0
+ 80014d4:	2b01      	cmp	r3, #1
+ 80014d6:	d12f      	bne.n	8001538 <handleSelect+0x74>
+		switch(currSet){
+ 80014d8:	4b19      	ldr	r3, [pc, #100]	; (8001540 <handleSelect+0x7c>)
+ 80014da:	781b      	ldrb	r3, [r3, #0]
+ 80014dc:	2b05      	cmp	r3, #5
+ 80014de:	d827      	bhi.n	8001530 <handleSelect+0x6c>
+ 80014e0:	a201      	add	r2, pc, #4	; (adr r2, 80014e8 <handleSelect+0x24>)
+ 80014e2:	f852 f023 	ldr.w	pc, [r2, r3, lsl #2]
+ 80014e6:	bf00      	nop
+ 80014e8:	08001501 	.word	0x08001501
+ 80014ec:	08001509 	.word	0x08001509
+ 80014f0:	08001511 	.word	0x08001511
+ 80014f4:	08001521 	.word	0x08001521
+ 80014f8:	08001519 	.word	0x08001519
+ 80014fc:	08001529 	.word	0x08001529
+		case sHour:
+			currSet = sMin;
+ 8001500:	4b0f      	ldr	r3, [pc, #60]	; (8001540 <handleSelect+0x7c>)
+ 8001502:	2201      	movs	r2, #1
+ 8001504:	701a      	strb	r2, [r3, #0]
+			break;
+ 8001506:	e013      	b.n	8001530 <handleSelect+0x6c>
+		case sMin:
+			currSet = sSec;
+ 8001508:	4b0d      	ldr	r3, [pc, #52]	; (8001540 <handleSelect+0x7c>)
+ 800150a:	2202      	movs	r2, #2
+ 800150c:	701a      	strb	r2, [r3, #0]
+			break;
+ 800150e:	e00f      	b.n	8001530 <handleSelect+0x6c>
+		case sSec:
+			currSet = sMonth;
+ 8001510:	4b0b      	ldr	r3, [pc, #44]	; (8001540 <handleSelect+0x7c>)
+ 8001512:	2204      	movs	r2, #4
+ 8001514:	701a      	strb	r2, [r3, #0]
+			break;
+ 8001516:	e00b      	b.n	8001530 <handleSelect+0x6c>
+		case sMonth:
+			currSet = sDay;
+ 8001518:	4b09      	ldr	r3, [pc, #36]	; (8001540 <handleSelect+0x7c>)
+ 800151a:	2203      	movs	r2, #3
+ 800151c:	701a      	strb	r2, [r3, #0]
+			break;
+ 800151e:	e007      	b.n	8001530 <handleSelect+0x6c>
+		case sDay:
+			currSet = sYear;
+ 8001520:	4b07      	ldr	r3, [pc, #28]	; (8001540 <handleSelect+0x7c>)
+ 8001522:	2205      	movs	r2, #5
+ 8001524:	701a      	strb	r2, [r3, #0]
+			break;
+ 8001526:	e003      	b.n	8001530 <handleSelect+0x6c>
+		case sYear:
+			currSet = sHour;
+ 8001528:	4b05      	ldr	r3, [pc, #20]	; (8001540 <handleSelect+0x7c>)
+ 800152a:	2200      	movs	r2, #0
+ 800152c:	701a      	strb	r2, [r3, #0]
+			break;
+ 800152e:	bf00      	nop
+		}
+
+		HAL_Delay(DEBOUNCE_DELAY_PERIOD);
+ 8001530:	f44f 7096 	mov.w	r0, #300	; 0x12c
+ 8001534:	f000 f98e 	bl	8001854 <HAL_Delay>
+	}
+}
+ 8001538:	bf00      	nop
+ 800153a:	bd80      	pop	{r7, pc}
+ 800153c:	40020400 	.word	0x40020400
+ 8001540:	20000111 	.word	0x20000111
+
+08001544 <rtcUpdateTaskHandler>:
+
+void rtcUpdateTaskHandler(void *parameters){
+ 8001544:	b580      	push	{r7, lr}
+ 8001546:	b084      	sub	sp, #16
+ 8001548:	af02      	add	r7, sp, #8
+ 800154a:	6078      	str	r0, [r7, #4]
+	static char strBuffer[40];
+	static char *str = strBuffer;
+
+	while(1){
+		xTaskNotifyWait(0, 0, NULL, portMAX_DELAY);
+ 800154c:	f04f 33ff 	mov.w	r3, #4294967295
+ 8001550:	9300      	str	r3, [sp, #0]
+ 8001552:	2300      	movs	r3, #0
+ 8001554:	2200      	movs	r2, #0
+ 8001556:	2100      	movs	r1, #0
+ 8001558:	2000      	movs	r0, #0
+ 800155a:	f004 f91d 	bl	8005798 <xTaskGenericNotifyWait>
+
+		memset( &rtcDate,0,sizeof(rtcDate) );
+ 800155e:	2204      	movs	r2, #4
+ 8001560:	2100      	movs	r1, #0
+ 8001562:	482f      	ldr	r0, [pc, #188]	; (8001620 <rtcUpdateTaskHandler+0xdc>)
+ 8001564:	f007 fb76 	bl	8008c54 <memset>
+		memset( &rtcTime,0,sizeof(rtcTime) );
+ 8001568:	2214      	movs	r2, #20
+ 800156a:	2100      	movs	r1, #0
+ 800156c:	482d      	ldr	r0, [pc, #180]	; (8001624 <rtcUpdateTaskHandler+0xe0>)
+ 800156e:	f007 fb71 	bl	8008c54 <memset>
+
+		HAL_RTC_GetTime(&hrtc, &rtcTime, RTC_FORMAT_BIN);
+ 8001572:	2200      	movs	r2, #0
+ 8001574:	492b      	ldr	r1, [pc, #172]	; (8001624 <rtcUpdateTaskHandler+0xe0>)
+ 8001576:	482c      	ldr	r0, [pc, #176]	; (8001628 <rtcUpdateTaskHandler+0xe4>)
+ 8001578:	f001 fadc 	bl	8002b34 <HAL_RTC_GetTime>
+		HAL_RTC_GetTime(&hrtc, &setTime, RTC_FORMAT_BIN); // sets time for "set" mode
+ 800157c:	2200      	movs	r2, #0
+ 800157e:	492b      	ldr	r1, [pc, #172]	; (800162c <rtcUpdateTaskHandler+0xe8>)
+ 8001580:	4829      	ldr	r0, [pc, #164]	; (8001628 <rtcUpdateTaskHandler+0xe4>)
+ 8001582:	f001 fad7 	bl	8002b34 <HAL_RTC_GetTime>
+
+		HAL_RTC_GetDate(&hrtc, &rtcDate, RTC_FORMAT_BIN);
+ 8001586:	2200      	movs	r2, #0
+ 8001588:	4925      	ldr	r1, [pc, #148]	; (8001620 <rtcUpdateTaskHandler+0xdc>)
+ 800158a:	4827      	ldr	r0, [pc, #156]	; (8001628 <rtcUpdateTaskHandler+0xe4>)
+ 800158c:	f001 fbb4 	bl	8002cf8 <HAL_RTC_GetDate>
+		HAL_RTC_GetDate(&hrtc, &setDate, RTC_FORMAT_BIN); // sets date for "set" mode
+ 8001590:	2200      	movs	r2, #0
+ 8001592:	4927      	ldr	r1, [pc, #156]	; (8001630 <rtcUpdateTaskHandler+0xec>)
+ 8001594:	4824      	ldr	r0, [pc, #144]	; (8001628 <rtcUpdateTaskHandler+0xe4>)
+ 8001596:	f001 fbaf 	bl	8002cf8 <HAL_RTC_GetDate>
+
+		memset(&strBuffer, 0, sizeof(strBuffer) );
+ 800159a:	2228      	movs	r2, #40	; 0x28
+ 800159c:	2100      	movs	r1, #0
+ 800159e:	4825      	ldr	r0, [pc, #148]	; (8001634 <rtcUpdateTaskHandler+0xf0>)
+ 80015a0:	f007 fb58 	bl	8008c54 <memset>
+
+		sprintf( (char*) strBuffer, "%02d:%02d:%02d",rtcTime.Hours, rtcTime.Minutes, rtcTime.Seconds);
+ 80015a4:	4b1f      	ldr	r3, [pc, #124]	; (8001624 <rtcUpdateTaskHandler+0xe0>)
+ 80015a6:	781b      	ldrb	r3, [r3, #0]
+ 80015a8:	461a      	mov	r2, r3
+ 80015aa:	4b1e      	ldr	r3, [pc, #120]	; (8001624 <rtcUpdateTaskHandler+0xe0>)
+ 80015ac:	785b      	ldrb	r3, [r3, #1]
+ 80015ae:	4619      	mov	r1, r3
+ 80015b0:	4b1c      	ldr	r3, [pc, #112]	; (8001624 <rtcUpdateTaskHandler+0xe0>)
+ 80015b2:	789b      	ldrb	r3, [r3, #2]
+ 80015b4:	9300      	str	r3, [sp, #0]
+ 80015b6:	460b      	mov	r3, r1
+ 80015b8:	491f      	ldr	r1, [pc, #124]	; (8001638 <rtcUpdateTaskHandler+0xf4>)
+ 80015ba:	481e      	ldr	r0, [pc, #120]	; (8001634 <rtcUpdateTaskHandler+0xf0>)
+ 80015bc:	f007 fb1a 	bl	8008bf4 <siprintf>
+		SEGGER_SYSVIEW_PrintfTarget(str);
+ 80015c0:	4b1e      	ldr	r3, [pc, #120]	; (800163c <rtcUpdateTaskHandler+0xf8>)
+ 80015c2:	681b      	ldr	r3, [r3, #0]
+ 80015c4:	4618      	mov	r0, r3
+ 80015c6:	f007 faa5 	bl	8008b14 <SEGGER_SYSVIEW_PrintfTarget>
+		xQueueSend(printQueueHandle, &str, portMAX_DELAY);
+ 80015ca:	4b1d      	ldr	r3, [pc, #116]	; (8001640 <rtcUpdateTaskHandler+0xfc>)
+ 80015cc:	6818      	ldr	r0, [r3, #0]
+ 80015ce:	2300      	movs	r3, #0
+ 80015d0:	f04f 32ff 	mov.w	r2, #4294967295
+ 80015d4:	4919      	ldr	r1, [pc, #100]	; (800163c <rtcUpdateTaskHandler+0xf8>)
+ 80015d6:	f002 fc1b 	bl	8003e10 <xQueueGenericSend>
+
+		memset(&strBuffer, 0, sizeof(strBuffer) );
+ 80015da:	2228      	movs	r2, #40	; 0x28
+ 80015dc:	2100      	movs	r1, #0
+ 80015de:	4815      	ldr	r0, [pc, #84]	; (8001634 <rtcUpdateTaskHandler+0xf0>)
+ 80015e0:	f007 fb38 	bl	8008c54 <memset>
+		sprintf( (char*) strBuffer, "%02d-%02d-%2d", rtcDate.Month, rtcDate.Date, 2000 + rtcDate.Year);
+ 80015e4:	4b0e      	ldr	r3, [pc, #56]	; (8001620 <rtcUpdateTaskHandler+0xdc>)
+ 80015e6:	785b      	ldrb	r3, [r3, #1]
+ 80015e8:	461a      	mov	r2, r3
+ 80015ea:	4b0d      	ldr	r3, [pc, #52]	; (8001620 <rtcUpdateTaskHandler+0xdc>)
+ 80015ec:	789b      	ldrb	r3, [r3, #2]
+ 80015ee:	4619      	mov	r1, r3
+ 80015f0:	4b0b      	ldr	r3, [pc, #44]	; (8001620 <rtcUpdateTaskHandler+0xdc>)
+ 80015f2:	78db      	ldrb	r3, [r3, #3]
+ 80015f4:	f503 63fa 	add.w	r3, r3, #2000	; 0x7d0
+ 80015f8:	9300      	str	r3, [sp, #0]
+ 80015fa:	460b      	mov	r3, r1
+ 80015fc:	4911      	ldr	r1, [pc, #68]	; (8001644 <rtcUpdateTaskHandler+0x100>)
+ 80015fe:	480d      	ldr	r0, [pc, #52]	; (8001634 <rtcUpdateTaskHandler+0xf0>)
+ 8001600:	f007 faf8 	bl	8008bf4 <siprintf>
+		SEGGER_SYSVIEW_PrintfTarget(str);
+ 8001604:	4b0d      	ldr	r3, [pc, #52]	; (800163c <rtcUpdateTaskHandler+0xf8>)
+ 8001606:	681b      	ldr	r3, [r3, #0]
+ 8001608:	4618      	mov	r0, r3
+ 800160a:	f007 fa83 	bl	8008b14 <SEGGER_SYSVIEW_PrintfTarget>
+		xQueueSend(printQueueHandle, &str, portMAX_DELAY);
+ 800160e:	4b0c      	ldr	r3, [pc, #48]	; (8001640 <rtcUpdateTaskHandler+0xfc>)
+ 8001610:	6818      	ldr	r0, [r3, #0]
+ 8001612:	2300      	movs	r3, #0
+ 8001614:	f04f 32ff 	mov.w	r2, #4294967295
+ 8001618:	4908      	ldr	r1, [pc, #32]	; (800163c <rtcUpdateTaskHandler+0xf8>)
+ 800161a:	f002 fbf9 	bl	8003e10 <xQueueGenericSend>
+		xTaskNotifyWait(0, 0, NULL, portMAX_DELAY);
+ 800161e:	e795      	b.n	800154c <rtcUpdateTaskHandler+0x8>
+ 8001620:	20000114 	.word	0x20000114
+ 8001624:	20000118 	.word	0x20000118
+ 8001628:	2000008c 	.word	0x2000008c
+ 800162c:	20000130 	.word	0x20000130
+ 8001630:	2000012c 	.word	0x2000012c
+ 8001634:	20000190 	.word	0x20000190
+ 8001638:	080095d0 	.word	0x080095d0
+ 800163c:	20000004 	.word	0x20000004
+ 8001640:	20000108 	.word	0x20000108
+ 8001644:	080095e0 	.word	0x080095e0
+
+08001648 <rtcSetTaskHandler>:
+
+	}
+}
+
+void rtcSetTaskHandler(void *parameters){
+ 8001648:	b580      	push	{r7, lr}
+ 800164a:	b084      	sub	sp, #16
+ 800164c:	af02      	add	r7, sp, #8
+ 800164e:	6078      	str	r0, [r7, #4]
+	static char strBuffer[40];
+	static char *str = strBuffer;
+
+	while(1){
+		xTaskNotifyWait(0, 0, NULL, portMAX_DELAY);
+ 8001650:	f04f 33ff 	mov.w	r3, #4294967295
+ 8001654:	9300      	str	r3, [sp, #0]
+ 8001656:	2300      	movs	r3, #0
+ 8001658:	2200      	movs	r2, #0
+ 800165a:	2100      	movs	r1, #0
+ 800165c:	2000      	movs	r0, #0
+ 800165e:	f004 f89b 	bl	8005798 <xTaskGenericNotifyWait>
+
+		HAL_RTC_SetTime(&hrtc, &setTime, RTC_FORMAT_BIN);
+ 8001662:	2200      	movs	r2, #0
+ 8001664:	4920      	ldr	r1, [pc, #128]	; (80016e8 <rtcSetTaskHandler+0xa0>)
+ 8001666:	4821      	ldr	r0, [pc, #132]	; (80016ec <rtcSetTaskHandler+0xa4>)
+ 8001668:	f001 f9ca 	bl	8002a00 <HAL_RTC_SetTime>
+		HAL_RTC_SetDate(&hrtc, &setDate, RTC_FORMAT_BIN);
+ 800166c:	2200      	movs	r2, #0
+ 800166e:	4920      	ldr	r1, [pc, #128]	; (80016f0 <rtcSetTaskHandler+0xa8>)
+ 8001670:	481e      	ldr	r0, [pc, #120]	; (80016ec <rtcSetTaskHandler+0xa4>)
+ 8001672:	f001 fabd 	bl	8002bf0 <HAL_RTC_SetDate>
+
+		memset(&strBuffer, 0, sizeof(strBuffer) );
+ 8001676:	2228      	movs	r2, #40	; 0x28
+ 8001678:	2100      	movs	r1, #0
+ 800167a:	481e      	ldr	r0, [pc, #120]	; (80016f4 <rtcSetTaskHandler+0xac>)
+ 800167c:	f007 faea 	bl	8008c54 <memset>
+
+		sprintf( (char*) strBuffer, "%02d:%02d:%02d",setTime.Hours, setTime.Minutes, setTime.Seconds);
+ 8001680:	4b19      	ldr	r3, [pc, #100]	; (80016e8 <rtcSetTaskHandler+0xa0>)
+ 8001682:	781b      	ldrb	r3, [r3, #0]
+ 8001684:	461a      	mov	r2, r3
+ 8001686:	4b18      	ldr	r3, [pc, #96]	; (80016e8 <rtcSetTaskHandler+0xa0>)
+ 8001688:	785b      	ldrb	r3, [r3, #1]
+ 800168a:	4619      	mov	r1, r3
+ 800168c:	4b16      	ldr	r3, [pc, #88]	; (80016e8 <rtcSetTaskHandler+0xa0>)
+ 800168e:	789b      	ldrb	r3, [r3, #2]
+ 8001690:	9300      	str	r3, [sp, #0]
+ 8001692:	460b      	mov	r3, r1
+ 8001694:	4918      	ldr	r1, [pc, #96]	; (80016f8 <rtcSetTaskHandler+0xb0>)
+ 8001696:	4817      	ldr	r0, [pc, #92]	; (80016f4 <rtcSetTaskHandler+0xac>)
+ 8001698:	f007 faac 	bl	8008bf4 <siprintf>
+		xQueueSend(printQueueHandle, &str, portMAX_DELAY);
+ 800169c:	4b17      	ldr	r3, [pc, #92]	; (80016fc <rtcSetTaskHandler+0xb4>)
+ 800169e:	6818      	ldr	r0, [r3, #0]
+ 80016a0:	2300      	movs	r3, #0
+ 80016a2:	f04f 32ff 	mov.w	r2, #4294967295
+ 80016a6:	4916      	ldr	r1, [pc, #88]	; (8001700 <rtcSetTaskHandler+0xb8>)
+ 80016a8:	f002 fbb2 	bl	8003e10 <xQueueGenericSend>
+
+		memset(&strBuffer, 0, sizeof(strBuffer) );
+ 80016ac:	2228      	movs	r2, #40	; 0x28
+ 80016ae:	2100      	movs	r1, #0
+ 80016b0:	4810      	ldr	r0, [pc, #64]	; (80016f4 <rtcSetTaskHandler+0xac>)
+ 80016b2:	f007 facf 	bl	8008c54 <memset>
+		sprintf( (char*) strBuffer, "%02d-%02d-%2d", setDate.Month, setDate.Date, 2000 + setDate.Year);
+ 80016b6:	4b0e      	ldr	r3, [pc, #56]	; (80016f0 <rtcSetTaskHandler+0xa8>)
+ 80016b8:	785b      	ldrb	r3, [r3, #1]
+ 80016ba:	461a      	mov	r2, r3
+ 80016bc:	4b0c      	ldr	r3, [pc, #48]	; (80016f0 <rtcSetTaskHandler+0xa8>)
+ 80016be:	789b      	ldrb	r3, [r3, #2]
+ 80016c0:	4619      	mov	r1, r3
+ 80016c2:	4b0b      	ldr	r3, [pc, #44]	; (80016f0 <rtcSetTaskHandler+0xa8>)
+ 80016c4:	78db      	ldrb	r3, [r3, #3]
+ 80016c6:	f503 63fa 	add.w	r3, r3, #2000	; 0x7d0
+ 80016ca:	9300      	str	r3, [sp, #0]
+ 80016cc:	460b      	mov	r3, r1
+ 80016ce:	490d      	ldr	r1, [pc, #52]	; (8001704 <rtcSetTaskHandler+0xbc>)
+ 80016d0:	4808      	ldr	r0, [pc, #32]	; (80016f4 <rtcSetTaskHandler+0xac>)
+ 80016d2:	f007 fa8f 	bl	8008bf4 <siprintf>
+		xQueueSend(printQueueHandle, &str, portMAX_DELAY);
+ 80016d6:	4b09      	ldr	r3, [pc, #36]	; (80016fc <rtcSetTaskHandler+0xb4>)
+ 80016d8:	6818      	ldr	r0, [r3, #0]
+ 80016da:	2300      	movs	r3, #0
+ 80016dc:	f04f 32ff 	mov.w	r2, #4294967295
+ 80016e0:	4907      	ldr	r1, [pc, #28]	; (8001700 <rtcSetTaskHandler+0xb8>)
+ 80016e2:	f002 fb95 	bl	8003e10 <xQueueGenericSend>
+		xTaskNotifyWait(0, 0, NULL, portMAX_DELAY);
+ 80016e6:	e7b3      	b.n	8001650 <rtcSetTaskHandler+0x8>
+ 80016e8:	20000130 	.word	0x20000130
+ 80016ec:	2000008c 	.word	0x2000008c
+ 80016f0:	2000012c 	.word	0x2000012c
+ 80016f4:	200001b8 	.word	0x200001b8
+ 80016f8:	080095d0 	.word	0x080095d0
+ 80016fc:	20000108 	.word	0x20000108
+ 8001700:	20000008 	.word	0x20000008
+ 8001704:	080095e0 	.word	0x080095e0
+
+08001708 <alarmSetTaskHandler>:
+
+	}
+}
+
+void alarmSetTaskHandler(void *parameters){
+ 8001708:	b580      	push	{r7, lr}
+ 800170a:	b084      	sub	sp, #16
+ 800170c:	af02      	add	r7, sp, #8
+ 800170e:	6078      	str	r0, [r7, #4]
+	static char strBuffer[40];
+	static char *str = strBuffer;
+
+	while(1){
+		xTaskNotifyWait(0, 0, NULL, portMAX_DELAY);
+ 8001710:	f04f 33ff 	mov.w	r3, #4294967295
+ 8001714:	9300      	str	r3, [sp, #0]
+ 8001716:	2300      	movs	r3, #0
+ 8001718:	2200      	movs	r2, #0
+ 800171a:	2100      	movs	r1, #0
+ 800171c:	2000      	movs	r0, #0
+ 800171e:	f004 f83b 	bl	8005798 <xTaskGenericNotifyWait>
+
+		memset(&strBuffer, 0, sizeof(strBuffer) );
+ 8001722:	2228      	movs	r2, #40	; 0x28
+ 8001724:	2100      	movs	r1, #0
+ 8001726:	4810      	ldr	r0, [pc, #64]	; (8001768 <alarmSetTaskHandler+0x60>)
+ 8001728:	f007 fa94 	bl	8008c54 <memset>
+		sprintf( (char*) strBuffer, "Alarm" );
+ 800172c:	490f      	ldr	r1, [pc, #60]	; (800176c <alarmSetTaskHandler+0x64>)
+ 800172e:	480e      	ldr	r0, [pc, #56]	; (8001768 <alarmSetTaskHandler+0x60>)
+ 8001730:	f007 fa60 	bl	8008bf4 <siprintf>
+		xQueueSend(printQueueHandle, &str , portMAX_DELAY);
+ 8001734:	4b0e      	ldr	r3, [pc, #56]	; (8001770 <alarmSetTaskHandler+0x68>)
+ 8001736:	6818      	ldr	r0, [r3, #0]
+ 8001738:	2300      	movs	r3, #0
+ 800173a:	f04f 32ff 	mov.w	r2, #4294967295
+ 800173e:	490d      	ldr	r1, [pc, #52]	; (8001774 <alarmSetTaskHandler+0x6c>)
+ 8001740:	f002 fb66 	bl	8003e10 <xQueueGenericSend>
+
+		memset(&strBuffer, 0, sizeof(strBuffer) );
+ 8001744:	2228      	movs	r2, #40	; 0x28
+ 8001746:	2100      	movs	r1, #0
+ 8001748:	4807      	ldr	r0, [pc, #28]	; (8001768 <alarmSetTaskHandler+0x60>)
+ 800174a:	f007 fa83 	bl	8008c54 <memset>
+		sprintf( (char*) strBuffer, "Mode" );
+ 800174e:	490a      	ldr	r1, [pc, #40]	; (8001778 <alarmSetTaskHandler+0x70>)
+ 8001750:	4805      	ldr	r0, [pc, #20]	; (8001768 <alarmSetTaskHandler+0x60>)
+ 8001752:	f007 fa4f 	bl	8008bf4 <siprintf>
+		xQueueSend(printQueueHandle, &str , portMAX_DELAY);
+ 8001756:	4b06      	ldr	r3, [pc, #24]	; (8001770 <alarmSetTaskHandler+0x68>)
+ 8001758:	6818      	ldr	r0, [r3, #0]
+ 800175a:	2300      	movs	r3, #0
+ 800175c:	f04f 32ff 	mov.w	r2, #4294967295
+ 8001760:	4904      	ldr	r1, [pc, #16]	; (8001774 <alarmSetTaskHandler+0x6c>)
+ 8001762:	f002 fb55 	bl	8003e10 <xQueueGenericSend>
+		xTaskNotifyWait(0, 0, NULL, portMAX_DELAY);
+ 8001766:	e7d3      	b.n	8001710 <alarmSetTaskHandler+0x8>
+ 8001768:	200001e0 	.word	0x200001e0
+ 800176c:	080095f0 	.word	0x080095f0
+ 8001770:	20000108 	.word	0x20000108
+ 8001774:	2000000c 	.word	0x2000000c
+ 8001778:	080095f8 	.word	0x080095f8
 
 0800177c <Reset_Handler>:
 
@@ -3498,7 +3500,7 @@ LoopFillZerobss:
 
 /* Call the clock system initialization function.*/
   bl  SystemInit   
- 80017a6:	f7ff ffd7 	bl	8001758 <SystemInit>
+ 80017a6:	f7ff fcbb 	bl	8001120 <SystemInit>
 /* Call static constructors */
     bl __libc_init_array
  80017aa:	f007 fa61 	bl	8008c70 <__libc_init_array>
@@ -3575,11 +3577,11 @@ HAL_StatusTypeDef HAL_Init(void)
   /* Use systick as time base source and configure 1ms tick (default clock after Reset is HSI) */
   HAL_InitTick(TICK_INT_PRIORITY);
  80017fe:	2000      	movs	r0, #0
- 8001800:	f7ff fed8 	bl	80015b4 <HAL_InitTick>
+ 8001800:	f7ff fbbc 	bl	8000f7c <HAL_InitTick>
 
   /* Init the low level hardware */
   HAL_MspInit();
- 8001804:	f7ff fe5e 	bl	80014c4 <HAL_MspInit>
+ 8001804:	f7ff fb42 	bl	8000e8c <HAL_MspInit>
 
   /* Return function status */
   return HAL_OK;
@@ -5793,7 +5795,7 @@ HAL_StatusTypeDef HAL_RCC_ClockConfig(RCC_ClkInitTypeDef  *RCC_ClkInitStruct, ui
  800245e:	4b09      	ldr	r3, [pc, #36]	; (8002484 <HAL_RCC_ClockConfig+0x1c8>)
  8002460:	681b      	ldr	r3, [r3, #0]
  8002462:	4618      	mov	r0, r3
- 8002464:	f7ff f8a6 	bl	80015b4 <HAL_InitTick>
+ 8002464:	f7fe fd8a 	bl	8000f7c <HAL_InitTick>
 
   return HAL_OK;
  8002468:	2300      	movs	r3, #0
@@ -5806,7 +5808,7 @@ HAL_StatusTypeDef HAL_RCC_ClockConfig(RCC_ClkInitTypeDef  *RCC_ClkInitStruct, ui
  8002474:	40023c00 	.word	0x40023c00
  8002478:	40023800 	.word	0x40023800
  800247c:	080096d8 	.word	0x080096d8
- 8002480:	2000000c 	.word	0x2000000c
+ 8002480:	20000000 	.word	0x20000000
  8002484:	20000010 	.word	0x20000010
 
 08002488 <HAL_RCC_GetSysClockFreq>:
@@ -6081,7 +6083,7 @@ uint32_t HAL_RCC_GetHCLKFreq(void)
  80026a0:	f85d 7b04 	ldr.w	r7, [sp], #4
  80026a4:	4770      	bx	lr
  80026a6:	bf00      	nop
- 80026a8:	2000000c 	.word	0x2000000c
+ 80026a8:	20000000 	.word	0x20000000
 
 080026ac <HAL_RCC_GetPCLK1Freq>:
   * @note   Each time PCLK1 changes, this function must be called to update the
@@ -6543,7 +6545,7 @@ HAL_StatusTypeDef HAL_RTC_Init(RTC_HandleTypeDef *hrtc)
     /* Initialize RTC MSP */
     HAL_RTC_MspInit(hrtc);
  800293a:	6878      	ldr	r0, [r7, #4]
- 800293c:	f7fe fdec 	bl	8001518 <HAL_RTC_MspInit>
+ 800293c:	f7fe fad0 	bl	8000ee0 <HAL_RTC_MspInit>
   }
 #endif /* USE_HAL_RTC_REGISTER_CALLBACKS */
 
@@ -8126,7 +8128,7 @@ HAL_StatusTypeDef HAL_TIM_Base_Init(TIM_HandleTypeDef *htim)
     /* Init the low level hardware : GPIO, CLOCK, NVIC */
     HAL_TIM_Base_MspInit(htim);
  800318a:	6878      	ldr	r0, [r7, #4]
- 800318c:	f7fe f9f0 	bl	8001570 <HAL_TIM_Base_MspInit>
+ 800318c:	f7fd fed4 	bl	8000f38 <HAL_TIM_Base_MspInit>
 #endif /* USE_HAL_TIM_REGISTER_CALLBACKS */
   }
 
@@ -8724,7 +8726,7 @@ void HAL_TIM_IRQHandler(TIM_HandleTypeDef *htim)
 #else
       HAL_TIM_PeriodElapsedCallback(htim);
  80034fa:	6878      	ldr	r0, [r7, #4]
- 80034fc:	f7fd ffca 	bl	8001494 <HAL_TIM_PeriodElapsedCallback>
+ 80034fc:	f7fd fcae 	bl	8000e5c <HAL_TIM_PeriodElapsedCallback>
 #endif /* USE_HAL_TIM_REGISTER_CALLBACKS */
     }
   }
@@ -14595,7 +14597,7 @@ static portTASK_FUNCTION( prvIdleTask, pvParameters )
              * NOTE: vApplicationIdleHook() MUST NOT, UNDER ANY CIRCUMSTANCES,
              * CALL A FUNCTION THAT MIGHT BLOCK. */
             vApplicationIdleHook();
- 80054c0:	f7fb fd4e 	bl	8000f60 <vApplicationIdleHook>
+ 80054c0:	f7fb fec2 	bl	8001248 <vApplicationIdleHook>
         prvCheckTasksWaitingTermination();
  80054c4:	e7ee      	b.n	80054a4 <prvIdleTask+0x8>
  80054c6:	bf00      	nop
@@ -17892,7 +17894,7 @@ __attribute__( ( weak ) ) void vPortSetupTimerInterrupt( void )
  800675e:	bf00      	nop
  8006760:	e000e010 	.word	0xe000e010
  8006764:	e000e018 	.word	0xe000e018
- 8006768:	2000000c 	.word	0x2000000c
+ 8006768:	20000000 	.word	0x20000000
  800676c:	10624dd3 	.word	0x10624dd3
  8006770:	e000e014 	.word	0xe000e014
 
@@ -18748,7 +18750,7 @@ void SEGGER_SYSVIEW_Conf(void) {
 }
  8006bdc:	bf00      	nop
  8006bde:	bd80      	pop	{r7, pc}
- 8006be0:	2000000c 	.word	0x2000000c
+ 8006be0:	20000000 	.word	0x20000000
  8006be4:	08006ba5 	.word	0x08006ba5
  8006be8:	080096f0 	.word	0x080096f0
 
@@ -24714,7 +24716,7 @@ void SEGGER_SYSVIEW_Warn(const char* s) {
  80094d2:	4604      	mov	r4, r0
  80094d4:	4608      	mov	r0, r1
  80094d6:	602b      	str	r3, [r5, #0]
- 80094d8:	f7f8 f908 	bl	80016ec <_sbrk>
+ 80094d8:	f7f7 fdec 	bl	80010b4 <_sbrk>
  80094dc:	1c43      	adds	r3, r0, #1
  80094de:	d102      	bne.n	80094e6 <_sbrk_r+0x1a>
  80094e0:	682b      	ldr	r3, [r5, #0]
