@@ -54,8 +54,8 @@ typedef enum{
 	sHour = 0,
 	sMin,
 	sSec,
-	sDay,
 	sMonth,
+	sDay,
 	sYear
 }selected_t;
 
@@ -72,6 +72,8 @@ extern RTC_TimeTypeDef rtcTime;
 
 extern RTC_DateTypeDef setDate;
 extern RTC_TimeTypeDef setTime;
+
+extern RTC_AlarmTypeDef rtcAlarm;
 
 /* USER CODE END ET */
 

@@ -9,7 +9,7 @@
 
 static void handleSetTime(RTC_TimeTypeDef *setTime);
 static void handleSetDate(RTC_DateTypeDef *setDate);
-static void handleSelect(void);
+static void handleSelect(uint8_t numOptions);
 
 void printTaskHandler(void *parameters){
 	uint32_t *str;
@@ -31,6 +31,7 @@ void printTaskHandler(void *parameters){
 void startTimerTaskHandler(void *parameters){
 	while(1){
 		xTimerStart(printTimerHandle, portMAX_DELAY);
+		HAL_RTC_GetAlarm(&hrtc, &rtcAlarm, RTC_ALARM_A, RTC_FORMAT_BIN);
 		vTaskSuspend(alarmBuzzerTaskHandle);
 		vTaskSuspend(startTimerTaskHandle);
 	}
@@ -50,28 +51,27 @@ void printTimerCallback(TimerHandle_t xTimer){
 
 void vApplicationIdleHook(void){
 	if(HAL_GPIO_ReadPin(MODE_GPIO_Port, MODE_Pin) == GPIO_PIN_SET){
-		if (currMode == mDisplayRtc){
-			currMode = mSetRtc;
-			HAL_Delay(DEBOUNCE_DELAY_PERIOD);
-		}
-		else if (currMode == mSetRtc){
-			currMode = mSetAlarm;
-			HAL_Delay(DEBOUNCE_DELAY_PERIOD);
-		}
-		else if(currMode == mSetAlarm){
-			currMode = mDisplayRtc;
-			HAL_Delay(DEBOUNCE_DELAY_PERIOD);
-		}
+		currSet = sHour;
+
+		currMode++;
+		currMode = currMode % 3;
+
+		HAL_Delay(DEBOUNCE_DELAY_PERIOD);
 	}
 
-	if (currMode == mSetRtc) {
+	else if (currMode == mSetRtc) {
 		if(currSet <= 2){
 			handleSetTime(&setTime);
 		}
 		else {
 			handleSetDate(&setDate);
 		}
-		handleSelect();
+		handleSelect(6);
+	}
+
+	else if (currMode == mSetAlarm){
+		handleSetTime(& (rtcAlarm.AlarmTime) );
+		handleSelect(3);
 	}
 }
 
@@ -131,28 +131,10 @@ static void handleSetDate(RTC_DateTypeDef *setDate){
 	}
 }
 
-static void handleSelect(void){
+static void handleSelect(uint8_t numOptions){
 	if(HAL_GPIO_ReadPin(SELECT_GPIO_Port, SELECT_Pin) == GPIO_PIN_SET){
-		switch(currSet){
-		case sHour:
-			currSet = sMin;
-			break;
-		case sMin:
-			currSet = sSec;
-			break;
-		case sSec:
-			currSet = sMonth;
-			break;
-		case sMonth:
-			currSet = sDay;
-			break;
-		case sDay:
-			currSet = sYear;
-			break;
-		case sYear:
-			currSet = sHour;
-			break;
-		}
+		currSet++;
+		currSet = currSet % numOptions;
 
 		HAL_Delay(DEBOUNCE_DELAY_PERIOD);
 	}
@@ -217,12 +199,15 @@ void alarmSetTaskHandler(void *parameters){
 	while(1){
 		xTaskNotifyWait(0, 0, NULL, portMAX_DELAY);
 
+		HAL_RTC_SetAlarm_IT(&hrtc, &rtcAlarm, RTC_FORMAT_BIN); // update alarm
+
 		memset(&strBuffer, 0, sizeof(strBuffer) );
-		sprintf( (char*) strBuffer, "Alarm" );
+
+		sprintf( (char*) strBuffer, "Alarm ON" );
 		xQueueSend(printQueueHandle, &str , portMAX_DELAY);
 
 		memset(&strBuffer, 0, sizeof(strBuffer) );
-		sprintf( (char*) strBuffer, "Mode" );
+		sprintf( (char*) strBuffer, "%02d:%02d:%02d", rtcAlarm.AlarmTime.Hours, rtcAlarm.AlarmTime.Minutes, rtcAlarm.AlarmTime.Seconds);
 		xQueueSend(printQueueHandle, &str , portMAX_DELAY);
 
 	}
