@@ -61,9 +61,9 @@ typedef enum{
 
 extern RTC_HandleTypeDef hrtc;
 
-extern TaskHandle_t printTaskHandle, startTimerTaskHandle, rtcUpdateTaskHandle, rtcSetTaskHandle, alarmSetTaskHandle;
+extern TaskHandle_t printTaskHandle, startTimerTaskHandle, rtcUpdateTaskHandle, rtcSetTaskHandle, alarmSetTaskHandle, alarmBuzzerTaskHandle;
 extern QueueHandle_t printQueueHandle;
-extern TimerHandle_t printTimerHandle;
+extern TimerHandle_t printTimerHandle, alarmTimerHandle, alarmLedTimerHandle;
 
 extern displayMode_t currMode;
 extern selected_t currSet;
@@ -84,15 +84,20 @@ extern RTC_TimeTypeDef setTime;
 /* USER CODE BEGIN EM */
 #define PRINT_QUEUE_LEN				10
 #define RTC_SAMPLE_PERIOD			500
-#define ALARM_SAMPLE_PERIOD			500
+
 #define DEBOUNCE_DELAY_PERIOD		300
+
+#define ALARM_SAMPLE_PERIOD			500
+#define ALARM_LEN					5000
+#define ALARM_LED_PERIOD			500
+#define ALARM_BUZZ_PERIOD			300
 /* USER CODE END EM */
 
 /* Exported functions prototypes ---------------------------------------------*/
 void Error_Handler(void);
 
 /* USER CODE BEGIN EFP */
-
+void delayUs(uint16_t us);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
@@ -112,10 +117,12 @@ void Error_Handler(void);
 #define INC_GPIO_Port GPIOA
 #define DEC_Pin GPIO_PIN_6
 #define DEC_GPIO_Port GPIOA
+#define BUZZER_Pin GPIO_PIN_7
+#define BUZZER_GPIO_Port GPIOA
 #define DB5_Pin GPIO_PIN_0
 #define DB5_GPIO_Port GPIOB
-#define BUZZER_Pin GPIO_PIN_9
-#define BUZZER_GPIO_Port GPIOC
+#define RED_LED_Pin GPIO_PIN_9
+#define RED_LED_GPIO_Port GPIOC
 #define TMS_Pin GPIO_PIN_13
 #define TMS_GPIO_Port GPIOA
 #define TCK_Pin GPIO_PIN_14

@@ -43,11 +43,12 @@
 RTC_HandleTypeDef hrtc;
 
 TIM_HandleTypeDef htim1;
+TIM_HandleTypeDef htim9;
 
 /* USER CODE BEGIN PV */
-TaskHandle_t printTaskHandle, startTimerTaskHandle, rtcUpdateTaskHandle, rtcSetTaskHandle, alarmSetTaskHandle;
+TaskHandle_t printTaskHandle, startTimerTaskHandle, rtcUpdateTaskHandle, rtcSetTaskHandle, alarmSetTaskHandle, alarmStartTaskHandle, alarmBuzzerTaskHandle;
 QueueHandle_t printQueueHandle;
-TimerHandle_t printTimerHandle;
+TimerHandle_t printTimerHandle, alarmLedTimerHandle, alarmTimerHandle;
 
 displayMode_t currMode = mDisplayRtc;
 selected_t currSet = sHour;
@@ -67,14 +68,22 @@ void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
 static void MX_RTC_Init(void);
 static void MX_TIM1_Init(void);
+static void MX_TIM9_Init(void);
 /* USER CODE BEGIN PFP */
-void printTimerCallback(TimerHandle_t xTimer);
 
 void startTimerTaskHandler(void *parameters);
 void printTaskHandler(void *parameters);
 void rtcUpdateTaskHandler(void *parameters);
 void rtcSetTaskHandler(void *parameters);
+
+void printTimerCallback(TimerHandle_t xTimer);
+
+void alarmTimerCallback(TimerHandle_t xTimer);
+void alarmLedTimerCallback(TimerHandle_t xTimer);
+
 void alarmSetTaskHandler(void *parameters);
+void alarmStartTaskHandler(void *parameters);
+void alarmBuzzerTaskHandler(void *parameters);
 
 /* USER CODE END PFP */
 
@@ -113,11 +122,13 @@ int main(void)
   MX_GPIO_Init();
   MX_RTC_Init();
   MX_TIM1_Init();
+  MX_TIM9_Init();
   /* USER CODE BEGIN 2 */
 
-  //DWT_CTRL |= (1 << 0); //enable CYCCNT counter (cycle count counter)
+  DWT_CTRL |= (1 << 0); //enable CYCCNT counter (cycle count counter)
 
   HAL_TIM_Base_Start(&htim1);
+  HAL_TIM_Base_Start(&htim9);
 
   SEGGER_SYSVIEW_Conf();
   SEGGER_SYSVIEW_Start();
@@ -128,6 +139,9 @@ int main(void)
 
   /*create timers */
   printTimerHandle = xTimerCreate("Print_Timer", pdMS_TO_TICKS(RTC_SAMPLE_PERIOD), pdTRUE, NULL, printTimerCallback);
+
+  alarmTimerHandle = xTimerCreate("Alarm_Timer", pdMS_TO_TICKS(ALARM_LEN), pdFALSE, NULL, alarmTimerCallback);
+  alarmLedTimerHandle = xTimerCreate("LED_Timer", pdMS_TO_TICKS(ALARM_LED_PERIOD), pdTRUE, NULL, alarmLedTimerCallback);
 
   /* create tasks */
   status = xTaskCreate(startTimerTaskHandler, "Start_Timer_Task", 250, NULL, 2, &startTimerTaskHandle);
@@ -144,6 +158,12 @@ int main(void)
 
   status = xTaskCreate(alarmSetTaskHandler, "Alarm_Set_Task", 250, NULL, 2, &alarmSetTaskHandle);
   configASSERT(status == pdPASS);
+
+  status = xTaskCreate(alarmStartTaskHandler, "Alarm_Start_Task", 250, NULL, 3, &alarmStartTaskHandle);
+  configASSERT(status = pdPASS);
+
+  status = xTaskCreate(alarmBuzzerTaskHandler, "Alarm_Buzzer_Task", 250, NULL, 2, &alarmBuzzerTaskHandle);
+  configASSERT(status = pdPASS);
 
   HAL_RTC_SetAlarm(&hrtc, &rtcAlarm, RTC_FORMAT_BIN);
 
@@ -273,14 +293,14 @@ static void MX_RTC_Init(void)
   */
   sAlarm.AlarmTime.Hours = 0x0;
   sAlarm.AlarmTime.Minutes = 0x0;
-  sAlarm.AlarmTime.Seconds = 0x15;
-  //sAlarm.AlarmTime.SubSeconds = 0x0;
-  //sAlarm.AlarmTime.DayLightSaving = RTC_DAYLIGHTSAVING_NONE;
-  //sAlarm.AlarmTime.StoreOperation = RTC_STOREOPERATION_RESET;
+  sAlarm.AlarmTime.Seconds = 0x5;
+  sAlarm.AlarmTime.SubSeconds = 0x0;
+  sAlarm.AlarmTime.DayLightSaving = RTC_DAYLIGHTSAVING_NONE;
+  sAlarm.AlarmTime.StoreOperation = RTC_STOREOPERATION_RESET;
   sAlarm.AlarmMask = RTC_ALARMMASK_DATEWEEKDAY;
   sAlarm.AlarmSubSecondMask = RTC_ALARMSUBSECONDMASK_NONE;
-  //sAlarm.AlarmDateWeekDaySel = RTC_ALARMDATEWEEKDAYSEL_DATE;
-  //sAlarm.AlarmDateWeekDay = 0x1;
+  sAlarm.AlarmDateWeekDaySel = RTC_ALARMDATEWEEKDAYSEL_DATE;
+  sAlarm.AlarmDateWeekDay = 0x1;
   sAlarm.Alarm = RTC_ALARM_A;
   if (HAL_RTC_SetAlarm_IT(&hrtc, &sAlarm, RTC_FORMAT_BCD) != HAL_OK)
   {
@@ -339,6 +359,44 @@ static void MX_TIM1_Init(void)
 }
 
 /**
+  * @brief TIM9 Initialization Function
+  * @param None
+  * @retval None
+  */
+static void MX_TIM9_Init(void)
+{
+
+  /* USER CODE BEGIN TIM9_Init 0 */
+
+  /* USER CODE END TIM9_Init 0 */
+
+  TIM_ClockConfigTypeDef sClockSourceConfig = {0};
+
+  /* USER CODE BEGIN TIM9_Init 1 */
+
+  /* USER CODE END TIM9_Init 1 */
+  htim9.Instance = TIM9;
+  htim9.Init.Prescaler = 84;
+  htim9.Init.CounterMode = TIM_COUNTERMODE_UP;
+  htim9.Init.Period = 65535;
+  htim9.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
+  htim9.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
+  if (HAL_TIM_Base_Init(&htim9) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  sClockSourceConfig.ClockSource = TIM_CLOCKSOURCE_INTERNAL;
+  if (HAL_TIM_ConfigClockSource(&htim9, &sClockSourceConfig) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /* USER CODE BEGIN TIM9_Init 2 */
+
+  /* USER CODE END TIM9_Init 2 */
+
+}
+
+/**
   * @brief GPIO Initialization Function
   * @param None
   * @retval None
@@ -356,10 +414,10 @@ static void MX_GPIO_Init(void)
   __HAL_RCC_GPIOB_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOC, DB7_Pin|DB6_Pin|BUZZER_Pin|GPIO_PIN_10, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOC, DB7_Pin|DB6_Pin|RED_LED_Pin|GPIO_PIN_10, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOA, DB4_Pin|E_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOA, DB4_Pin|BUZZER_Pin|E_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOB, DB5_Pin|RS_Pin, GPIO_PIN_RESET);
@@ -370,10 +428,10 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(B1_GPIO_Port, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : DB7_Pin DB6_Pin BUZZER_Pin PC10 */
-  GPIO_InitStruct.Pin = DB7_Pin|DB6_Pin|BUZZER_Pin|GPIO_PIN_10;
+  /*Configure GPIO pins : DB7_Pin DB6_Pin RED_LED_Pin PC10 */
+  GPIO_InitStruct.Pin = DB7_Pin|DB6_Pin|RED_LED_Pin|GPIO_PIN_10;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Pull = GPIO_PULLDOWN;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
 
@@ -385,10 +443,10 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Alternate = GPIO_AF7_USART2;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : DB4_Pin E_Pin */
-  GPIO_InitStruct.Pin = DB4_Pin|E_Pin;
+  /*Configure GPIO pins : DB4_Pin BUZZER_Pin E_Pin */
+  GPIO_InitStruct.Pin = DB4_Pin|BUZZER_Pin|E_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Pull = GPIO_PULLDOWN;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
@@ -401,7 +459,7 @@ static void MX_GPIO_Init(void)
   /*Configure GPIO pins : DB5_Pin RS_Pin */
   GPIO_InitStruct.Pin = DB5_Pin|RS_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Pull = GPIO_PULLDOWN;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
@@ -417,8 +475,17 @@ static void MX_GPIO_Init(void)
 
 /* USER CODE BEGIN 4 */
 
+void delayUs(uint16_t us){
+	__HAL_TIM_SET_COUNTER(&htim9, 0);
+	while(__HAL_TIM_GET_COUNTER(&htim9) < us);
+}
+
 void HAL_RTC_AlarmAEventCallback(RTC_HandleTypeDef *hrtc){
-	HAL_GPIO_WritePin(BUZZER_GPIO_Port, BUZZER_Pin, GPIO_PIN_SET);
+	BaseType_t isYieldRequired;
+	isYieldRequired = xTaskResumeFromISR(alarmStartTaskHandle);
+
+	portYIELD_FROM_ISR(isYieldRequired);
+
 }
 
 /* USER CODE END 4 */

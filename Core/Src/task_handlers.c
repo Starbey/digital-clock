@@ -31,6 +31,7 @@ void printTaskHandler(void *parameters){
 void startTimerTaskHandler(void *parameters){
 	while(1){
 		xTimerStart(printTimerHandle, portMAX_DELAY);
+		vTaskSuspend(alarmBuzzerTaskHandle);
 		vTaskSuspend(startTimerTaskHandle);
 	}
 }
@@ -224,5 +225,39 @@ void alarmSetTaskHandler(void *parameters){
 		sprintf( (char*) strBuffer, "Mode" );
 		xQueueSend(printQueueHandle, &str , portMAX_DELAY);
 
+	}
+}
+
+/* starts buzzer */
+void alarmStartTaskHandler(void *parameters){
+	while(1){
+		vTaskSuspend(NULL);
+
+		xTimerStart(alarmTimerHandle, portMAX_DELAY);
+		xTimerStart(alarmLedTimerHandle, portMAX_DELAY);
+		HAL_GPIO_WritePin(RED_LED_GPIO_Port, RED_LED_Pin, GPIO_PIN_SET); // ensure LED is on as soon as alarm starts
+		vTaskResume(alarmBuzzerTaskHandle);
+	}
+}
+
+/* determines length of alarm, not auto-reload */
+void alarmTimerCallback(TimerHandle_t xTimer){
+	xTimerStop(alarmLedTimerHandle, portMAX_DELAY);
+	vTaskSuspend(alarmBuzzerTaskHandle);
+
+	HAL_GPIO_WritePin(BUZZER_GPIO_Port, BUZZER_Pin, GPIO_PIN_RESET);
+	HAL_GPIO_WritePin(RED_LED_GPIO_Port, RED_LED_Pin, GPIO_PIN_RESET);
+}
+
+/* determines LED frequency */
+void alarmLedTimerCallback(TimerHandle_t xTimer){
+	HAL_GPIO_TogglePin(RED_LED_GPIO_Port, RED_LED_Pin);
+}
+
+/* determines buzzer frequency */
+void alarmBuzzerTaskHandler(void *parameters){
+	while(1){
+		HAL_GPIO_TogglePin(BUZZER_GPIO_Port, BUZZER_Pin);
+		delayUs(ALARM_BUZZ_PERIOD);
 	}
 }
