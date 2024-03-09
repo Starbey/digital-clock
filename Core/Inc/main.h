@@ -75,6 +75,8 @@ extern RTC_TimeTypeDef setTime;
 
 extern RTC_AlarmTypeDef rtcAlarm;
 
+extern uint8_t alarmOn;
+
 /* USER CODE END ET */
 
 /* Exported constants --------------------------------------------------------*/
@@ -103,8 +105,8 @@ void delayUs(uint16_t us);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
-#define B1_Pin GPIO_PIN_13
-#define B1_GPIO_Port GPIOC
+#define ALARM_TOGGLE_Pin GPIO_PIN_13
+#define ALARM_TOGGLE_GPIO_Port GPIOC
 #define DB7_Pin GPIO_PIN_0
 #define DB7_GPIO_Port GPIOC
 #define DB6_Pin GPIO_PIN_1

@@ -73,6 +73,11 @@ void vApplicationIdleHook(void){
 		handleSetTime(& (rtcAlarm.AlarmTime) );
 		handleSelect(3);
 	}
+
+	if (HAL_GPIO_ReadPin(ALARM_TOGGLE_GPIO_Port, ALARM_TOGGLE_Pin) == GPIO_PIN_RESET){
+		alarmOn ^= 0x1; // flip first bit
+		HAL_Delay(DEBOUNCE_DELAY_PERIOD);
+	}
 }
 
 static void handleSetTime(RTC_TimeTypeDef *setTime){
@@ -199,11 +204,17 @@ void alarmSetTaskHandler(void *parameters){
 	while(1){
 		xTaskNotifyWait(0, 0, NULL, portMAX_DELAY);
 
-		HAL_RTC_SetAlarm_IT(&hrtc, &rtcAlarm, RTC_FORMAT_BIN); // update alarm
-
 		memset(&strBuffer, 0, sizeof(strBuffer) );
 
-		sprintf( (char*) strBuffer, "Alarm ON" );
+		HAL_RTC_SetAlarm_IT(&hrtc, &rtcAlarm, RTC_FORMAT_BIN); // update alarm
+
+		if (alarmOn){
+			sprintf( (char*) strBuffer, "Alarm ON" );
+		}
+		else {
+			sprintf( (char*) strBuffer, "Alarm OFF" );
+		}
+
 		xQueueSend(printQueueHandle, &str , portMAX_DELAY);
 
 		memset(&strBuffer, 0, sizeof(strBuffer) );
