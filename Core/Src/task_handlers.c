@@ -7,9 +7,9 @@
 
 #include "main.h"
 
-static void handleSetTime(RTC_TimeTypeDef *setTime);
-static void handleSetDate(RTC_DateTypeDef *setDate);
-static void handleSelect(uint8_t numOptions);
+static void checkSetTime(RTC_TimeTypeDef *setTime);
+static void checkSetDate(RTC_DateTypeDef *setDate);
+static void checkSelect(uint8_t numOptions);
 
 void printTaskHandler(void *parameters){
 	uint32_t *str;
@@ -65,17 +65,17 @@ void vApplicationIdleHook(void){
 
 	else if (currMode == mSetRtc) {
 		if(currSet <= 2){
-			handleSetTime(&setTime);
+			checkSetTime(&setTime);
 		}
 		else {
-			handleSetDate(&setDate);
+			checkSetDate(&setDate);
 		}
-		handleSelect(6);
+		checkSelect(6);
 	}
 
 	else if (currMode == mSetAlarm){
-		handleSetTime(& (rtcAlarm.AlarmTime) );
-		handleSelect(3);
+		checkSetTime(& (rtcAlarm.AlarmTime) );
+		checkSelect(3);
 	}
 
 	if (HAL_GPIO_ReadPin(ALARM_TOGGLE_GPIO_Port, ALARM_TOGGLE_Pin) == GPIO_PIN_RESET){
@@ -84,7 +84,7 @@ void vApplicationIdleHook(void){
 	}
 }
 
-static void handleSetTime(RTC_TimeTypeDef *setTime){
+static void checkSetTime(RTC_TimeTypeDef *setTime){
 	if (HAL_GPIO_ReadPin(INC_GPIO_Port, INC_Pin) == GPIO_PIN_SET){
 		switch(currSet){
 		case sHour:
@@ -122,7 +122,7 @@ static void handleSetTime(RTC_TimeTypeDef *setTime){
 	}
 }
 
-static void handleSetDate(RTC_DateTypeDef *setDate){
+static void checkSetDate(RTC_DateTypeDef *setDate){
 	if (HAL_GPIO_ReadPin(INC_GPIO_Port, INC_Pin) == GPIO_PIN_SET){
 		switch (currSet){
 		case sMonth:
@@ -158,7 +158,7 @@ static void handleSetDate(RTC_DateTypeDef *setDate){
 	}
 }
 
-static void handleSelect(uint8_t numOptions){
+static void checkSelect(uint8_t numOptions){
 	if(HAL_GPIO_ReadPin(SELECT_GPIO_Port, SELECT_Pin) == GPIO_PIN_SET){
 		currSet++;
 		currSet = currSet % numOptions;

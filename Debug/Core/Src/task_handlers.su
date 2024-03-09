@@ -2,9 +2,9 @@
 ../Core/Src/task_handlers.c:31:6:startTimerTaskHandler	32	static
 ../Core/Src/task_handlers.c:40:6:printTimerCallback	24	static
 ../Core/Src/task_handlers.c:56:6:vApplicationIdleHook	8	static
-../Core/Src/task_handlers.c:87:13:handleSetTime	16	static
-../Core/Src/task_handlers.c:125:13:handleSetDate	16	static
-../Core/Src/task_handlers.c:161:13:handleSelect	16	static
+../Core/Src/task_handlers.c:87:13:checkSetTime	16	static
+../Core/Src/task_handlers.c:125:13:checkSetDate	16	static
+../Core/Src/task_handlers.c:161:13:checkSelect	16	static
 ../Core/Src/task_handlers.c:170:6:rtcUpdateTaskHandler	24	static
 ../Core/Src/task_handlers.c:200:6:rtcSetTaskHandler	24	static
 ../Core/Src/task_handlers.c:222:6:alarmSetTaskHandler	24	static

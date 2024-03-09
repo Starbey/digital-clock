@@ -41,11 +41,11 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING, OCTETS
  18 .debug_line   0001ba4b  00000000  00000000  0005a9ff  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 19 .debug_str    000a1c17  00000000  00000000  0007644a  2**0
+ 19 .debug_str    000a1c14  00000000  00000000  0007644a  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 20 .debug_frame  00006408  00000000  00000000  00118064  2**2
+ 20 .debug_frame  00006408  00000000  00000000  00118060  2**2
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 21 .debug_line_str 000000b0  00000000  00000000  0011e46c  2**0
+ 21 .debug_line_str 000000b0  00000000  00000000  0011e468  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
 
 Disassembly of section .text:
@@ -2817,9 +2817,9 @@ void SystemInit(void)
 
 08001334 <printTaskHandler>:
 
-static void handleSetTime(RTC_TimeTypeDef *setTime);
-static void handleSetDate(RTC_DateTypeDef *setDate);
-static void handleSelect(uint8_t numOptions);
+static void checkSetTime(RTC_TimeTypeDef *setTime);
+static void checkSetDate(RTC_DateTypeDef *setDate);
+static void checkSelect(uint8_t numOptions);
 
 void printTaskHandler(void *parameters){
  8001334:	b580      	push	{r7, lr}
@@ -3040,19 +3040,19 @@ void vApplicationIdleHook(void){
  80014b0:	781b      	ldrb	r3, [r3, #0]
  80014b2:	2b02      	cmp	r3, #2
  80014b4:	d803      	bhi.n	80014be <vApplicationIdleHook+0x62>
-			handleSetTime(&setTime);
+			checkSetTime(&setTime);
  80014b6:	4819      	ldr	r0, [pc, #100]	; (800151c <vApplicationIdleHook+0xc0>)
- 80014b8:	f000 f83a 	bl	8001530 <handleSetTime>
+ 80014b8:	f000 f83a 	bl	8001530 <checkSetTime>
  80014bc:	e002      	b.n	80014c4 <vApplicationIdleHook+0x68>
 		}
 		else {
-			handleSetDate(&setDate);
+			checkSetDate(&setDate);
  80014be:	4818      	ldr	r0, [pc, #96]	; (8001520 <vApplicationIdleHook+0xc4>)
- 80014c0:	f000 f8bc 	bl	800163c <handleSetDate>
+ 80014c0:	f000 f8bc 	bl	800163c <checkSetDate>
 		}
-		handleSelect(6);
+		checkSelect(6);
  80014c4:	2006      	movs	r0, #6
- 80014c6:	f000 f939 	bl	800173c <handleSelect>
+ 80014c6:	f000 f939 	bl	800173c <checkSelect>
  80014ca:	e009      	b.n	80014e0 <vApplicationIdleHook+0x84>
 	}
 
@@ -3061,12 +3061,12 @@ void vApplicationIdleHook(void){
  80014ce:	781b      	ldrb	r3, [r3, #0]
  80014d0:	2b02      	cmp	r3, #2
  80014d2:	d105      	bne.n	80014e0 <vApplicationIdleHook+0x84>
-		handleSetTime(& (rtcAlarm.AlarmTime) );
+		checkSetTime(& (rtcAlarm.AlarmTime) );
  80014d4:	4813      	ldr	r0, [pc, #76]	; (8001524 <vApplicationIdleHook+0xc8>)
- 80014d6:	f000 f82b 	bl	8001530 <handleSetTime>
-		handleSelect(3);
+ 80014d6:	f000 f82b 	bl	8001530 <checkSetTime>
+		checkSelect(3);
  80014da:	2003      	movs	r0, #3
- 80014dc:	f000 f92e 	bl	800173c <handleSelect>
+ 80014dc:	f000 f92e 	bl	800173c <checkSelect>
 	}
 
 	if (HAL_GPIO_ReadPin(ALARM_TOGGLE_GPIO_Port, ALARM_TOGGLE_Pin) == GPIO_PIN_RESET){
@@ -3101,38 +3101,38 @@ void vApplicationIdleHook(void){
  8001528:	40020800 	.word	0x40020800
  800152c:	20000000 	.word	0x20000000
 
-08001530 <handleSetTime>:
+08001530 <checkSetTime>:
 
-static void handleSetTime(RTC_TimeTypeDef *setTime){
+static void checkSetTime(RTC_TimeTypeDef *setTime){
  8001530:	b580      	push	{r7, lr}
  8001532:	b082      	sub	sp, #8
  8001534:	af00      	add	r7, sp, #0
  8001536:	6078      	str	r0, [r7, #4]
 	if (HAL_GPIO_ReadPin(INC_GPIO_Port, INC_Pin) == GPIO_PIN_SET){
  8001538:	2120      	movs	r1, #32
- 800153a:	483e      	ldr	r0, [pc, #248]	; (8001634 <handleSetTime+0x104>)
+ 800153a:	483e      	ldr	r0, [pc, #248]	; (8001634 <checkSetTime+0x104>)
  800153c:	f000 fdda 	bl	80020f4 <HAL_GPIO_ReadPin>
  8001540:	4603      	mov	r3, r0
  8001542:	2b01      	cmp	r3, #1
- 8001544:	d135      	bne.n	80015b2 <handleSetTime+0x82>
+ 8001544:	d135      	bne.n	80015b2 <checkSetTime+0x82>
 		switch(currSet){
- 8001546:	4b3c      	ldr	r3, [pc, #240]	; (8001638 <handleSetTime+0x108>)
+ 8001546:	4b3c      	ldr	r3, [pc, #240]	; (8001638 <checkSetTime+0x108>)
  8001548:	781b      	ldrb	r3, [r3, #0]
  800154a:	2b02      	cmp	r3, #2
- 800154c:	d01c      	beq.n	8001588 <handleSetTime+0x58>
+ 800154c:	d01c      	beq.n	8001588 <checkSetTime+0x58>
  800154e:	2b02      	cmp	r3, #2
- 8001550:	dc2a      	bgt.n	80015a8 <handleSetTime+0x78>
+ 8001550:	dc2a      	bgt.n	80015a8 <checkSetTime+0x78>
  8001552:	2b00      	cmp	r3, #0
- 8001554:	d002      	beq.n	800155c <handleSetTime+0x2c>
+ 8001554:	d002      	beq.n	800155c <checkSetTime+0x2c>
  8001556:	2b01      	cmp	r3, #1
- 8001558:	d00b      	beq.n	8001572 <handleSetTime+0x42>
- 800155a:	e025      	b.n	80015a8 <handleSetTime+0x78>
+ 8001558:	d00b      	beq.n	8001572 <checkSetTime+0x42>
+ 800155a:	e025      	b.n	80015a8 <checkSetTime+0x78>
 		case sHour:
 			if(setTime->Hours < 23) setTime->Hours++;
  800155c:	687b      	ldr	r3, [r7, #4]
  800155e:	781b      	ldrb	r3, [r3, #0]
  8001560:	2b16      	cmp	r3, #22
- 8001562:	d81c      	bhi.n	800159e <handleSetTime+0x6e>
+ 8001562:	d81c      	bhi.n	800159e <checkSetTime+0x6e>
  8001564:	687b      	ldr	r3, [r7, #4]
  8001566:	781b      	ldrb	r3, [r3, #0]
  8001568:	3301      	adds	r3, #1
@@ -3140,14 +3140,14 @@ static void handleSetTime(RTC_TimeTypeDef *setTime){
  800156c:	687b      	ldr	r3, [r7, #4]
  800156e:	701a      	strb	r2, [r3, #0]
 			break;
- 8001570:	e015      	b.n	800159e <handleSetTime+0x6e>
+ 8001570:	e015      	b.n	800159e <checkSetTime+0x6e>
 
 		case sMin:
 			if(setTime->Minutes < 59) setTime->Minutes++;
  8001572:	687b      	ldr	r3, [r7, #4]
  8001574:	785b      	ldrb	r3, [r3, #1]
  8001576:	2b3a      	cmp	r3, #58	; 0x3a
- 8001578:	d813      	bhi.n	80015a2 <handleSetTime+0x72>
+ 8001578:	d813      	bhi.n	80015a2 <checkSetTime+0x72>
  800157a:	687b      	ldr	r3, [r7, #4]
  800157c:	785b      	ldrb	r3, [r3, #1]
  800157e:	3301      	adds	r3, #1
@@ -3155,14 +3155,14 @@ static void handleSetTime(RTC_TimeTypeDef *setTime){
  8001582:	687b      	ldr	r3, [r7, #4]
  8001584:	705a      	strb	r2, [r3, #1]
 			break;
- 8001586:	e00c      	b.n	80015a2 <handleSetTime+0x72>
+ 8001586:	e00c      	b.n	80015a2 <checkSetTime+0x72>
 
 		case sSec:
 			if(setTime->Seconds < 59) setTime->Seconds++;
  8001588:	687b      	ldr	r3, [r7, #4]
  800158a:	789b      	ldrb	r3, [r3, #2]
  800158c:	2b3a      	cmp	r3, #58	; 0x3a
- 800158e:	d80a      	bhi.n	80015a6 <handleSetTime+0x76>
+ 800158e:	d80a      	bhi.n	80015a6 <checkSetTime+0x76>
  8001590:	687b      	ldr	r3, [r7, #4]
  8001592:	789b      	ldrb	r3, [r3, #2]
  8001594:	3301      	adds	r3, #1
@@ -3170,13 +3170,13 @@ static void handleSetTime(RTC_TimeTypeDef *setTime){
  8001598:	687b      	ldr	r3, [r7, #4]
  800159a:	709a      	strb	r2, [r3, #2]
 			break;
- 800159c:	e003      	b.n	80015a6 <handleSetTime+0x76>
+ 800159c:	e003      	b.n	80015a6 <checkSetTime+0x76>
 			break;
  800159e:	bf00      	nop
- 80015a0:	e002      	b.n	80015a8 <handleSetTime+0x78>
+ 80015a0:	e002      	b.n	80015a8 <checkSetTime+0x78>
 			break;
  80015a2:	bf00      	nop
- 80015a4:	e000      	b.n	80015a8 <handleSetTime+0x78>
+ 80015a4:	e000      	b.n	80015a8 <checkSetTime+0x78>
 			break;
  80015a6:	bf00      	nop
 		}
@@ -3190,31 +3190,31 @@ static void handleSetTime(RTC_TimeTypeDef *setTime){
 		HAL_Delay(DEBOUNCE_DELAY_PERIOD); // putting delay here improves responsiveness for some reason
 	}
 }
- 80015b0:	e03b      	b.n	800162a <handleSetTime+0xfa>
+ 80015b0:	e03b      	b.n	800162a <checkSetTime+0xfa>
 	else if (HAL_GPIO_ReadPin(DEC_GPIO_Port, DEC_Pin) == GPIO_PIN_SET){
  80015b2:	2140      	movs	r1, #64	; 0x40
- 80015b4:	481f      	ldr	r0, [pc, #124]	; (8001634 <handleSetTime+0x104>)
+ 80015b4:	481f      	ldr	r0, [pc, #124]	; (8001634 <checkSetTime+0x104>)
  80015b6:	f000 fd9d 	bl	80020f4 <HAL_GPIO_ReadPin>
  80015ba:	4603      	mov	r3, r0
  80015bc:	2b01      	cmp	r3, #1
- 80015be:	d134      	bne.n	800162a <handleSetTime+0xfa>
+ 80015be:	d134      	bne.n	800162a <checkSetTime+0xfa>
 		switch (currSet){
- 80015c0:	4b1d      	ldr	r3, [pc, #116]	; (8001638 <handleSetTime+0x108>)
+ 80015c0:	4b1d      	ldr	r3, [pc, #116]	; (8001638 <checkSetTime+0x108>)
  80015c2:	781b      	ldrb	r3, [r3, #0]
  80015c4:	2b02      	cmp	r3, #2
- 80015c6:	d01c      	beq.n	8001602 <handleSetTime+0xd2>
+ 80015c6:	d01c      	beq.n	8001602 <checkSetTime+0xd2>
  80015c8:	2b02      	cmp	r3, #2
- 80015ca:	dc2a      	bgt.n	8001622 <handleSetTime+0xf2>
+ 80015ca:	dc2a      	bgt.n	8001622 <checkSetTime+0xf2>
  80015cc:	2b00      	cmp	r3, #0
- 80015ce:	d002      	beq.n	80015d6 <handleSetTime+0xa6>
+ 80015ce:	d002      	beq.n	80015d6 <checkSetTime+0xa6>
  80015d0:	2b01      	cmp	r3, #1
- 80015d2:	d00b      	beq.n	80015ec <handleSetTime+0xbc>
- 80015d4:	e025      	b.n	8001622 <handleSetTime+0xf2>
+ 80015d2:	d00b      	beq.n	80015ec <checkSetTime+0xbc>
+ 80015d4:	e025      	b.n	8001622 <checkSetTime+0xf2>
 			if(setTime->Hours > 0) setTime->Hours--;
  80015d6:	687b      	ldr	r3, [r7, #4]
  80015d8:	781b      	ldrb	r3, [r3, #0]
  80015da:	2b00      	cmp	r3, #0
- 80015dc:	d01c      	beq.n	8001618 <handleSetTime+0xe8>
+ 80015dc:	d01c      	beq.n	8001618 <checkSetTime+0xe8>
  80015de:	687b      	ldr	r3, [r7, #4]
  80015e0:	781b      	ldrb	r3, [r3, #0]
  80015e2:	3b01      	subs	r3, #1
@@ -3222,12 +3222,12 @@ static void handleSetTime(RTC_TimeTypeDef *setTime){
  80015e6:	687b      	ldr	r3, [r7, #4]
  80015e8:	701a      	strb	r2, [r3, #0]
 			break;
- 80015ea:	e015      	b.n	8001618 <handleSetTime+0xe8>
+ 80015ea:	e015      	b.n	8001618 <checkSetTime+0xe8>
 			if(setTime->Minutes > 0) setTime->Minutes--;
  80015ec:	687b      	ldr	r3, [r7, #4]
  80015ee:	785b      	ldrb	r3, [r3, #1]
  80015f0:	2b00      	cmp	r3, #0
- 80015f2:	d013      	beq.n	800161c <handleSetTime+0xec>
+ 80015f2:	d013      	beq.n	800161c <checkSetTime+0xec>
  80015f4:	687b      	ldr	r3, [r7, #4]
  80015f6:	785b      	ldrb	r3, [r3, #1]
  80015f8:	3b01      	subs	r3, #1
@@ -3235,12 +3235,12 @@ static void handleSetTime(RTC_TimeTypeDef *setTime){
  80015fc:	687b      	ldr	r3, [r7, #4]
  80015fe:	705a      	strb	r2, [r3, #1]
 			break;
- 8001600:	e00c      	b.n	800161c <handleSetTime+0xec>
+ 8001600:	e00c      	b.n	800161c <checkSetTime+0xec>
 			if(setTime->Seconds > 0) setTime->Seconds--;
  8001602:	687b      	ldr	r3, [r7, #4]
  8001604:	789b      	ldrb	r3, [r3, #2]
  8001606:	2b00      	cmp	r3, #0
- 8001608:	d00a      	beq.n	8001620 <handleSetTime+0xf0>
+ 8001608:	d00a      	beq.n	8001620 <checkSetTime+0xf0>
  800160a:	687b      	ldr	r3, [r7, #4]
  800160c:	789b      	ldrb	r3, [r3, #2]
  800160e:	3b01      	subs	r3, #1
@@ -3248,13 +3248,13 @@ static void handleSetTime(RTC_TimeTypeDef *setTime){
  8001612:	687b      	ldr	r3, [r7, #4]
  8001614:	709a      	strb	r2, [r3, #2]
 			break;
- 8001616:	e003      	b.n	8001620 <handleSetTime+0xf0>
+ 8001616:	e003      	b.n	8001620 <checkSetTime+0xf0>
 			break;
  8001618:	bf00      	nop
- 800161a:	e002      	b.n	8001622 <handleSetTime+0xf2>
+ 800161a:	e002      	b.n	8001622 <checkSetTime+0xf2>
 			break;
  800161c:	bf00      	nop
- 800161e:	e000      	b.n	8001622 <handleSetTime+0xf2>
+ 800161e:	e000      	b.n	8001622 <checkSetTime+0xf2>
 			break;
  8001620:	bf00      	nop
 		HAL_Delay(DEBOUNCE_DELAY_PERIOD); // putting delay here improves responsiveness for some reason
@@ -3269,38 +3269,38 @@ static void handleSetTime(RTC_TimeTypeDef *setTime){
  8001634:	40020000 	.word	0x40020000
  8001638:	2000016d 	.word	0x2000016d
 
-0800163c <handleSetDate>:
+0800163c <checkSetDate>:
 
-static void handleSetDate(RTC_DateTypeDef *setDate){
+static void checkSetDate(RTC_DateTypeDef *setDate){
  800163c:	b580      	push	{r7, lr}
  800163e:	b082      	sub	sp, #8
  8001640:	af00      	add	r7, sp, #0
  8001642:	6078      	str	r0, [r7, #4]
 	if (HAL_GPIO_ReadPin(INC_GPIO_Port, INC_Pin) == GPIO_PIN_SET){
  8001644:	2120      	movs	r1, #32
- 8001646:	483b      	ldr	r0, [pc, #236]	; (8001734 <handleSetDate+0xf8>)
+ 8001646:	483b      	ldr	r0, [pc, #236]	; (8001734 <checkSetDate+0xf8>)
  8001648:	f000 fd54 	bl	80020f4 <HAL_GPIO_ReadPin>
  800164c:	4603      	mov	r3, r0
  800164e:	2b01      	cmp	r3, #1
- 8001650:	d12f      	bne.n	80016b2 <handleSetDate+0x76>
+ 8001650:	d12f      	bne.n	80016b2 <checkSetDate+0x76>
 		switch (currSet){
- 8001652:	4b39      	ldr	r3, [pc, #228]	; (8001738 <handleSetDate+0xfc>)
+ 8001652:	4b39      	ldr	r3, [pc, #228]	; (8001738 <checkSetDate+0xfc>)
  8001654:	781b      	ldrb	r3, [r3, #0]
  8001656:	2b05      	cmp	r3, #5
- 8001658:	d01c      	beq.n	8001694 <handleSetDate+0x58>
+ 8001658:	d01c      	beq.n	8001694 <checkSetDate+0x58>
  800165a:	2b05      	cmp	r3, #5
- 800165c:	dc24      	bgt.n	80016a8 <handleSetDate+0x6c>
+ 800165c:	dc24      	bgt.n	80016a8 <checkSetDate+0x6c>
  800165e:	2b03      	cmp	r3, #3
- 8001660:	d002      	beq.n	8001668 <handleSetDate+0x2c>
+ 8001660:	d002      	beq.n	8001668 <checkSetDate+0x2c>
  8001662:	2b04      	cmp	r3, #4
- 8001664:	d00b      	beq.n	800167e <handleSetDate+0x42>
- 8001666:	e01f      	b.n	80016a8 <handleSetDate+0x6c>
+ 8001664:	d00b      	beq.n	800167e <checkSetDate+0x42>
+ 8001666:	e01f      	b.n	80016a8 <checkSetDate+0x6c>
 		case sMonth:
 			if(setDate->Month < 11) setDate->Month++;
  8001668:	687b      	ldr	r3, [r7, #4]
  800166a:	785b      	ldrb	r3, [r3, #1]
  800166c:	2b0a      	cmp	r3, #10
- 800166e:	d818      	bhi.n	80016a2 <handleSetDate+0x66>
+ 800166e:	d818      	bhi.n	80016a2 <checkSetDate+0x66>
  8001670:	687b      	ldr	r3, [r7, #4]
  8001672:	785b      	ldrb	r3, [r3, #1]
  8001674:	3301      	adds	r3, #1
@@ -3308,14 +3308,14 @@ static void handleSetDate(RTC_DateTypeDef *setDate){
  8001678:	687b      	ldr	r3, [r7, #4]
  800167a:	705a      	strb	r2, [r3, #1]
 			break;
- 800167c:	e011      	b.n	80016a2 <handleSetDate+0x66>
+ 800167c:	e011      	b.n	80016a2 <checkSetDate+0x66>
 
 		case sDay:
 			if(setDate->Date < 30) setDate->Date++;
  800167e:	687b      	ldr	r3, [r7, #4]
  8001680:	789b      	ldrb	r3, [r3, #2]
  8001682:	2b1d      	cmp	r3, #29
- 8001684:	d80f      	bhi.n	80016a6 <handleSetDate+0x6a>
+ 8001684:	d80f      	bhi.n	80016a6 <checkSetDate+0x6a>
  8001686:	687b      	ldr	r3, [r7, #4]
  8001688:	789b      	ldrb	r3, [r3, #2]
  800168a:	3301      	adds	r3, #1
@@ -3323,7 +3323,7 @@ static void handleSetDate(RTC_DateTypeDef *setDate){
  800168e:	687b      	ldr	r3, [r7, #4]
  8001690:	709a      	strb	r2, [r3, #2]
 			break;
- 8001692:	e008      	b.n	80016a6 <handleSetDate+0x6a>
+ 8001692:	e008      	b.n	80016a6 <checkSetDate+0x6a>
 
 		case sYear:
 			if(setDate->Year < 998) setDate->Year++;
@@ -3334,10 +3334,10 @@ static void handleSetDate(RTC_DateTypeDef *setDate){
  800169c:	687b      	ldr	r3, [r7, #4]
  800169e:	70da      	strb	r2, [r3, #3]
 			break;
- 80016a0:	e002      	b.n	80016a8 <handleSetDate+0x6c>
+ 80016a0:	e002      	b.n	80016a8 <checkSetDate+0x6c>
 			break;
  80016a2:	bf00      	nop
- 80016a4:	e000      	b.n	80016a8 <handleSetDate+0x6c>
+ 80016a4:	e000      	b.n	80016a8 <checkSetDate+0x6c>
 			break;
  80016a6:	bf00      	nop
 		}
@@ -3351,31 +3351,31 @@ static void handleSetDate(RTC_DateTypeDef *setDate){
 		HAL_Delay(DEBOUNCE_DELAY_PERIOD); // putting delay here improves responsiveness for some reason
 	}
 }
- 80016b0:	e03b      	b.n	800172a <handleSetDate+0xee>
+ 80016b0:	e03b      	b.n	800172a <checkSetDate+0xee>
 	else if (HAL_GPIO_ReadPin(DEC_GPIO_Port, DEC_Pin) == GPIO_PIN_SET){
  80016b2:	2140      	movs	r1, #64	; 0x40
- 80016b4:	481f      	ldr	r0, [pc, #124]	; (8001734 <handleSetDate+0xf8>)
+ 80016b4:	481f      	ldr	r0, [pc, #124]	; (8001734 <checkSetDate+0xf8>)
  80016b6:	f000 fd1d 	bl	80020f4 <HAL_GPIO_ReadPin>
  80016ba:	4603      	mov	r3, r0
  80016bc:	2b01      	cmp	r3, #1
- 80016be:	d134      	bne.n	800172a <handleSetDate+0xee>
+ 80016be:	d134      	bne.n	800172a <checkSetDate+0xee>
 		switch(currSet){
- 80016c0:	4b1d      	ldr	r3, [pc, #116]	; (8001738 <handleSetDate+0xfc>)
+ 80016c0:	4b1d      	ldr	r3, [pc, #116]	; (8001738 <checkSetDate+0xfc>)
  80016c2:	781b      	ldrb	r3, [r3, #0]
  80016c4:	2b05      	cmp	r3, #5
- 80016c6:	d01c      	beq.n	8001702 <handleSetDate+0xc6>
+ 80016c6:	d01c      	beq.n	8001702 <checkSetDate+0xc6>
  80016c8:	2b05      	cmp	r3, #5
- 80016ca:	dc2a      	bgt.n	8001722 <handleSetDate+0xe6>
+ 80016ca:	dc2a      	bgt.n	8001722 <checkSetDate+0xe6>
  80016cc:	2b03      	cmp	r3, #3
- 80016ce:	d002      	beq.n	80016d6 <handleSetDate+0x9a>
+ 80016ce:	d002      	beq.n	80016d6 <checkSetDate+0x9a>
  80016d0:	2b04      	cmp	r3, #4
- 80016d2:	d00b      	beq.n	80016ec <handleSetDate+0xb0>
- 80016d4:	e025      	b.n	8001722 <handleSetDate+0xe6>
+ 80016d2:	d00b      	beq.n	80016ec <checkSetDate+0xb0>
+ 80016d4:	e025      	b.n	8001722 <checkSetDate+0xe6>
 			if(setDate->Month > 1) setDate->Month--;
  80016d6:	687b      	ldr	r3, [r7, #4]
  80016d8:	785b      	ldrb	r3, [r3, #1]
  80016da:	2b01      	cmp	r3, #1
- 80016dc:	d91c      	bls.n	8001718 <handleSetDate+0xdc>
+ 80016dc:	d91c      	bls.n	8001718 <checkSetDate+0xdc>
  80016de:	687b      	ldr	r3, [r7, #4]
  80016e0:	785b      	ldrb	r3, [r3, #1]
  80016e2:	3b01      	subs	r3, #1
@@ -3383,12 +3383,12 @@ static void handleSetDate(RTC_DateTypeDef *setDate){
  80016e6:	687b      	ldr	r3, [r7, #4]
  80016e8:	705a      	strb	r2, [r3, #1]
 			break;
- 80016ea:	e015      	b.n	8001718 <handleSetDate+0xdc>
+ 80016ea:	e015      	b.n	8001718 <checkSetDate+0xdc>
 			if(setDate->Date > 1) setDate->Date--;
  80016ec:	687b      	ldr	r3, [r7, #4]
  80016ee:	789b      	ldrb	r3, [r3, #2]
  80016f0:	2b01      	cmp	r3, #1
- 80016f2:	d913      	bls.n	800171c <handleSetDate+0xe0>
+ 80016f2:	d913      	bls.n	800171c <checkSetDate+0xe0>
  80016f4:	687b      	ldr	r3, [r7, #4]
  80016f6:	789b      	ldrb	r3, [r3, #2]
  80016f8:	3b01      	subs	r3, #1
@@ -3396,12 +3396,12 @@ static void handleSetDate(RTC_DateTypeDef *setDate){
  80016fc:	687b      	ldr	r3, [r7, #4]
  80016fe:	709a      	strb	r2, [r3, #2]
 			break;
- 8001700:	e00c      	b.n	800171c <handleSetDate+0xe0>
+ 8001700:	e00c      	b.n	800171c <checkSetDate+0xe0>
 			if(setDate->Year > 0) setDate->Year--;
  8001702:	687b      	ldr	r3, [r7, #4]
  8001704:	78db      	ldrb	r3, [r3, #3]
  8001706:	2b00      	cmp	r3, #0
- 8001708:	d00a      	beq.n	8001720 <handleSetDate+0xe4>
+ 8001708:	d00a      	beq.n	8001720 <checkSetDate+0xe4>
  800170a:	687b      	ldr	r3, [r7, #4]
  800170c:	78db      	ldrb	r3, [r3, #3]
  800170e:	3b01      	subs	r3, #1
@@ -3409,13 +3409,13 @@ static void handleSetDate(RTC_DateTypeDef *setDate){
  8001712:	687b      	ldr	r3, [r7, #4]
  8001714:	70da      	strb	r2, [r3, #3]
 			break;
- 8001716:	e003      	b.n	8001720 <handleSetDate+0xe4>
+ 8001716:	e003      	b.n	8001720 <checkSetDate+0xe4>
 			break;
  8001718:	bf00      	nop
- 800171a:	e002      	b.n	8001722 <handleSetDate+0xe6>
+ 800171a:	e002      	b.n	8001722 <checkSetDate+0xe6>
 			break;
  800171c:	bf00      	nop
- 800171e:	e000      	b.n	8001722 <handleSetDate+0xe6>
+ 800171e:	e000      	b.n	8001722 <checkSetDate+0xe6>
 			break;
  8001720:	bf00      	nop
 		HAL_Delay(DEBOUNCE_DELAY_PERIOD); // putting delay here improves responsiveness for some reason
@@ -3430,9 +3430,9 @@ static void handleSetDate(RTC_DateTypeDef *setDate){
  8001734:	40020000 	.word	0x40020000
  8001738:	2000016d 	.word	0x2000016d
 
-0800173c <handleSelect>:
+0800173c <checkSelect>:
 
-static void handleSelect(uint8_t numOptions){
+static void checkSelect(uint8_t numOptions){
  800173c:	b580      	push	{r7, lr}
  800173e:	b082      	sub	sp, #8
  8001740:	af00      	add	r7, sp, #0
@@ -3440,27 +3440,27 @@ static void handleSelect(uint8_t numOptions){
  8001744:	71fb      	strb	r3, [r7, #7]
 	if(HAL_GPIO_ReadPin(SELECT_GPIO_Port, SELECT_Pin) == GPIO_PIN_SET){
  8001746:	f44f 7100 	mov.w	r1, #512	; 0x200
- 800174a:	480f      	ldr	r0, [pc, #60]	; (8001788 <handleSelect+0x4c>)
+ 800174a:	480f      	ldr	r0, [pc, #60]	; (8001788 <checkSelect+0x4c>)
  800174c:	f000 fcd2 	bl	80020f4 <HAL_GPIO_ReadPin>
  8001750:	4603      	mov	r3, r0
  8001752:	2b01      	cmp	r3, #1
- 8001754:	d114      	bne.n	8001780 <handleSelect+0x44>
+ 8001754:	d114      	bne.n	8001780 <checkSelect+0x44>
 		currSet++;
- 8001756:	4b0d      	ldr	r3, [pc, #52]	; (800178c <handleSelect+0x50>)
+ 8001756:	4b0d      	ldr	r3, [pc, #52]	; (800178c <checkSelect+0x50>)
  8001758:	781b      	ldrb	r3, [r3, #0]
  800175a:	3301      	adds	r3, #1
  800175c:	b2da      	uxtb	r2, r3
- 800175e:	4b0b      	ldr	r3, [pc, #44]	; (800178c <handleSelect+0x50>)
+ 800175e:	4b0b      	ldr	r3, [pc, #44]	; (800178c <checkSelect+0x50>)
  8001760:	701a      	strb	r2, [r3, #0]
 		currSet = currSet % numOptions;
- 8001762:	4b0a      	ldr	r3, [pc, #40]	; (800178c <handleSelect+0x50>)
+ 8001762:	4b0a      	ldr	r3, [pc, #40]	; (800178c <checkSelect+0x50>)
  8001764:	781b      	ldrb	r3, [r3, #0]
  8001766:	79fa      	ldrb	r2, [r7, #7]
  8001768:	fbb3 f1f2 	udiv	r1, r3, r2
  800176c:	fb01 f202 	mul.w	r2, r1, r2
  8001770:	1a9b      	subs	r3, r3, r2
  8001772:	b2da      	uxtb	r2, r3
- 8001774:	4b05      	ldr	r3, [pc, #20]	; (800178c <handleSelect+0x50>)
+ 8001774:	4b05      	ldr	r3, [pc, #20]	; (800178c <checkSelect+0x50>)
  8001776:	701a      	strb	r2, [r3, #0]
 
 		HAL_Delay(DEBOUNCE_DELAY_PERIOD);
