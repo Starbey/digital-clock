@@ -38,14 +38,18 @@ void startTimerTaskHandler(void *parameters){
 }
 
 void printTimerCallback(TimerHandle_t xTimer){
-	if (currMode == mDisplayRtc){
+	switch(currMode){
+	case mDisplayRtc:
 		xTaskNotify(rtcUpdateTaskHandle, 0, eNoAction);
-	}
-	else if (currMode == mSetRtc){
+		break;
+
+	case mSetRtc:
 		xTaskNotify(rtcSetTaskHandle, 0, eNoAction);
-	}
-	else if(currMode == mSetAlarm){
+		break;
+
+	case mSetAlarm:
 		xTaskNotify(alarmSetTaskHandle, 0, eNoAction);
+		break;
 	}
 }
 
@@ -82,56 +86,74 @@ void vApplicationIdleHook(void){
 
 static void handleSetTime(RTC_TimeTypeDef *setTime){
 	if (HAL_GPIO_ReadPin(INC_GPIO_Port, INC_Pin) == GPIO_PIN_SET){
-		if(currSet == sHour){
+		switch(currSet){
+		case sHour:
 			if(setTime->Hours < 23) setTime->Hours++;
-		}
-		else if(currSet == sMin){
+			break;
+
+		case sMin:
 			if(setTime->Minutes < 59) setTime->Minutes++;
-		}
-		else if(currSet ==sSec){
+			break;
+
+		case sSec:
 			if(setTime->Seconds < 59) setTime->Seconds++;
+			break;
 		}
+
 		HAL_Delay(DEBOUNCE_DELAY_PERIOD); // putting delay here improves responsiveness for some reason
 	}
 
 	else if (HAL_GPIO_ReadPin(DEC_GPIO_Port, DEC_Pin) == GPIO_PIN_SET){
-		if(currSet == sHour){
+		switch (currSet){
+		case sHour:
 			if(setTime->Hours > 0) setTime->Hours--;
-		}
-		else if(currSet == sMin){
+			break;
+
+		case sMin:
 			if(setTime->Minutes > 0) setTime->Minutes--;
-		}
-		else if(currSet == sSec){
+			break;
+
+		case sSec:
 			if(setTime->Seconds > 0) setTime->Seconds--;
+			break;
 		}
+
 		HAL_Delay(DEBOUNCE_DELAY_PERIOD); // putting delay here improves responsiveness for some reason
 	}
 }
 
 static void handleSetDate(RTC_DateTypeDef *setDate){
 	if (HAL_GPIO_ReadPin(INC_GPIO_Port, INC_Pin) == GPIO_PIN_SET){
-		if(currSet == sMonth){
+		switch (currSet){
+		case sMonth:
 			if(setDate->Month < 11) setDate->Month++;
-		}
-		else if(currSet == sDay) {
+			break;
+
+		case sDay:
 			if(setDate->Date < 30) setDate->Date++;
-		}
-		else if(currSet == sYear) {
+			break;
+
+		case sYear:
 			if(setDate->Year < 998) setDate->Year++;
+			break;
 		}
+
 		HAL_Delay(DEBOUNCE_DELAY_PERIOD); // putting delay here improves responsiveness for some reason
 	}
 
 	else if (HAL_GPIO_ReadPin(DEC_GPIO_Port, DEC_Pin) == GPIO_PIN_SET){
-		if(currSet == sMonth){
+		switch(currSet){
+		case sMonth:
 			if(setDate->Month > 1) setDate->Month--;
-		}
-		else if(currSet == sDay) {
+			break;
+		case sDay:
 			if(setDate->Date > 1) setDate->Date--;
-		}
-		else if(currSet == sYear) {
+			break;
+		case sYear:
 			if(setDate->Year > 0) setDate->Year--;
+			break;
 		}
+
 		HAL_Delay(DEBOUNCE_DELAY_PERIOD); // putting delay here improves responsiveness for some reason
 	}
 }
