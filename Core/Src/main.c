@@ -164,7 +164,7 @@ int main(void)
   status = xTaskCreate(alarmStartTaskHandler, "Alarm_Start_Task", 250, NULL, 3, &alarmStartTaskHandle);
   configASSERT(status = pdPASS);
 
-  status = xTaskCreate(alarmBuzzerTaskHandler, "Alarm_Buzzer_Task", 250, NULL, 2, &alarmBuzzerTaskHandle);
+  status = xTaskCreate(alarmBuzzerTaskHandler, "Alarm_Buzzer_Task", 250, NULL, 0, &alarmBuzzerTaskHandle);
   configASSERT(status = pdPASS);
 
   lcdInit();

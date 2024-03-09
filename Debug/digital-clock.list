@@ -1219,10 +1219,10 @@ int main(void)
  8000a44:	2301      	movs	r3, #1
  8000a46:	61fb      	str	r3, [r7, #28]
 
-  status = xTaskCreate(alarmBuzzerTaskHandler, "Alarm_Buzzer_Task", 250, NULL, 2, &alarmBuzzerTaskHandle);
+  status = xTaskCreate(alarmBuzzerTaskHandler, "Alarm_Buzzer_Task", 250, NULL, 0, &alarmBuzzerTaskHandle);
  8000a48:	4b27      	ldr	r3, [pc, #156]	; (8000ae8 <main+0x268>)
  8000a4a:	9301      	str	r3, [sp, #4]
- 8000a4c:	2302      	movs	r3, #2
+ 8000a4c:	2300      	movs	r3, #0
  8000a4e:	9300      	str	r3, [sp, #0]
  8000a50:	2300      	movs	r3, #0
  8000a52:	22fa      	movs	r2, #250	; 0xfa
